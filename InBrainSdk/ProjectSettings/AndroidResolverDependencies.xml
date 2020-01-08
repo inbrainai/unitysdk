@@ -1,0 +1,21 @@
+<dependencies>
+  <packages>
+    <package>com.github.inbrainai:sdk-android:0.1.9</package>
+  </packages>
+  <files>
+    <file>Assets/Plugins/Android/com.github.inbrainai.sdk-android-0.1.9.aar</file>
+  </files>
+  <settings>
+    <setting name="androidAbis" value="armeabi-v7a,x86" />
+    <setting name="bundleId" value="com.Company.ProductName" />
+    <setting name="explodeAars" value="True" />
+    <setting name="gradleBuildEnabled" value="True" />
+    <setting name="gradleTemplateEnabled" value="False" />
+    <setting name="installAndroidPackages" value="True" />
+    <setting name="packageDir" value="Assets/Plugins/Android" />
+    <setting name="patchAndroidManifest" value="True" />
+    <setting name="patchMainTemplateGradle" value="True" />
+    <setting name="projectExportEnabled" value="False" />
+    <setting name="useJetifier" value="True" />
+  </settings>
+</dependencies>
