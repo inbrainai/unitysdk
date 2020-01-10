@@ -1,0 +1,85 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
+// swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name InBrainSurveys_SDK_Swift
+import Foundation
+@_exported import InBrainSurveys_SDK_Swift
+import Swift
+import UIKit
+import WebKit
+@objc public protocol InBrainDelegate : AnyObject {
+  @objc func inBrainRewardsReceived(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
+  @objc func inBrainWebViewDismissed()
+}
+@objc public class InBrain : ObjectiveC.NSObject {
+  @objc public static var shared: InBrainSurveys_SDK_Swift.InBrain
+  public var inBrainDelegate: InBrainSurveys_SDK_Swift.InBrainDelegate?
+  @objc override dynamic public init()
+  @objc public func setInBrainWebViewTitle(toString: Swift.String)
+  @objc public func setInBrainWebViewNavBarColor(toColor: UIKit.UIColor)
+  @objc public func setInBrainWebViewNavButtonColor(toColor: UIKit.UIColor)
+  @objc public func testMessage()
+  @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String)
+  @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String, withSessionUID: Swift.String)
+  @objc public func getRewards()
+  @objc public func confirmRewards(txIdArray: [Swift.Int])
+  @objc deinit
+}
+@objc public class InBrainProxyViewController : UIKit.UIViewController, InBrainSurveys_SDK_Swift.InBrainDelegate {
+  final public let inBrain: InBrainSurveys_SDK_Swift.InBrain
+  @objc public func inBrainRewardsReceived(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
+  @objc public func inBrainWebViewDismissed()
+  @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
+  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public struct InBrainToken : Swift.Codable {
+  public let access_token: Swift.String
+  public let expires_in: Swift.Int
+  public let token_type: Swift.String
+  public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+@objc public class InBrainReward : ObjectiveC.NSObject, Swift.Codable {
+  final public let transactionId: Swift.Int?
+  final public let amount: Swift.Float?
+  final public let currency: Swift.String?
+  final public let transactionType: Swift.Int?
+  @objc deinit
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
+}
+public enum Model : Swift.String {
+  case simulator, iPod1, iPod2, iPod3, iPod4, iPod5, iPad2, iPad3, iPad4, iPadAir, iPadAir2, iPad5, iPad6, iPadMini, iPadMini2, iPadMini3, iPadMini4, iPadPro9_7, iPadPro10_5, iPadPro12_9, iPadPro2_12_9, iPhone4, iPhone4S, iPhone5, iPhone5S, iPhone5C, iPhone6, iPhone6plus, iPhone6S, iPhone6Splus, iPhoneSE, iPhone7, iPhone7plus, iPhone8, iPhone8plus, iPhoneX, iPhoneXS, iPhoneXSMax, iPhoneXR, AppleTV, AppleTV_4K, unrecognized
+  public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension UIDevice {
+  public var type: InBrainSurveys_SDK_Swift.Model {
+    get
+  }
+}
+public enum HTTPMethod : Swift.String {
+  case options
+  case get
+  case head
+  case post
+  case put
+  case patch
+  case delete
+  case trace
+  case connect
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+}
+extension InBrainSurveys_SDK_Swift.Model : Swift.Hashable {}
+extension InBrainSurveys_SDK_Swift.Model : Swift.RawRepresentable {}
+extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.Equatable {}
+extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.Hashable {}
+extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.RawRepresentable {}
