@@ -202,6 +202,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@protocol InBrainDelegate;
 @class UIColor;
 
 /// <ul>
@@ -215,11 +216,11 @@ SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift7InBrain")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull shared;)
 + (InBrain * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 + (void)setShared:(InBrain * _Nonnull)value;
+@property (nonatomic, strong) id <InBrainDelegate> _Nullable inBrainDelegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)setInBrainWebViewTitleToString:(NSString * _Nonnull)toString;
 - (void)setInBrainWebViewNavBarColorToColor:(UIColor * _Nonnull)toColor;
 - (void)setInBrainWebViewNavButtonColorToColor:(UIColor * _Nonnull)toColor;
-- (void)testMessage;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID withSessionUID:(NSString * _Nonnull)withSessionUID;
 - (void)getRewards;
@@ -247,18 +248,6 @@ SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 ///   </li>
 /// </ul>
 - (void)inBrainWebViewDismissed;
-@end
-
-@class NSBundle;
-@class NSCoder;
-
-SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift26InBrainProxyViewController")
-@interface InBrainProxyViewController : UIViewController <InBrainDelegate>
-- (void)inBrainRewardsReceivedWithRewardsArray:(NSArray<InBrainReward *> * _Nonnull)rewardsArray;
-- (void)inBrainWebViewDismissed;
-- (void)viewDidAppear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 
@@ -476,6 +465,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 # pragma pop_macro("any")
 #endif
 
+@protocol InBrainDelegate;
 @class UIColor;
 
 /// <ul>
@@ -489,11 +479,11 @@ SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift7InBrain")
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull shared;)
 + (InBrain * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
 + (void)setShared:(InBrain * _Nonnull)value;
+@property (nonatomic, strong) id <InBrainDelegate> _Nullable inBrainDelegate;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 - (void)setInBrainWebViewTitleToString:(NSString * _Nonnull)toString;
 - (void)setInBrainWebViewNavBarColorToColor:(UIColor * _Nonnull)toColor;
 - (void)setInBrainWebViewNavButtonColorToColor:(UIColor * _Nonnull)toColor;
-- (void)testMessage;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID withSessionUID:(NSString * _Nonnull)withSessionUID;
 - (void)getRewards;
@@ -521,18 +511,6 @@ SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 ///   </li>
 /// </ul>
 - (void)inBrainWebViewDismissed;
-@end
-
-@class NSBundle;
-@class NSCoder;
-
-SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift26InBrainProxyViewController")
-@interface InBrainProxyViewController : UIViewController <InBrainDelegate>
-- (void)inBrainRewardsReceivedWithRewardsArray:(NSArray<InBrainReward *> * _Nonnull)rewardsArray;
-- (void)inBrainWebViewDismissed;
-- (void)viewDidAppear:(BOOL)animated;
-- (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil OBJC_DESIGNATED_INITIALIZER;
-- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 @end
 
 

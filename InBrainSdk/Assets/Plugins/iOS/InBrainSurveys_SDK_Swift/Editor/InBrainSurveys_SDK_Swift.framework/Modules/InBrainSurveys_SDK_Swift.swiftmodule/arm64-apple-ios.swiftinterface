@@ -12,25 +12,15 @@ import WebKit
 }
 @objc public class InBrain : ObjectiveC.NSObject {
   @objc public static var shared: InBrainSurveys_SDK_Swift.InBrain
-  public var inBrainDelegate: InBrainSurveys_SDK_Swift.InBrainDelegate?
+  @objc public var inBrainDelegate: InBrainSurveys_SDK_Swift.InBrainDelegate?
   @objc override dynamic public init()
   @objc public func setInBrainWebViewTitle(toString: Swift.String)
   @objc public func setInBrainWebViewNavBarColor(toColor: UIKit.UIColor)
   @objc public func setInBrainWebViewNavButtonColor(toColor: UIKit.UIColor)
-  @objc public func testMessage()
   @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String)
   @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String, withSessionUID: Swift.String)
   @objc public func getRewards()
   @objc public func confirmRewards(txIdArray: [Swift.Int])
-  @objc deinit
-}
-@objc public class InBrainProxyViewController : UIKit.UIViewController, InBrainSurveys_SDK_Swift.InBrainDelegate {
-  final public let inBrain: InBrainSurveys_SDK_Swift.InBrain
-  @objc public func inBrainRewardsReceived(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
-  @objc public func inBrainWebViewDismissed()
-  @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
-  @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
-  @objc required dynamic public init?(coder: Foundation.NSCoder)
   @objc deinit
 }
 public struct InBrainToken : Swift.Codable {
