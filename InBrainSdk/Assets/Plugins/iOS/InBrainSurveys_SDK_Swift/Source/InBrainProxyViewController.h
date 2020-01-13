@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) NSString* secret;
 @property(nonatomic, copy) NSString* appId;
 
+@property(nonatomic, copy) void (^onRewardsReceived)(NSString* rewards);
+@property(nonatomic, copy) void (^onRewardsViewDismissed)();
+
 @end
 
 NS_ASSUME_NONNULL_END

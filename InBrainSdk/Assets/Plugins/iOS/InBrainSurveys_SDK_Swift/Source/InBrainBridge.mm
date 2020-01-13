@@ -9,19 +9,37 @@
 #import "InBrainSurveys_SDK_Swift/InBrainSurveys_SDK_Swift-Swift.h"
 #import <InBrainSurveys_SDK_Swift/InBrainSurveys_SDK_Swift.h>
 #import "InBrainProxyViewController.h"
+#import "InBrainFunctionDefs.h"
+#import "InBrainUtils.h"
 
 #pragma mark - C interface
 
 extern "C" {
+
+    InBrainProxyViewController *inBrainView;
     
+    void _ib_Init(char* secret, char* appId) {
+        inBrainView = [[InBrainProxyViewController alloc] init];
+        
+        inBrainView.secret = [InBrainUtils createNSStringFrom:secret];
+        inBrainView.appId = [InBrainUtils createNSStringFrom:appId];
+        
+        inBrainView.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
+
     void _ib_ShowSurveys() {
-        InBrainProxyViewController *viewConnection = [[InBrainProxyViewController alloc] init];
+        [UnityGetGLViewController() presentViewController:inBrainView animated:NO completion:nil];
+    }
+
+    void _ib_SetCallback(ActionStringCallbackDelegate rewardReceivedCallback, void *rewardReceivedActionPtr,
+        ActionVoidCallbackDelegate rewardViewDismissedCallback, void *rewardViewDismissedActionPtr) {
         
-        viewConnection.secret = @"90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==";
-        viewConnection.appId = @"testing@inbrain.ai";
+        inBrainView.onRewardsReceived = ^(NSString* rewards) {
+            rewardReceivedCallback(rewardReceivedActionPtr, [rewards UTF8String]);
+        };
         
-        viewConnection.modalPresentationStyle = UIModalPresentationFullScreen;
-        
-        [UnityGetGLViewController() presentViewController:viewConnection animated:NO completion:nil];
+        inBrainView.onRewardsViewDismissed = ^{
+            rewardViewDismissedCallback(rewardViewDismissedActionPtr);
+        };
     }
 }

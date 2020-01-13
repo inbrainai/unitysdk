@@ -30,14 +30,22 @@ bool isOpened = false;
 }
 
 - (void)inBrainRewardsReceivedWithRewardsArray:(NSArray<InBrainReward *> * _Nonnull)rewardsArray {
-    NSLog(@"CALL inBrainRewardsReceivedWithRewardsArray");
+    
+    // serialize rewards list
+    NSString* rewards = @"Test json stuff";
+    
+    if (_onRewardsReceived != nil) {
+        _onRewardsReceived(rewards);
+    }
 }
 
 - (void)inBrainWebViewDismissed {
-    NSLog(@"CALL inBrainWebViewDismissed");
-    
     [self dismissViewControllerAnimated:NO completion:nil];
     isOpened = false;
+    
+    if (_onRewardsViewDismissed) {
+        _onRewardsViewDismissed();
+    }
 }
 
 @end

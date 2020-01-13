@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
@@ -16,9 +16,13 @@ public static class InBrain
 				inBrainInst.Call("addCallback", new InBrainCallbackProxy());
 			}
 		}
+
+#if UNITY_IOS && !UNITY_EDITOR
+       _ib_Init(clientSecret, "testing@inbrain.ai");
+#endif
 	}
 
-	public static void AddCallback()
+	public static void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed)
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
@@ -28,6 +32,11 @@ public static class InBrain
 				inBrainInst.Call("addCallback", new InBrainCallbackProxy());
 			}
 		}
+
+#if UNITY_IOS && !UNITY_EDITOR
+		Action<string> onRewardsReceivedNative = rewardsJson => { Debug.Log(rewardsJson); };
+       _ib_SetCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(), Callbacks.ActionVoidCallback, onRewardsViewDismissed.GetPointer());
+#endif
 	}
 
 	public static void ShowSurveys()
@@ -49,6 +58,13 @@ public static class InBrain
 
 #if UNITY_IOS && !DISABLE_IOS_GOOGLE_MAPS
 	[DllImport("__Internal")]
+	static extern void _ib_Init(string secret, string appId);
+
+	[DllImport("__Internal")]
 	static extern void _ib_ShowSurveys();
+
+	[DllImport("__Internal")]
+	static extern void _ib_SetCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
+		Callbacks.ActionVoidCallbackDelegate rewardViewDismissedCallback, IntPtr rewardViewDismissedActionPtr);
 #endif
 }

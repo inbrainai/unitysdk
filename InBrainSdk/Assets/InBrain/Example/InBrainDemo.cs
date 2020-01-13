@@ -14,6 +14,7 @@ public class InBrainDemo : MonoBehaviour
 	{
 		Debug.Log("Demo start!");
 		InBrain.Init(ClientId, ClientSecret);
+		InBrain.AddCallback(list => { Debug.Log("TEST REWARD RECEIVED"); }, () => {Debug.Log("TEST DISMISS");});
 	}
 
 	public void OnShowSurveysClicked()
