@@ -85,7 +85,7 @@ public static class InBrain
 #endif
 	}
 
-#if UNITY_IOS && !DISABLE_IOS_GOOGLE_MAPS
+#if UNITY_IOS
 	[DllImport("__Internal")]
 	static extern void _ib_Init(string secret, string appId);
 
