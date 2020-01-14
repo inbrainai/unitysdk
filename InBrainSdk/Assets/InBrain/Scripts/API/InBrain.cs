@@ -22,7 +22,7 @@ public static class InBrain
 #endif
 	}
 
-	public static void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed)
+	public static void AddCallback(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed)
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
@@ -34,7 +34,13 @@ public static class InBrain
 		}
 
 #if UNITY_IOS && !UNITY_EDITOR
-		Action<string> onRewardsReceivedNative = rewardsJson => { Debug.Log(rewardsJson); };
+		Action<string> onRewardsReceivedNative = rewardsJson =>
+		{
+			Debug.Log("Unity rewards json: " + rewardsJson);
+			var rewardsResult = JsonUtility.FromJson<RewardsResult>(rewardsJson);
+			onRewardsReceived?.Invoke(rewardsResult);
+		};
+
        _ib_SetCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(), Callbacks.ActionVoidCallback, onRewardsViewDismissed.GetPointer());
 #endif
 	}
@@ -56,6 +62,29 @@ public static class InBrain
 #endif
 	}
 
+	public static void GetRewards()
+	{
+		if (Application.platform == RuntimePlatform.Android)
+		{
+		}
+
+#if UNITY_IOS && !UNITY_EDITOR
+       _ib_GetRewards();
+#endif
+	}
+
+	public static void ConfirmRewards(List<int> rewardsIds)
+	{
+		if (Application.platform == RuntimePlatform.Android)
+		{
+		}
+
+#if UNITY_IOS && !UNITY_EDITOR
+		var rewardsJson = JsonUtility.ToJson(rewardsIds);
+       _ib_ConfirmRewards(rewardsJson);
+#endif
+	}
+
 #if UNITY_IOS && !DISABLE_IOS_GOOGLE_MAPS
 	[DllImport("__Internal")]
 	static extern void _ib_Init(string secret, string appId);
@@ -66,5 +95,11 @@ public static class InBrain
 	[DllImport("__Internal")]
 	static extern void _ib_SetCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
 		Callbacks.ActionVoidCallbackDelegate rewardViewDismissedCallback, IntPtr rewardViewDismissedActionPtr);
+
+	[DllImport("__Internal")]
+	static extern void _ib_GetRewards();
+
+	[DllImport("__Internal")]
+	static extern void _ib_ConfirmRewards(string rewardsJson);
 #endif
 }

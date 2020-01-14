@@ -11,6 +11,7 @@
 #import "InBrainProxyViewController.h"
 #import "InBrainFunctionDefs.h"
 #import "InBrainUtils.h"
+#import "InBrainJsonUtils.h"
 
 #pragma mark - C interface
 
@@ -41,5 +42,15 @@ extern "C" {
         inBrainView.onRewardsViewDismissed = ^{
             rewardViewDismissedCallback(rewardViewDismissedActionPtr);
         };
+    }
+
+    void _ib_GetRewards() {
+        [[InBrain shared] getRewards];
+    }
+
+    void _ib_ConfirmRewards(char* rewardsJson) {
+        NSArray *rewardsArray = [InBrainJsonUtils deserializeArray:[InBrainUtils createNSStringFrom:rewardsJson]];
+        NSArray<NSNumber *> *rewardsToConfirm = [InBrainJsonUtils deserializeNumbersArray:rewardsArray];
+        [[InBrain shared] confirmRewardsWithTxIdArray:rewardsToConfirm];
     }
 }

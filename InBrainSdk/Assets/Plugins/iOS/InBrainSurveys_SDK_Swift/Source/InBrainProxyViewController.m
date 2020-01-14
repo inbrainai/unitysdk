@@ -6,7 +6,7 @@
 //
 
 #import "InBrainProxyViewController.h"
-
+#import "InBrainJsonUtils.h"
 
 @interface InBrainProxyViewController ()
 
@@ -32,7 +32,9 @@ bool isOpened = false;
 - (void)inBrainRewardsReceivedWithRewardsArray:(NSArray<InBrainReward *> * _Nonnull)rewardsArray {
     
     // serialize rewards list
-    NSString* rewards = @"Test json stuff";
+    NSLog(@"Rewards count: %d", (int)rewardsArray.count);
+    
+    NSString* rewards = [InBrainJsonUtils serializeRewards:rewardsArray];
     
     if (_onRewardsReceived != nil) {
         _onRewardsReceived(rewards);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -17,4 +18,11 @@ public class InBrainReward
 	{
 		return string.Format("transactionId: {0}, amount: {1}, currency: {2}, transactionType: {3}", transactionId, amount, currency, transactionType);
 	}
+}
+
+[Serializable]
+public class RewardsResult
+{
+	[SerializeField]
+	public List<InBrainReward> rewards;
 }
