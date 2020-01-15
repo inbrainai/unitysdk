@@ -1,20 +1,35 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 [SuppressMessage("ReSharper", "InconsistentNaming")]
 public class InBrainCallbackProxy : AndroidJavaProxy
 {
-	public InBrainCallbackProxy() : base("com.inbrain.sdk.callback.InBrainCallback")
+	readonly Action<RewardsResult> _onRewardsReceived;
+	readonly Action _onRewardsViewDismissed;
+	
+	readonly bool _confirmRewardsAutomatically;
+	
+	public InBrainCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = true) 
+		: base("com.inbrain.sdk.callback.InBrainCallback")
 	{
-		void onClosed()
-		{
-		}
+		_onRewardsReceived = onRewardsReceived;
+		_onRewardsViewDismissed = onRewardsViewDismissed;
 
-		bool handleRewards(AndroidJavaObject rewardsList /* List<Reward> rewards */)
-		{
-			return true;
-		}
+		_confirmRewardsAutomatically = confirmRewardsAutomatically;
+	}
+	
+	public void onClosed()
+	{
+		InBrainSceneHelper.Queue(() => _onRewardsViewDismissed());
+	}
+
+	public bool handleRewards(AndroidJavaObject rewardsList /* List<Reward> rewards */)
+	{
+		// convert list of rewards
+		
+		InBrainSceneHelper.Queue(() => _onRewardsReceived(new RewardsResult(rewardsList)));
+		
+		return _confirmRewardsAutomatically;
 	}
 }

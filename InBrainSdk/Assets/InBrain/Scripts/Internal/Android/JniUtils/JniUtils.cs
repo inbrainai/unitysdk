@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class InBrainAndroidUtils
+public static class JniUtils
 {
 	static AndroidJavaObject _activity;
 
@@ -18,5 +19,15 @@ public static class InBrainAndroidUtils
 
 			return _activity;
 		}
+	}
+	
+	public static void RunOnUiThread(Action action)
+	{
+		Activity.Call("runOnUiThread", new AndroidJavaRunnable(action));
+	}
+	
+	public static bool IsJavaNull(this AndroidJavaObject ajo)
+	{
+		return ajo == null || ajo.GetRawObject().ToInt32() == 0;
 	}
 }

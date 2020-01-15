@@ -12,8 +12,7 @@ public static class InBrain
 			using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
 			{
 				var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-				inBrainInst.Call("init", InBrainAndroidUtils.Activity, clientId, clientSecret);
-				inBrainInst.Call("addCallback", new InBrainCallbackProxy());
+				inBrainInst.Call("init", JniUtils.Activity, clientId, clientSecret);
 			}
 		}
 
@@ -29,7 +28,7 @@ public static class InBrain
 			using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
 			{
 				var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-				inBrainInst.Call("addCallback", new InBrainCallbackProxy());
+				inBrainInst.Call("addCallback", new InBrainCallbackProxy(onRewardsReceived, onRewardsViewDismissed));
 			}
 		}
 
@@ -53,7 +52,7 @@ public static class InBrain
 			{
 				var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
 
-				inBrainInst.Call("showSurveys", InBrainAndroidUtils.Activity);
+				inBrainInst.Call("showSurveys", JniUtils.Activity);
 			}
 		}
 
