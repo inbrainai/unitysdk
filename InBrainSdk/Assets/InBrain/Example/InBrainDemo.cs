@@ -21,18 +21,16 @@ public class InBrainDemo : MonoBehaviour
 
 			if (rewardsResult.rewards.Any())
 			{
-				var rewardsToConfirm = new List<int>();
 				float balance = 0.0f;
 
 				foreach (var reward in rewardsResult.rewards)
 				{
 					balance += reward.amount;
-					rewardsToConfirm.Add(reward.transactionId);
 				}
 
 				BalanceText.text = string.Format("Your banance: {0}", balance);
 
-				InBrain.ConfirmRewards(rewardsToConfirm);
+				InBrain.ConfirmRewards(rewardsResult.rewards);
 			}
 			else
 			{

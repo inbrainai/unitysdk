@@ -6,7 +6,7 @@ using UnityEngine;
 public class InBrainReward
 {
 	[SerializeField]
-	public int transactionId;
+	public long transactionId;
 	[SerializeField]
 	public float amount;
 	[SerializeField]
@@ -14,7 +14,7 @@ public class InBrainReward
 	[SerializeField]
 	public int transactionType;
 
-	public InBrainReward(int transactionId, float amount, string currency, int transactionType)
+	public InBrainReward(long transactionId, float amount, string currency, int transactionType)
 	{
 		this.transactionId = transactionId;
 		this.amount = amount;
@@ -24,10 +24,17 @@ public class InBrainReward
 
 	public static InBrainReward FromAJO(AndroidJavaObject ajo)
 	{
-		return new InBrainReward((int) ajo.Get<long>("transactionId"), 
+		return new InBrainReward(ajo.Get<long>("transactionId"), 
 			ajo.Get<float>("amount"), 
 			ajo.Get<string>("currency"), 
 			ajo.Get<int>("transactionType"));
+	}
+
+	public AndroidJavaObject ToAJO()
+	{
+		return Application.platform == RuntimePlatform.Android
+			? new AndroidJavaObject("com.inbrain.sdk.model.Reward", transactionId, amount, currency, transactionType)
+			: null;
 	}
 	
 	public override string ToString()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 using UnityEngine;
 
@@ -72,15 +73,22 @@ public static class InBrain
 #endif
 	}
 
-	public static void ConfirmRewards(List<int> rewardsIds)
+	public static void ConfirmRewards(List<InBrainReward> rewards)
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
+			using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+			{
+				var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
+
+				inBrainInst.Call("confirmRewards", rewards.ToJavaList(reward => reward.ToAJO()));
+			}
 		}
 
 #if UNITY_IOS && !UNITY_EDITOR
+		var rewardsIds = rewards.Select(reward => reward.transactionId).ToList();
 		var rewardsJson = JsonUtility.ToJson(rewardsIds);
-       _ib_ConfirmRewards(rewardsJson);
+		_ib_ConfirmRewards(rewardsJson);
 #endif
 	}
 
