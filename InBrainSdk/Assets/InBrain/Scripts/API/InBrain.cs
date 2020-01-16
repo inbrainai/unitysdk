@@ -14,6 +14,7 @@ public static class InBrain
 			{
 				var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
 				inBrainInst.Call("init", JniUtils.Activity, clientId, clientSecret);
+				inBrainInst.Call("setAppUserId", "1234-1234-1234-1234");
 			}
 		}
 
@@ -66,6 +67,12 @@ public static class InBrain
 	{
 		if (Application.platform == RuntimePlatform.Android)
 		{
+			using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+			{
+				var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
+
+				inBrainInst.Call("getRewards");
+			}
 		}
 
 #if UNITY_IOS && !UNITY_EDITOR
