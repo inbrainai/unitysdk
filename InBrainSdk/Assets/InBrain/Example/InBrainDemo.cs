@@ -30,7 +30,7 @@ public class InBrainDemo : MonoBehaviour
 
 				BalanceText.text = string.Format("Your banance: {0}", balance);
 
-				InBrain.ConfirmRewards(rewardsResult.rewards);
+				//InBrain.ConfirmRewards(rewardsResult.rewards);
 			}
 			else
 			{

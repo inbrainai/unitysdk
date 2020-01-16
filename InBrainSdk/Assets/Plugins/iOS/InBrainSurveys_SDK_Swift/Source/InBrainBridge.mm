@@ -36,7 +36,7 @@ extern "C" {
         ActionVoidCallbackDelegate rewardViewDismissedCallback, void *rewardViewDismissedActionPtr) {
         
         inBrainView.onRewardsReceived = ^(NSString* rewards) {
-            rewardReceivedCallback(rewardReceivedActionPtr, [rewards UTF8String]);
+            rewardReceivedCallback(rewardReceivedActionPtr, [InBrainUtils createCStringFrom:rewards]);
         };
         
         inBrainView.onRewardsViewDismissed = ^{
