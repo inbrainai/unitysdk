@@ -10,7 +10,7 @@ public class InBrainCallbackProxy : AndroidJavaProxy
 	
 	readonly bool _confirmRewardsAutomatically;
 	
-	public InBrainCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = true) 
+	public InBrainCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false) 
 		: base("com.inbrain.sdk.callback.InBrainCallback")
 	{
 		_onRewardsReceived = onRewardsReceived;
