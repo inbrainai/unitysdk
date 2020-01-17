@@ -1,33 +1,36 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
-public static class JniUtils
+namespace InBrain
 {
-	static AndroidJavaObject _activity;
-
-	public static AndroidJavaObject Activity
+	[PublicAPI]
+	public static class JniUtils
 	{
-		get
+		static AndroidJavaObject _activity;
+
+		public static AndroidJavaObject Activity
 		{
-			if (_activity == null)
+			get
 			{
-				var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-				_activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-			}
+				if (_activity == null)
+				{
+					var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+					_activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+				}
 
-			return _activity;
+				return _activity;
+			}
 		}
-	}
-	
-	public static void RunOnUiThread(Action action)
-	{
-		Activity.Call("runOnUiThread", new AndroidJavaRunnable(action));
-	}
-	
-	public static bool IsJavaNull(this AndroidJavaObject ajo)
-	{
-		return ajo == null || ajo.GetRawObject().ToInt32() == 0;
+
+		public static void RunOnUiThread(Action action)
+		{
+			Activity.Call("runOnUiThread", new AndroidJavaRunnable(action));
+		}
+
+		public static bool IsJavaNull(this AndroidJavaObject ajo)
+		{
+			return ajo == null || ajo.GetRawObject().ToInt32() == 0;
+		}
 	}
 }

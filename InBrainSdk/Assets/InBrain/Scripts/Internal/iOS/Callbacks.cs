@@ -2,38 +2,42 @@
 using AOT;
 using UnityEngine;
 
-public static class Callbacks
+namespace InBrain
 {
-	internal delegate void ActionVoidCallbackDelegate(IntPtr actionPtr);
-	internal delegate void ActionStringCallbackDelegate(IntPtr actionPtr, string msg);
-	
-	[MonoPInvokeCallback(typeof(ActionVoidCallbackDelegate))]
-	public static void ActionVoidCallback(IntPtr actionPtr)
+	public static class Callbacks
 	{
-		if (Debug.isDebugBuild)
-		{
-			Debug.Log("ActionVoidCallback");
-		}
-			
-		if (actionPtr != IntPtr.Zero)
-		{
-			var action = actionPtr.Cast<Action>();
-			action();
-		}
-	}
+		internal delegate void ActionVoidCallbackDelegate(IntPtr actionPtr);
 
-	[MonoPInvokeCallback(typeof(ActionStringCallbackDelegate))]
-	public static void ActionStringCallback(IntPtr actionPtr, string msg)
-	{
-		if (Debug.isDebugBuild)
+		internal delegate void ActionStringCallbackDelegate(IntPtr actionPtr, string msg);
+
+		[MonoPInvokeCallback(typeof(ActionVoidCallbackDelegate))]
+		public static void ActionVoidCallback(IntPtr actionPtr)
 		{
-			Debug.Log("ActionStringCallback");
+			if (Debug.isDebugBuild)
+			{
+				Debug.Log("ActionVoidCallback");
+			}
+
+			if (actionPtr != IntPtr.Zero)
+			{
+				var action = actionPtr.Cast<Action>();
+				action();
+			}
 		}
 
-		if (actionPtr != IntPtr.Zero)
+		[MonoPInvokeCallback(typeof(ActionStringCallbackDelegate))]
+		public static void ActionStringCallback(IntPtr actionPtr, string msg)
 		{
-			var action = actionPtr.Cast<Action<string>>();
-			action(msg);
+			if (Debug.isDebugBuild)
+			{
+				Debug.Log("ActionStringCallback");
+			}
+
+			if (actionPtr != IntPtr.Zero)
+			{
+				var action = actionPtr.Cast<Action<string>>();
+				action(msg);
+			}
 		}
 	}
 }

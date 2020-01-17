@@ -2,34 +2,34 @@
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
-[SuppressMessage("ReSharper", "InconsistentNaming")]
-public class InBrainCallbackProxy : AndroidJavaProxy
+namespace InBrain
 {
-	readonly Action<RewardsResult> _onRewardsReceived;
-	readonly Action _onRewardsViewDismissed;
-	
-	readonly bool _confirmRewardsAutomatically;
-	
-	public InBrainCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false) 
-		: base("com.inbrain.sdk.callback.InBrainCallback")
+	[SuppressMessage("ReSharper", "InconsistentNaming")]
+	public class InBrainCallbackProxy : AndroidJavaProxy
 	{
-		_onRewardsReceived = onRewardsReceived;
-		_onRewardsViewDismissed = onRewardsViewDismissed;
+		readonly Action<RewardsResult> _onRewardsReceived;
+		readonly Action _onRewardsViewDismissed;
 
-		_confirmRewardsAutomatically = confirmRewardsAutomatically;
-	}
-	
-	public void onClosed()
-	{
-		InBrainSceneHelper.Queue(() => _onRewardsViewDismissed());
-	}
+		readonly bool _confirmRewardsAutomatically;
 
-	public bool handleRewards(AndroidJavaObject rewardsList /* List<Reward> rewards */)
-	{
-		// convert list of rewards
-		
-		InBrainSceneHelper.Queue(() => _onRewardsReceived(new RewardsResult(rewardsList)));
-		
-		return _confirmRewardsAutomatically;
+		public InBrainCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
+			: base("com.inbrain.sdk.callback.InBrainCallback")
+		{
+			_onRewardsReceived = onRewardsReceived;
+			_onRewardsViewDismissed = onRewardsViewDismissed;
+
+			_confirmRewardsAutomatically = confirmRewardsAutomatically;
+		}
+
+		public void onClosed()
+		{
+			InBrainSceneHelper.Queue(() => _onRewardsViewDismissed());
+		}
+
+		public bool handleRewards(AndroidJavaObject rewardsList /* List<Reward> rewards */)
+		{
+			InBrainSceneHelper.Queue(() => _onRewardsReceived(new RewardsResult(rewardsList)));
+			return _confirmRewardsAutomatically;
+		}
 	}
 }
