@@ -14,39 +14,53 @@ namespace InBrain
 		
 		[SerializeField] Text BalanceText;
 
+		RewardsResult rewards;
+
 		void Start()
 		{
 			InBrain.Instance.Init(ClientId, ClientSecret);
 
 			InBrain.Instance.AddCallback(rewardsResult =>
 			{
-				Debug.Log("REWARDS CALLBACK RECEIVED");
+				Debug.Log("InBrain: Rewards callback received");
+				rewards = rewardsResult;
 
 				if (rewardsResult.rewards.Any())
 				{
 					float balance = rewardsResult.rewards.Sum(reward => reward.amount);
-
-					BalanceText.text = string.Format("Your balance: {0}", balance);
-
-					//InBrain.ConfirmRewards(rewardsResult.rewards);
+					BalanceText.text = string.Format("Your unconfirmed rewards balance: {0}", balance);
 				}
 				else
 				{
-					Debug.Log("REWARDS LIST IS EMPTY");
+					Debug.Log("InBrain: There are no pending rewards");
 				}
-			}, () => { Debug.Log("SURVEYS VIEW DISMISSED"); });
+			}, () => { Debug.Log("InBrain: Surveys web view was dismissed"); }, false);
 		}
 
 		public void OnShowSurveysClicked()
 		{
-			Debug.Log("ShowSurveys button clicked!");
+			Debug.Log("InBrain: ShowSurveys button clicked");
 			InBrain.Instance.ShowSurveys();
 		}
 
 		public void OnGetRewardsClicked()
 		{
-			Debug.Log("GetRewards button clicked!");
+			Debug.Log("InBrain: GetRewards button clicked");
 			InBrain.Instance.GetRewards();
+		}
+
+		public void OnConfirmRewardsClicked()
+		{
+			Debug.Log("InBrain: ConfirmRewards button clicked");
+
+			if (rewards.rewards.Any())
+			{
+				InBrain.Instance.ConfirmRewards(rewards.rewards);
+			}
+			else
+			{
+				Debug.Log("InBrain: There are no rewards to confirm");
+			}
 		}
 	}
 }
