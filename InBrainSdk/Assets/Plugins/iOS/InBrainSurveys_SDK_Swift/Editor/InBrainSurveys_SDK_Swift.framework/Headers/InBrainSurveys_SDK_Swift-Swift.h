@@ -221,6 +221,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull sha
 - (void)setInBrainWebViewTitleToString:(NSString * _Nonnull)toString;
 - (void)setInBrainWebViewNavBarColorToColor:(UIColor * _Nonnull)toColor;
 - (void)setInBrainWebViewNavButtonColorToColor:(UIColor * _Nonnull)toColor;
+- (void)setAppUserIdWithAppUID:(NSString * _Nonnull)appUID;
+- (void)setAppSecretWithSecret:(NSString * _Nonnull)secret;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID withSessionUID:(NSString * _Nonnull)withSessionUID;
 - (void)getRewards;
@@ -253,6 +255,10 @@ SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 
 SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift13InBrainReward")
 @interface InBrainReward : NSObject
+@property (nonatomic, readonly) NSInteger transactionId;
+@property (nonatomic, readonly) float amount;
+@property (nonatomic, readonly, copy) NSString * _Nonnull currency;
+@property (nonatomic, readonly) NSInteger transactionType;
 @end
 
 
@@ -484,6 +490,8 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull sha
 - (void)setInBrainWebViewTitleToString:(NSString * _Nonnull)toString;
 - (void)setInBrainWebViewNavBarColorToColor:(UIColor * _Nonnull)toColor;
 - (void)setInBrainWebViewNavButtonColorToColor:(UIColor * _Nonnull)toColor;
+- (void)setAppUserIdWithAppUID:(NSString * _Nonnull)appUID;
+- (void)setAppSecretWithSecret:(NSString * _Nonnull)secret;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID withSessionUID:(NSString * _Nonnull)withSessionUID;
 - (void)getRewards;
@@ -516,6 +524,10 @@ SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 
 SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift13InBrainReward")
 @interface InBrainReward : NSObject
+@property (nonatomic, readonly) NSInteger transactionId;
+@property (nonatomic, readonly) float amount;
+@property (nonatomic, readonly, copy) NSString * _Nonnull currency;
+@property (nonatomic, readonly) NSInteger transactionType;
 @end
 
 

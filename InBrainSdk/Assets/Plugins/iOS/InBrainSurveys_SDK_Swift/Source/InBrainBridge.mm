@@ -19,13 +19,17 @@ extern "C" {
 
     InBrainProxyViewController *inBrainView;
     
-    void _ib_Init(char* secret, char* appId) {
+    void _ib_Init(char* secret) {
         inBrainView = [[InBrainProxyViewController alloc] init];
         
         inBrainView.secret = [InBrainUtils createNSStringFrom:secret];
-        inBrainView.appId = [InBrainUtils createNSStringFrom:appId];
+        [[InBrain shared] setAppSecretWithSecret:[InBrainUtils createNSStringFrom:secret]];
         
         inBrainView.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
+
+    void _ib_SetAppUserId(char* appId) {
+        [[InBrain shared] setAppUserIdWithAppUID:[InBrainUtils createNSStringFrom:appId]];
     }
 
     void _ib_ShowSurveys() {

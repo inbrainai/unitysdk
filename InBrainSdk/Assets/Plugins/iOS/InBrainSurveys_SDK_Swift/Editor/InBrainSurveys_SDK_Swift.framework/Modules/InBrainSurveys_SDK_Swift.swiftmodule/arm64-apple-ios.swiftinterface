@@ -17,6 +17,8 @@ import WebKit
   @objc public func setInBrainWebViewTitle(toString: Swift.String)
   @objc public func setInBrainWebViewNavBarColor(toColor: UIKit.UIColor)
   @objc public func setInBrainWebViewNavButtonColor(toColor: UIKit.UIColor)
+  @objc public func setAppUserId(appUID: Swift.String)
+  @objc public func setAppSecret(secret: Swift.String)
   @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String)
   @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String, withSessionUID: Swift.String)
   @objc public func getRewards()
@@ -31,10 +33,10 @@ public struct InBrainToken : Swift.Codable {
   public func encode(to encoder: Swift.Encoder) throws
 }
 @objc public class InBrainReward : ObjectiveC.NSObject, Swift.Codable {
-  final public let transactionId: Swift.Int?
-  final public let amount: Swift.Float?
-  final public let currency: Swift.String?
-  final public let transactionType: Swift.Int?
+  @objc final public let transactionId: Swift.Int
+  @objc final public let amount: Swift.Float
+  @objc final public let currency: Swift.String
+  @objc final public let transactionType: Swift.Int
   @objc deinit
   required public init(from decoder: Swift.Decoder) throws
   public func encode(to encoder: Swift.Encoder) throws

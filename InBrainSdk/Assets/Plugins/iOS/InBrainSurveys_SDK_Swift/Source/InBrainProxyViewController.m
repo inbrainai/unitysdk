@@ -17,11 +17,15 @@
 InBrain* inBrain;
 bool isOpened = false;
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
-    
+- (InBrainProxyViewController*)init {
+    self = [super init];
     inBrain = [InBrain shared];
     inBrain.inBrainDelegate = self;
+    return self;
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     if (!isOpened) {
         [inBrain presentInBrainWebViewWithSecret:self.secret withAppUID:self.appId];
@@ -30,10 +34,6 @@ bool isOpened = false;
 }
 
 - (void)inBrainRewardsReceivedWithRewardsArray:(NSArray<InBrainReward *> * _Nonnull)rewardsArray {
-    
-    // serialize rewards list
-    NSLog(@"Rewards count: %d", (int)rewardsArray.count);
-    
     NSString* rewards = [InBrainJsonUtils serializeRewards:rewardsArray];
     
     if (_onRewardsReceived != nil) {

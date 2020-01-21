@@ -20,7 +20,8 @@ namespace InBrain
 
 		void Start()
 		{
-			InBrain.Instance.Init(ClientId, ClientSecret, AppUserId);
+			InBrain.Instance.Init(ClientId, ClientSecret);
+			InBrain.Instance.SetAppUserId(AppUserId);
 
 			InBrain.Instance.AddCallback(rewardsResult =>
 			{

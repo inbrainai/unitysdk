@@ -10,7 +10,7 @@ namespace InBrain
 	[PublicAPI]
 	public class InBrain : MonoSingleton<InBrain>
 	{
-		public void Init(string clientId, string clientSecret, string appUserId)
+		public void Init(string clientId, string clientSecret)
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
@@ -18,12 +18,27 @@ namespace InBrain
 				{
 					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
 					inBrainInst.Call("init", JniUtils.Activity, clientId, clientSecret);
+				}
+			}
+
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_Init(clientSecret);
+#endif
+		}
+		
+		public void SetAppUserId(string appUserId)
+		{
+			if (Application.platform == RuntimePlatform.Android)
+			{
+				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				{
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
 					inBrainInst.Call("setAppUserId", appUserId);
 				}
 			}
 
 #if UNITY_IOS && !UNITY_EDITOR
-			_ib_Init(clientSecret, appUserId);
+			_ib_SetAppUserId(appUserId);
 #endif
 		}
 
@@ -108,7 +123,10 @@ namespace InBrain
 
 #if UNITY_IOS
 		[DllImport("__Internal")]
-		static extern void _ib_Init(string secret, string appId);
+		static extern void _ib_Init(string secret);
+		
+		[DllImport("__Internal")]
+		static extern void _ib_SetAppUserId(string appId);
 
 		[DllImport("__Internal")]
 		static extern void _ib_ShowSurveys();
