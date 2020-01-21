@@ -27,7 +27,12 @@
     NSMutableArray *rewardsArray = [NSMutableArray arrayWithCapacity:rewards.count];
     
     for (NSUInteger i = 0; i < rewards.count; ++i) {
-        [rewardsArray addObject:rewards[i]];
+        NSMutableDictionary *reward = [NSMutableDictionary dictionary];
+        reward[@"transactionId"] = @(rewards[i].transactionId);
+        reward[@"amount"] = @(rewards[i].amount);
+        reward[@"currency"] = rewards[i].currency;
+        reward[@"transactionType"] = @(rewards[i].transactionType);
+        [rewardsArray addObject:reward];
     }
     
     dictionary[@"rewards"] = rewardsArray;

@@ -10,7 +10,7 @@ namespace InBrain
 	[PublicAPI]
 	public class InBrain : MonoSingleton<InBrain>
 	{
-		public void Init(string clientId, string clientSecret)
+		public void Init(string clientId, string clientSecret, string appUserId)
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
@@ -18,12 +18,12 @@ namespace InBrain
 				{
 					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
 					inBrainInst.Call("init", JniUtils.Activity, clientId, clientSecret);
-					inBrainInst.Call("setAppUserId", "1234-1234-1234-1234");
+					inBrainInst.Call("setAppUserId", appUserId);
 				}
 			}
 
 #if UNITY_IOS && !UNITY_EDITOR
-			_ib_Init(clientSecret, "testing@inbrain.ai");
+			_ib_Init(clientSecret, appUserId);
 #endif
 		}
 
