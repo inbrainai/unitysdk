@@ -20,6 +20,8 @@ namespace InBrain
 
 		void Start()
 		{
+			rewards = new RewardsResult();
+			
 			InBrain.Instance.Init(ClientId, ClientSecret);
 			InBrain.Instance.SetAppUserId(AppUserId);
 

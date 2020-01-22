@@ -15,6 +15,7 @@
 + (NSString *)serializeRewards:(NSArray<InBrainReward *> *)rewards;
 
 + (NSArray *)deserializeArray:(NSString *)jsonArray;
++ (NSDictionary *)deserializeDictionary:(NSString *)jsonDic;
 + (NSArray<NSNumber *> *)deserializeNumbersArray:(NSArray *)numbers;
 
 @end

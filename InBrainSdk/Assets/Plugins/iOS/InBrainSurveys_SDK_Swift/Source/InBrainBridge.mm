@@ -53,8 +53,8 @@ extern "C" {
     }
 
     void _ib_ConfirmRewards(char* rewardsJson) {
-        NSArray *rewardsArray = [InBrainJsonUtils deserializeArray:[InBrainUtils createNSStringFrom:rewardsJson]];
-        NSArray<NSNumber *> *rewardsToConfirm = [InBrainJsonUtils deserializeNumbersArray:rewardsArray];
+        NSDictionary *rewardsDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:rewardsJson]];
+        NSArray<NSNumber *> *rewardsToConfirm = [InBrainJsonUtils deserializeNumbersArray:rewardsDictionary[@"ids"]];
         [[InBrain shared] confirmRewardsWithTxIdArray:rewardsToConfirm];
     }
 }

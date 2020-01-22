@@ -56,7 +56,6 @@ namespace InBrain
 #if UNITY_IOS && !UNITY_EDITOR
 			Action<string> onRewardsReceivedNative = rewardsJson =>
 			{
-				Debug.Log("Unity rewards json: " + rewardsJson);
 				var rewardsResult = JsonUtility.FromJson<RewardsResult>(rewardsJson);
 				onRewardsReceived?.Invoke(rewardsResult);
 
@@ -116,7 +115,8 @@ namespace InBrain
 
 #if UNITY_IOS && !UNITY_EDITOR
 			var rewardsIds = rewards.Select(reward => reward.transactionId).ToList();
-			var rewardsJson = JsonUtility.ToJson(rewardsIds);
+			var rewardsJson = JsonUtility.ToJson(new RewardIds(rewardsIds));
+
 			_ib_ConfirmRewards(rewardsJson);
 #endif
 		}

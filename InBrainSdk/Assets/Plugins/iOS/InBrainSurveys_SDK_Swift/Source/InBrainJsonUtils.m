@@ -55,6 +55,21 @@
     return array;
 }
 
++ (NSDictionary *)deserializeDictionary:(NSString *)jsonDic {
+    NSError *e = nil;
+    NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:[jsonDic dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&e];
+    if (dictionary != nil) {
+        NSMutableDictionary *prunedDict = [NSMutableDictionary dictionary];
+        [dictionary enumerateKeysAndObjectsUsingBlock:^(NSString *key, id obj, BOOL *stop) {
+            if (![obj isKindOfClass:[NSNull class]]) {
+                prunedDict[key] = obj;
+            }
+        }];
+        return prunedDict;
+    }
+    return dictionary;
+}
+
 + (NSArray<NSNumber *> *)deserializeNumbersArray:(NSArray *)numbers {
     NSMutableArray<NSNumber *> *result = [NSMutableArray new];
 
