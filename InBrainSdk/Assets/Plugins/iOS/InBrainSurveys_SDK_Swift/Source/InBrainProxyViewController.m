@@ -28,6 +28,7 @@ bool isOpened = false;
     [super viewDidAppear:animated];
     
     if (!isOpened) {
+        NSLog(@"APP ID: %@", self.appId);
         [inBrain presentInBrainWebViewWithSecret:self.secret withAppUID:self.appId];
         isOpened = true;
     }

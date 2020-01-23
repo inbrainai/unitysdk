@@ -29,6 +29,7 @@ extern "C" {
     }
 
     void _ib_SetAppUserId(char* appId) {
+        inBrainView.appId = [InBrainUtils createNSStringFrom:appId];
         [[InBrain shared] setAppUserIdWithAppUID:[InBrainUtils createNSStringFrom:appId]];
     }
 

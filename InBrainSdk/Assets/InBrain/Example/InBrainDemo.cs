@@ -10,7 +10,7 @@ namespace InBrain
 
 		[SerializeField] string ClientSecret = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A=="; // your client secret obtained by your account manager
 
-		[SerializeField] string AppUserId = "1234-1234-1234-1234";
+		[SerializeField] string AppUserId = "testing-unity@inbrain.ai";
 		
 		[Space]
 		
@@ -61,6 +61,7 @@ namespace InBrain
 			if (rewards.rewards.Any())
 			{
 				InBrain.Instance.ConfirmRewards(rewards.rewards);
+				BalanceText.text = "Your unconfirmed rewards balance: 0";
 			}
 			else
 			{
