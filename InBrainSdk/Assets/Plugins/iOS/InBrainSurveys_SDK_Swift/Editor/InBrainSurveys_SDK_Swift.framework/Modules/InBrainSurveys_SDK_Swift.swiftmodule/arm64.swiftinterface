@@ -21,6 +21,7 @@ import WebKit
   @objc public func setAppSecret(secret: Swift.String)
   @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String)
   @objc public func presentInBrainWebView(withSecret: Swift.String, withAppUID: Swift.String, withSessionUID: Swift.String)
+  @objc public func getRewards(rewardsReceived: @escaping ([InBrainSurveys_SDK_Swift.InBrainReward]) -> (), failedToGetRewards: @escaping () -> ())
   @objc public func getRewards()
   @objc public func confirmRewards(txIdArray: [Swift.Int])
   @objc deinit

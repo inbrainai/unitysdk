@@ -101,6 +101,19 @@ namespace InBrain
 #endif
 		}
 
+		public void GetRewards(Action<RewardsResult> onRewardsReceived, Action onFailedToReceiveRewards)
+		{
+#if UNITY_IOS && !UNITY_EDITOR
+			Action<string> onRewardsReceivedNative = rewardsJson =>
+			{
+				var rewardsResult = JsonUtility.FromJson<RewardsResult>(rewardsJson);
+				onRewardsReceived?.Invoke(rewardsResult);
+			};
+
+			_ib_GetRewardsWithCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(), Callbacks.ActionVoidCallback, onFailedToReceiveRewards.GetPointer());
+#endif
+		}
+
 		public void ConfirmRewards(List<InBrainReward> rewards)
 		{
 			if (Application.platform == RuntimePlatform.Android)
@@ -137,6 +150,10 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_GetRewards();
+		
+		[DllImport("__Internal")]
+		static extern void _ib_GetRewardsWithCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
+			Callbacks.ActionVoidCallbackDelegate failedToReceiveRewardsCallback, IntPtr failedToReceiveRewardsActionPtr);
 
 		[DllImport("__Internal")]
 		static extern void _ib_ConfirmRewards(string rewardsJson);

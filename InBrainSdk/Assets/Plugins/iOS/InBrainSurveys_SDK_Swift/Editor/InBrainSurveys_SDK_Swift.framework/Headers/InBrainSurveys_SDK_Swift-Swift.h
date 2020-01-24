@@ -204,6 +204,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @protocol InBrainDelegate;
 @class UIColor;
+@class InBrainReward;
 
 /// <ul>
 ///   <li>
@@ -225,11 +226,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull sha
 - (void)setAppSecretWithSecret:(NSString * _Nonnull)secret;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID withSessionUID:(NSString * _Nonnull)withSessionUID;
+- (void)getRewardsWithRewardsReceived:(void (^ _Nonnull)(NSArray<InBrainReward *> * _Nonnull))rewardsReceived failedToGetRewards:(void (^ _Nonnull)(void))failedToGetRewards;
 - (void)getRewards;
 - (void)confirmRewardsWithTxIdArray:(NSArray<NSNumber *> * _Nonnull)txIdArray;
 @end
 
-@class InBrainReward;
 
 SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 @protocol InBrainDelegate
@@ -473,6 +474,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 @protocol InBrainDelegate;
 @class UIColor;
+@class InBrainReward;
 
 /// <ul>
 ///   <li>
@@ -494,11 +496,11 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull sha
 - (void)setAppSecretWithSecret:(NSString * _Nonnull)secret;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID;
 - (void)presentInBrainWebViewWithSecret:(NSString * _Nonnull)withSecret withAppUID:(NSString * _Nonnull)withAppUID withSessionUID:(NSString * _Nonnull)withSessionUID;
+- (void)getRewardsWithRewardsReceived:(void (^ _Nonnull)(NSArray<InBrainReward *> * _Nonnull))rewardsReceived failedToGetRewards:(void (^ _Nonnull)(void))failedToGetRewards;
 - (void)getRewards;
 - (void)confirmRewardsWithTxIdArray:(NSArray<NSNumber *> * _Nonnull)txIdArray;
 @end
 
-@class InBrainReward;
 
 SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 @protocol InBrainDelegate

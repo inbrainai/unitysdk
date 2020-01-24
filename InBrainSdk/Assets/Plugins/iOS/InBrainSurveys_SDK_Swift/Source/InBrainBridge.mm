@@ -53,6 +53,16 @@ extern "C" {
         [[InBrain shared] getRewards];
     }
 
+    void _ib_GetRewardsWithCallback(ActionStringCallbackDelegate rewardReceivedCallback, void *rewardReceivedActionPtr,
+        ActionVoidCallbackDelegate failedToReceiveRewardsCallback, void *failedToReceiveRewardsActionPtr) {
+        [[InBrain shared] getRewardsWithRewardsReceived:^(NSArray<InBrainReward *> * _Nonnull rewardsArray) {
+            NSString* rewards = [InBrainJsonUtils serializeRewards:rewardsArray];
+            rewardReceivedCallback(rewardReceivedActionPtr, [InBrainUtils createCStringFrom:rewards]);
+        } failedToGetRewards:^{
+            failedToReceiveRewardsCallback(failedToReceiveRewardsActionPtr);
+        }];
+    }
+
     void _ib_ConfirmRewards(char* rewardsJson) {
         NSDictionary *rewardsDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:rewardsJson]];
         NSArray<NSNumber *> *rewardsToConfirm = [InBrainJsonUtils deserializeNumbersArray:rewardsDictionary[@"ids"]];

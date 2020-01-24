@@ -51,7 +51,21 @@ namespace InBrain
 		public void OnGetRewardsClicked()
 		{
 			Debug.Log("InBrain: GetRewards button clicked");
-			InBrain.Instance.GetRewards();
+			InBrain.Instance.GetRewards(rewardsResult =>
+			{
+				Debug.Log("InBrain: Rewards callback received");
+				rewards = rewardsResult;
+
+				if (rewardsResult.rewards.Any())
+				{
+					float balance = rewardsResult.rewards.Sum(reward => reward.amount);
+					BalanceText.text = string.Format("Your unconfirmed rewards balance: {0}", balance);
+				}
+				else
+				{
+					Debug.Log("InBrain: There are no pending rewards");
+				}
+			}, () => { Debug.LogError("InBrain: Failed to receive rewards"); });
 		}
 
 		public void OnConfirmRewardsClicked()
