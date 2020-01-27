@@ -13,7 +13,7 @@ namespace InBrain
 		readonly bool _confirmRewardsAutomatically;
 
 		public InBrainCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
-			: base("com.inbrain.sdk.callback.InBrainCallback")
+			: base(Constants.InBrainCallbackJavaCLass)
 		{
 			_onRewardsReceived = onRewardsReceived;
 			_onRewardsViewDismissed = onRewardsViewDismissed;

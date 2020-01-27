@@ -14,10 +14,10 @@ namespace InBrain
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
-				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
 				{
-					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-					inBrainInst.Call("init", JniUtils.Activity, clientId, clientSecret);
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.InitJavaMethod, JniUtils.Activity, clientId, clientSecret);
 				}
 			}
 
@@ -25,15 +25,15 @@ namespace InBrain
 			_ib_Init(clientSecret);
 #endif
 		}
-		
+
 		public void SetAppUserId(string appUserId)
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
-				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
 				{
-					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-					inBrainInst.Call("setAppUserId", appUserId);
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.SetAppUserIdJavaMethod, appUserId);
 				}
 			}
 
@@ -46,10 +46,10 @@ namespace InBrain
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
-				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
 				{
-					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-					inBrainInst.Call("addCallback", new InBrainCallbackProxy(onRewardsReceived, onRewardsViewDismissed, confirmRewardsAutomatically));
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.AddCallbackJavaMethod, new InBrainCallbackProxy(onRewardsReceived, onRewardsViewDismissed, confirmRewardsAutomatically));
 				}
 			}
 
@@ -71,11 +71,10 @@ namespace InBrain
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
-				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
 				{
-					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-
-					inBrainInst.Call("showSurveys", JniUtils.Activity);
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity);
 				}
 			}
 
@@ -88,11 +87,10 @@ namespace InBrain
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
-				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
 				{
-					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-
-					inBrainInst.Call("getRewards");
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.GetRewardsJavaMethod);
 				}
 			}
 
@@ -101,13 +99,25 @@ namespace InBrain
 #endif
 		}
 
-		public void GetRewards(Action<RewardsResult> onRewardsReceived, Action onFailedToReceiveRewards)
+		public void GetRewards(Action<RewardsResult> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
 		{
+			if (Application.platform == RuntimePlatform.Android)
+			{
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
+				{
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.GetRewardsJavaMethod, new InBrainGetRewardsCallbackProxy(onRewardsReceived, onFailedToReceiveRewards, confirmRewardsAutomatically));
+				}
+			}
+
 #if UNITY_IOS && !UNITY_EDITOR
 			Action<string> onRewardsReceivedNative = rewardsJson =>
 			{
 				var rewardsResult = JsonUtility.FromJson<RewardsResult>(rewardsJson);
 				onRewardsReceived?.Invoke(rewardsResult);
+
+				if (confirmRewardsAutomatically && rewardsResult.rewards.Any())
+					ConfirmRewards(rewardsResult.rewards);
 			};
 
 			_ib_GetRewardsWithCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(), Callbacks.ActionVoidCallback, onFailedToReceiveRewards.GetPointer());
@@ -118,11 +128,10 @@ namespace InBrain
 		{
 			if (Application.platform == RuntimePlatform.Android)
 			{
-				using (var inBrain = new AndroidJavaClass("com.inbrain.sdk.InBrain"))
+				using (var inBrain = new AndroidJavaClass(Constants.InBrainJavaClass))
 				{
-					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>("getInstance");
-
-					inBrainInst.Call("confirmRewards", rewards.ToJavaList(reward => reward.ToAJO()));
+					var inBrainInst = inBrain.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
+					inBrainInst.Call(Constants.ConfirmRewardsJavaMethod, rewards.ToJavaList(reward => reward.ToAJO()));
 				}
 			}
 
@@ -137,7 +146,7 @@ namespace InBrain
 #if UNITY_IOS
 		[DllImport("__Internal")]
 		static extern void _ib_Init(string secret);
-		
+
 		[DllImport("__Internal")]
 		static extern void _ib_SetAppUserId(string appId);
 
@@ -150,7 +159,7 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_GetRewards();
-		
+
 		[DllImport("__Internal")]
 		static extern void _ib_GetRewardsWithCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
 			Callbacks.ActionVoidCallbackDelegate failedToReceiveRewardsCallback, IntPtr failedToReceiveRewardsActionPtr);
