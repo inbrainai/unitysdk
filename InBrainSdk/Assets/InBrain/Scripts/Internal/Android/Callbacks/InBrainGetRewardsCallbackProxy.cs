@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
@@ -7,12 +8,12 @@ namespace InBrain
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public class InBrainGetRewardsCallbackProxy : AndroidJavaProxy
 	{
-		readonly Action<RewardsResult> _onRewardsReceived;
+		readonly Action<List<InBrainReward>> _onRewardsReceived;
 		readonly Action _onFailedToReceiveFailedToReceiveRewards;
 		
 		readonly bool _confirmRewardsAutomatically;
 		
-		public InBrainGetRewardsCallbackProxy(Action<RewardsResult> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
+		public InBrainGetRewardsCallbackProxy(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
 			: base(Constants.GetRewardsCallbackJavaClass)
 		{
 			_onRewardsReceived = onRewardsReceived;
@@ -29,7 +30,7 @@ namespace InBrain
 
 		public bool handleRewards(AndroidJavaObject rewardsList /* List<Reward> rewards */)
 		{
-			InBrainSceneHelper.Queue(() => _onRewardsReceived(new RewardsResult(rewardsList)));
+			InBrainSceneHelper.Queue(() => _onRewardsReceived(new InBrainGetRewardsResult(rewardsList).rewards));
 			return _confirmRewardsAutomatically;
 		}
 	}

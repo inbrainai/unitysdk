@@ -45,7 +45,7 @@ namespace InBrain
 
 		// This function is called when the instance is used the first time
 		// Put all the initializations you need here, as you would do in Awake
-		public virtual void Initialize()
+		protected virtual void Initialize()
 		{
 		}
 	}

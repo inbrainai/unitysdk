@@ -40,31 +40,4 @@ namespace InBrain
 			return string.Format("transactionId: {0}, amount: {1}, currency: {2}, transactionType: {3}", transactionId, amount, currency, transactionType);
 		}
 	}
-
-	[Serializable]
-	public class RewardsResult
-	{
-		[SerializeField] public List<InBrainReward> rewards;
-
-		public RewardsResult()
-		{
-			rewards = new List<InBrainReward>();
-		}
-
-		public RewardsResult(AndroidJavaObject listAJO)
-		{
-			rewards = listAJO.FromJavaList<InBrainReward>(InBrainReward.FromAJO);
-		}
-	}
-	
-	[Serializable]
-	public class RewardIds
-	{
-		[SerializeField] public List<long> ids;
-
-		public RewardIds(List<long> rewardIds)
-		{
-			ids = rewardIds;
-		}
-	}
 }

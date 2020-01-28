@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,40 +7,26 @@ namespace InBrain
 {
 	public class InBrainDemo : MonoBehaviour
 	{
-		[SerializeField] string ClientId = "9c367c28-c8a4-498d-bf22-1f3682fc73aa"; // your client id obtained by your account manager
+		[SerializeField] string clientId = "9c367c28-c8a4-498d-bf22-1f3682fc73aa"; // your client id obtained by your account manager
 
-		[SerializeField] string ClientSecret = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A=="; // your client secret obtained by your account manager
+		[SerializeField] string clientSecret = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A=="; // your client secret obtained by your account manager
 
-		[SerializeField] string AppUserId = "testing-unity@inbrain.ai";
+		[SerializeField] string appUserId = "testing-unity@inbrain.ai";
 		
 		[Space]
 		
-		[SerializeField] Text BalanceText;
+		[SerializeField] Text balanceText;
 
-		RewardsResult rewards;
+		List<InBrainReward> _receivedRewards;
 
 		void Start()
 		{
-			rewards = new RewardsResult();
+			_receivedRewards = new List<InBrainReward>();
 			
-			InBrain.Instance.Init(ClientId, ClientSecret);
-			InBrain.Instance.SetAppUserId(AppUserId);
+			InBrain.Instance.Init(clientId, clientSecret);
+			InBrain.Instance.SetAppUserId(appUserId);
 
-			InBrain.Instance.AddCallback(rewardsResult =>
-			{
-				Debug.Log("InBrain: Rewards callback received");
-				rewards = rewardsResult;
-
-				if (rewardsResult.rewards.Any())
-				{
-					float balance = rewardsResult.rewards.Sum(reward => reward.amount);
-					BalanceText.text = string.Format("Your unconfirmed rewards balance: {0}", balance);
-				}
-				else
-				{
-					Debug.Log("InBrain: There are no pending rewards");
-				}
-			}, () => { Debug.Log("InBrain: Surveys web view was dismissed"); }, false);
+			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
 		}
 
 		public void OnShowSurveysClicked()
@@ -51,35 +38,39 @@ namespace InBrain
 		public void OnGetRewardsClicked()
 		{
 			Debug.Log("InBrain: GetRewards button clicked");
-			InBrain.Instance.GetRewards(rewardsResult =>
-			{
-				Debug.Log("InBrain: Rewards callback received");
-				rewards = rewardsResult;
-
-				if (rewardsResult.rewards.Any())
-				{
-					float balance = rewardsResult.rewards.Sum(reward => reward.amount);
-					BalanceText.text = string.Format("Your unconfirmed rewards balance: {0}", balance);
-				}
-				else
-				{
-					Debug.Log("InBrain: There are no pending rewards");
-				}
-			}, () => { Debug.LogError("InBrain: Failed to receive rewards"); });
+			InBrain.Instance.GetRewards(ProcessRewards, () => { Debug.LogError("InBrain: Failed to receive rewards"); });
 		}
 
 		public void OnConfirmRewardsClicked()
 		{
 			Debug.Log("InBrain: ConfirmRewards button clicked");
 
-			if (rewards.rewards.Any())
+			if (_receivedRewards.Any())
 			{
-				InBrain.Instance.ConfirmRewards(rewards.rewards);
-				BalanceText.text = "Your unconfirmed rewards balance: 0";
+				InBrain.Instance.ConfirmRewards(_receivedRewards);
+				_receivedRewards.Clear();
+				balanceText.text = "Your unconfirmed rewards balance: 0";
 			}
 			else
 			{
 				Debug.Log("InBrain: There are no rewards to confirm");
+			}
+		}
+		
+		void ProcessRewards(List<InBrainReward> rewards)
+		{
+			Debug.Log("InBrain: Rewards callback received");
+			
+			_receivedRewards = rewards;
+
+			if (rewards.Any())
+			{
+				float balance = rewards.Sum(reward => reward.amount);
+				balanceText.text = $"Your unconfirmed rewards balance: {balance}";
+			}
+			else
+			{
+				Debug.Log("InBrain: There are no pending rewards");
 			}
 		}
 	}
