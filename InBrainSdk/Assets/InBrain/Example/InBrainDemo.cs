@@ -7,10 +7,6 @@ namespace InBrain
 {
 	public class InBrainDemo : MonoBehaviour
 	{
-		[SerializeField] string clientId = "9c367c28-c8a4-498d-bf22-1f3682fc73aa"; // your client id obtained by your account manager
-
-		[SerializeField] string clientSecret = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A=="; // your client secret obtained by your account manager
-
 		[SerializeField] string appUserId = "testing-unity@inbrain.ai";
 		
 		[Space]
@@ -23,7 +19,6 @@ namespace InBrain
 		{
 			_receivedRewards = new List<InBrainReward>();
 			
-			InBrain.Instance.Init(clientId, clientSecret);
 			InBrain.Instance.SetAppUserId(appUserId);
 
 			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });

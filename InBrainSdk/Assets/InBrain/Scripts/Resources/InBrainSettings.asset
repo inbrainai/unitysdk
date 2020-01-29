@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9408b7f28441a4ad687bce2967518d, type: 3}
+  m_Name: InBrainSettings
+  m_EditorClassIdentifier: 
+  clientId: 9c367c28-c8a4-498d-bf22-1f3682fc73aa
+  clientSecretKey: 90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==
+  appUserId: testing-unity@inbrain.ai
+  isServer: 0
+  isProdEnvironment: 1

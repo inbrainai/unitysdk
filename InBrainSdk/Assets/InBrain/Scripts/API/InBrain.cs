@@ -9,7 +9,7 @@ namespace InBrain
 	public class InBrain : MonoSingleton<InBrain>
 	{
 		IInBrainImpl _inBrainImpl;
-		
+
 		IInBrainImpl InBrainImpl
 		{
 			get
@@ -33,11 +33,8 @@ namespace InBrain
 #if UNITY_IOS && !UNITY_EDITOR
 			_inBrainImpl = new InBrainIosImpl();
 #endif
-		}
 
-		public void Init(string clientId, string clientSecret)
-		{
-			InBrainImpl?.Init(clientId, clientSecret);
+			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey);
 		}
 
 		public void SetAppUserId(string appUserId)

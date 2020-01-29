@@ -791,9 +791,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7260ba83ab3674f1583cb3fc0afaa906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClientId: 9c367c28-c8a4-498d-bf22-1f3682fc73aa
-  ClientSecret: 90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==
-  BalanceText: {fileID: 384098387}
+  clientId: 9c367c28-c8a4-498d-bf22-1f3682fc73aa
+  clientSecret: 90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==
+  appUserId: testing-unity@inbrain.ai
+  balanceText: {fileID: 384098387}
 --- !u!1 &1620554777
 GameObject:
   m_ObjectHideFlags: 0

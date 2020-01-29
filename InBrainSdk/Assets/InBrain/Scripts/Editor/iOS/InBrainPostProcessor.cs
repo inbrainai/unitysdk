@@ -1,6 +1,7 @@
 ﻿#if UNITY_IOS
 
 using System;
+using System.ComponentModel.Design.Serialization;
 using System.IO;
 using UnityEditor;
 using UnityEditor.Callbacks;
@@ -49,9 +50,9 @@ namespace InBrain
 				if (!plistInfoFile.root.values.ContainsKey("InBrain"))
 				{
 					var inBrainDictPlist = plistInfoFile.root.CreateDict("InBrain");
-					inBrainDictPlist.SetString("client", "9c367c28-c8a4-498d-bf22-1f3682fc73aa");
-					inBrainDictPlist.SetBoolean("server", false);
-					inBrainDictPlist.SetBoolean("prodEnv", true);
+					inBrainDictPlist.SetString("client", InBrainSettings.ClientId);
+					inBrainDictPlist.SetBoolean("server", InBrainSettings.IsServer);
+					inBrainDictPlist.SetBoolean("prodEnv", InBrainSettings.IsProdEnvironment);
 				}
 
 				File.WriteAllText(infoPlistPath, plistInfoFile.WriteToString());
