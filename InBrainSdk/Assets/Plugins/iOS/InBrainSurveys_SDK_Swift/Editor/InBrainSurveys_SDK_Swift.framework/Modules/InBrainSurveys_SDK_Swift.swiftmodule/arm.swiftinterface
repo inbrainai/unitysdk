@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.1.3 (swiftlang-1100.0.282.1 clang-1100.0.33.15)
-// swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name InBrainSurveys_SDK_Swift
+// swift-module-flags: -target armv7-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -module-name InBrainSurveys_SDK_Swift
 import Foundation
 @_exported import InBrainSurveys_SDK_Swift
 import Swift
@@ -43,7 +43,48 @@ public struct InBrainToken : Swift.Codable {
   public func encode(to encoder: Swift.Encoder) throws
 }
 public enum Model : Swift.String {
-  case simulator, iPod1, iPod2, iPod3, iPod4, iPod5, iPad2, iPad3, iPad4, iPadAir, iPadAir2, iPad5, iPad6, iPadMini, iPadMini2, iPadMini3, iPadMini4, iPadPro9_7, iPadPro10_5, iPadPro12_9, iPadPro2_12_9, iPhone4, iPhone4S, iPhone5, iPhone5S, iPhone5C, iPhone6, iPhone6plus, iPhone6S, iPhone6Splus, iPhoneSE, iPhone7, iPhone7plus, iPhone8, iPhone8plus, iPhoneX, iPhoneXS, iPhoneXSMax, iPhoneXR, AppleTV, AppleTV_4K, unrecognized
+  case simulator
+  case iPod1
+  case iPod2
+  case iPod3
+  case iPod4
+  case iPod5
+  case iPad2
+  case iPad3
+  case iPad4
+  case iPadAir
+  case iPadAir2
+  case iPad5
+  case iPad6
+  case iPadMini
+  case iPadMini2
+  case iPadMini3
+  case iPadMini4
+  case iPadPro9_7
+  case iPadPro10_5
+  case iPadPro12_9
+  case iPadPro2_12_9
+  case iPhone4
+  case iPhone4S
+  case iPhone5
+  case iPhone5S
+  case iPhone5C
+  case iPhone6
+  case iPhone6plus
+  case iPhone6S
+  case iPhone6Splus
+  case iPhoneSE
+  case iPhone7
+  case iPhone7plus
+  case iPhone8
+  case iPhone8plus
+  case iPhoneX
+  case iPhoneXS
+  case iPhoneXSMax
+  case iPhoneXR
+  case AppleTV
+  case AppleTV_4K
+  case unrecognized
   public typealias RawValue = Swift.String
   public init?(rawValue: Swift.String)
   public var rawValue: Swift.String {
@@ -66,13 +107,8 @@ public enum HTTPMethod : Swift.String {
   case trace
   case connect
   public typealias RawValue = Swift.String
+  public init?(rawValue: Swift.String)
   public var rawValue: Swift.String {
     get
   }
-  public init?(rawValue: Swift.String)
 }
-extension InBrainSurveys_SDK_Swift.Model : Swift.Hashable {}
-extension InBrainSurveys_SDK_Swift.Model : Swift.RawRepresentable {}
-extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.Equatable {}
-extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.Hashable {}
-extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.RawRepresentable {}
