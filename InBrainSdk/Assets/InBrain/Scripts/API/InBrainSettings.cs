@@ -12,16 +12,14 @@ namespace InBrain
 
 		const string DemoClientId = "9c367c28-c8a4-498d-bf22-1f3682fc73aa";
 		const string DemoClientSecretKey = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==";
-		const string DemoAppUserId = "testing-unity@inbrain.ai";
 
 		const bool DemoIsServer = false;
 		const bool DemoIsProdEnvironment = true;
 
 		static InBrainSettings _instance;
-		
+
 		[SerializeField] string clientId = DemoClientId;
 		[SerializeField] string clientSecretKey = DemoClientSecretKey;
-		[SerializeField] string appUserId = DemoAppUserId;
 		[SerializeField] bool isServer = DemoIsServer;
 		[SerializeField] bool isProdEnvironment = DemoIsProdEnvironment;
 
@@ -30,7 +28,7 @@ namespace InBrain
 		/// </summary>
 		public static string ClientId
 		{
-			get {return Instance.clientId;}
+			get { return Instance.clientId; }
 			set
 			{
 				Instance.clientId = value;
@@ -43,7 +41,7 @@ namespace InBrain
 		/// </summary>
 		public static string ClientSecretKey
 		{
-			get { return Instance.clientSecretKey;}
+			get { return Instance.clientSecretKey; }
 			set
 			{
 				Instance.clientSecretKey = value;
@@ -52,44 +50,31 @@ namespace InBrain
 		}
 
 		/// <summary>
-		/// Application user identifier
-		/// </summary>
-		public static string AppUserId
-		{
-			get { return Instance.appUserId;}
-			set
-			{
-				Instance.appUserId = value;
-				MarkAssetDirty();
-			}
-		}
-		
-		/// <summary>
 		/// Flag indicating whether server mode is enabled (iOS only)
 		/// </summary>
 		public static bool IsServer
 		{
-			get { return Instance.isServer;}
+			get { return Instance.isServer; }
 			set
 			{
 				Instance.isServer = value;
 				MarkAssetDirty();
 			}
 		}
-		
+
 		/// <summary>
 		/// Flag indicating whether production environment is enabled (iOS only)
 		/// </summary>
 		public static bool IsProdEnvironment
 		{
-			get { return Instance.isProdEnvironment;}
+			get { return Instance.isProdEnvironment; }
 			set
 			{
 				Instance.isProdEnvironment = value;
 				MarkAssetDirty();
 			}
 		}
-		
+
 		public static InBrainSettings Instance
 		{
 			get
@@ -105,6 +90,7 @@ namespace InBrain
 						}
 					}
 				}
+
 				return _instance;
 			}
 		}
