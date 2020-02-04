@@ -8,6 +8,8 @@ namespace InBrain
 	{
 		readonly AndroidJavaObject _inBrainInst;
 
+		InBrainCallbackProxy _callback;
+
 		AndroidJavaObject InBrainInst
 		{
 			get
@@ -41,8 +43,22 @@ namespace InBrain
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
 		{
-			InBrainInst?.Call(Constants.AddCallbackJavaMethod, 
-				new InBrainCallbackProxy(onRewardsReceived, onRewardsViewDismissed, confirmRewardsAutomatically));
+			_callback = new InBrainCallbackProxy(onRewardsReceived, onRewardsViewDismissed, confirmRewardsAutomatically);
+
+			InBrainInst?.Call(Constants.AddCallbackJavaMethod, _callback);
+		}
+		
+		public void RemoveCallback()
+		{
+			if (_callback == null)
+			{
+				Debug.LogWarning("InBrain Android callback wasn't set");
+				return;
+			}
+			
+			InBrainInst?.Call(Constants.RemoveCallbackJavaMethod, _callback);
+			
+			_callback = null;
 		}
 
 		public void ShowSurveys()

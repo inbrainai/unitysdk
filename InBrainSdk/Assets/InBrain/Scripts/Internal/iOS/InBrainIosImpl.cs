@@ -35,6 +35,11 @@ namespace InBrain
 				Callbacks.ActionVoidCallback, onRewardsViewDismissed.GetPointer());
 		}
 
+		public void RemoveCallback()
+		{
+			_ib_RemoveCallback();
+		}
+
 		public void ShowSurveys()
 		{
 			_ib_ShowSurveys();
@@ -82,6 +87,9 @@ namespace InBrain
 		[DllImport("__Internal")]
 		static extern void _ib_SetCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
 			Callbacks.ActionVoidCallbackDelegate rewardViewDismissedCallback, IntPtr rewardViewDismissedActionPtr);
+
+		[DllImport("__Internal")]
+		static extern void _ib_RemoveCallback();
 
 		[DllImport("__Internal")]
 		static extern void _ib_GetRewards();

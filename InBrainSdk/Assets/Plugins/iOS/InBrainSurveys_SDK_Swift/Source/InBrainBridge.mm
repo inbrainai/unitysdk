@@ -48,7 +48,12 @@ extern "C" {
             rewardViewDismissedCallback(rewardViewDismissedActionPtr);
         };
     }
-
+    
+    void _ib_RemoveCallback() {
+        inBrainView.onRewardsReceived = nil;
+        inBrainView.onRewardsViewDismissed = nil;
+    }
+    
     void _ib_GetRewards() {
         [[InBrain shared] getRewards];
     }

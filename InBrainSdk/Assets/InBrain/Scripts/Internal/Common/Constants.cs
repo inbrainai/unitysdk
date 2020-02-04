@@ -10,6 +10,7 @@
 		public const string InitJavaMethod = "init";
 		public const string SetAppUserIdJavaMethod = "setAppUserId";
 		public const string AddCallbackJavaMethod = "addCallback";
+		public const string RemoveCallbackJavaMethod = "removeCallback";
 		public const string ShowSurveysJavaMethod = "showSurveys";
 		public const string GetRewardsJavaMethod = "getRewards";
 		public const string ConfirmRewardsJavaMethod = "confirmRewards";

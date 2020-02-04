@@ -8,17 +8,15 @@ namespace InBrain
 	public class InBrainDemo : MonoBehaviour
 	{
 		[SerializeField] string appUserId = "testing-unity@inbrain.ai";
-		
-		[Space]
-		
-		[SerializeField] Text balanceText;
+
+		[Space] [SerializeField] Text balanceText;
 
 		List<InBrainReward> _receivedRewards;
 
 		void Start()
 		{
 			_receivedRewards = new List<InBrainReward>();
-			
+
 			InBrain.Instance.SetAppUserId(appUserId);
 
 			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
@@ -44,24 +42,24 @@ namespace InBrain
 			{
 				InBrain.Instance.ConfirmRewards(_receivedRewards);
 				_receivedRewards.Clear();
-				balanceText.text = "Your unconfirmed rewards balance: 0";
+				balanceText.text = "0";
 			}
 			else
 			{
 				Debug.Log("InBrain: There are no rewards to confirm");
 			}
 		}
-		
+
 		void ProcessRewards(List<InBrainReward> rewards)
 		{
 			Debug.Log("InBrain: Rewards callback received");
-			
+
 			_receivedRewards = rewards;
 
 			if (rewards.Any())
 			{
-				float balance = rewards.Sum(reward => reward.amount);
-				balanceText.text = $"Your unconfirmed rewards balance: {balance}";
+				var balance = rewards.Sum(reward => reward.amount);
+				balanceText.text = ((int) balance).ToString();
 			}
 			else
 			{
