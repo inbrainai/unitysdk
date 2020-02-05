@@ -14,6 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   clientId: 9c367c28-c8a4-498d-bf22-1f3682fc73aa
   clientSecretKey: 90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==
-  appUserId: testing-unity@inbrain.ai
   isServer: 0
   isProdEnvironment: 1

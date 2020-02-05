@@ -13,7 +13,7 @@ Unity 2018.4.14f1+
 
 ## Installation
 
-
+Download latest version of InBrain Surveys Unity SDK (.unitypackage). In Unity editor right click inside Project pane and select Import package -> Custom package. Select file you've downloaded and confirm. Now InBrain Surveys Unity SDK should be ready to use.
 
 ## Configuration
 
