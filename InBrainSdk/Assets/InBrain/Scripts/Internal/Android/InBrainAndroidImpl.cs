@@ -63,7 +63,7 @@ namespace InBrain
 
 		public void ShowSurveys()
 		{
-			InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity);
+			InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy());
 		}
 
 		public void GetRewards()

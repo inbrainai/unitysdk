@@ -4,6 +4,7 @@
 	{
 		public const string InBrainJavaClass = "com.inbrain.sdk.InBrain";
 		public const string InBrainCallbackJavaCLass = "com.inbrain.sdk.callback.InBrainCallback";
+		public const string StartSurveysCallbackJavaClass = "com.inbrain.sdk.callback.StartSurveysCallback";
 		public const string GetRewardsCallbackJavaClass = "com.inbrain.sdk.callback.GetRewardsCallback";
 
 		public const string GetInstanceJavaMethod = "getInstance";
