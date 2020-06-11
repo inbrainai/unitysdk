@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
@@ -15,6 +19,7 @@ namespace InBrain
 
 		const bool DemoIsServer = false;
 		const bool DemoIsProdEnvironment = true;
+		const bool DemoShouldUseLegacyFramework = false;
 
 		static InBrainSettings _instance;
 
@@ -22,6 +27,7 @@ namespace InBrain
 		[SerializeField] string clientSecretKey = DemoClientSecretKey;
 		[SerializeField] bool isServer = DemoIsServer;
 		[SerializeField] bool isProdEnvironment = DemoIsProdEnvironment;
+		[SerializeField] bool shouldUseLegacy = DemoShouldUseLegacyFramework;
 
 		/// <summary>
 		/// Client identifier
@@ -72,6 +78,22 @@ namespace InBrain
 			{
 				Instance.isProdEnvironment = value;
 				MarkAssetDirty();
+			}
+		}
+
+		/// <summary>
+		/// Flag indicating whether the legacy iOS framework should be linked during the build (iOS only)
+		/// </summary>
+		public static bool ShouldUseLegacyFramework
+		{
+			get { return Instance.shouldUseLegacy; }
+			set
+			{
+				if (Instance.shouldUseLegacy == value)
+					return;
+				Instance.shouldUseLegacy = value;
+				MarkAssetDirty();
+				ChangeMetaFiles();
 			}
 		}
 
@@ -145,6 +167,77 @@ namespace InBrain
 #if UNITY_EDITOR
 			EditorUtility.SetDirty(Instance);
 #endif
+		}
+
+		static void ChangeMetaFiles()
+		{
+#if UNITY_EDITOR
+			const string frameWorkName = "InBrainSurveys_SDK_Swift.framework";
+			var directoryPath = Path.Combine(Application.dataPath, "Plugins/iOS/InBrainSurveys_SDK_Swift/Editor");
+
+			var frameworkMetaFilePath = Path.Combine(directoryPath, "Actual", $"{frameWorkName}.meta");
+			var legacyFrameworkMetaFilePath = Path.Combine(directoryPath, "Legacy", $"{frameWorkName}.meta");
+
+			var shouldUseLegacy = Instance.shouldUseLegacy;
+
+			TryNTimes(() =>
+			{
+				ChangeMetafile(frameworkMetaFilePath, !shouldUseLegacy);
+				ChangeMetafile(legacyFrameworkMetaFilePath, shouldUseLegacy);
+			}, 20, 10);
+
+			AssetDatabase.Refresh();
+#endif
+		}
+
+		static bool TryNTimes(Action action, int n, int sleepMillis)
+		{
+			Exception e = null;
+
+			while (n-- > 0)
+			{
+				try
+				{
+					action();
+					return true;
+				}
+				catch (Exception exception)
+				{
+					e = exception;
+					Thread.Sleep(sleepMillis);
+				}
+			}
+
+			Debug.LogException(e);
+			return false;
+		}
+
+		static void ChangeMetafile(string path, bool includeInBuild)
+		{
+			var metadataStrings = (includeInBuild ? MetadataResources.UseMetadata : MetadataResources.DoNotUseMetadata)
+				.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
+			var frameworkMetaStrings = File.ReadAllLines(path);
+			var foundPluginImports = false;
+			var resultingLines = new List<string>();
+			foreach (var line in frameworkMetaStrings)
+			{
+				if (foundPluginImports)
+				{
+					break;
+				}
+
+				resultingLines.Add(line);
+
+				if (line.Contains("PluginImporter:"))
+				{
+					foundPluginImports = true;
+				}
+			}
+
+			resultingLines.AddRange(metadataStrings);
+
+			File.Delete(path);
+			File.WriteAllLines(path, resultingLines);
 		}
 	}
 }

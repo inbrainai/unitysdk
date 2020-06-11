@@ -16,3 +16,4 @@ MonoBehaviour:
   clientSecretKey: 90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==
   isServer: 0
   isProdEnvironment: 1
+  shouldUseLegacy: 0

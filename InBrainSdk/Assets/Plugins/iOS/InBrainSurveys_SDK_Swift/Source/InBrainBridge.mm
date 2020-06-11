@@ -7,7 +7,6 @@
 //
 
 #import "InBrainSurveys_SDK_Swift/InBrainSurveys_SDK_Swift-Swift.h"
-#import <InBrainSurveys_SDK_Swift/InBrainSurveys_SDK_Swift.h>
 #import "InBrainProxyViewController.h"
 #import "InBrainFunctionDefs.h"
 #import "InBrainUtils.h"
