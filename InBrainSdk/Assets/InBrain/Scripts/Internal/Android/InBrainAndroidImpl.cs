@@ -9,6 +9,7 @@ namespace InBrain
 		readonly AndroidJavaObject _inBrainInst;
 
 		InBrainCallbackProxy _callback;
+		InBrainNewRewardsCallbackProxy _newRewardsCallback;
 
 		AndroidJavaObject InBrainInst
 		{
@@ -30,35 +31,39 @@ namespace InBrain
 				_inBrainInst = inBrainClass.CallStatic<AndroidJavaObject>(Constants.GetInstanceJavaMethod);
 			}
 		}
-		
+
 		public void Init(string clientId, string clientSecret)
 		{
-			InBrainInst?.Call(Constants.InitJavaMethod, JniUtils.Activity, clientId, clientSecret);
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.InitJavaMethod, JniUtils.Activity, clientId, clientSecret); });
 		}
 
 		public void SetAppUserId(string appUserId)
 		{
-			InBrainInst?.Call(Constants.SetAppUserIdJavaMethod, appUserId);
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetAppUserIdJavaMethod, appUserId); });
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
 		{
-			_callback = new InBrainCallbackProxy(onRewardsReceived, onRewardsViewDismissed, confirmRewardsAutomatically);
+			_callback = new InBrainCallbackProxy(onRewardsViewDismissed);
+			_newRewardsCallback = new InBrainNewRewardsCallbackProxy(onRewardsReceived, confirmRewardsAutomatically);
 
 			InBrainInst?.Call(Constants.AddCallbackJavaMethod, _callback);
+			InBrainInst?.Call(Constants.AddNewRewardsCallbackJavaMethod, _newRewardsCallback);
 		}
-		
+
 		public void RemoveCallback()
 		{
-			if (_callback == null)
+			if (_callback == null || _newRewardsCallback == null)
 			{
 				Debug.LogWarning("InBrain Android callback wasn't set");
 				return;
 			}
-			
+
 			InBrainInst?.Call(Constants.RemoveCallbackJavaMethod, _callback);
-			
+			InBrainInst?.Call(Constants.RemoveNewRewardsCallbackJavaMethod, _newRewardsCallback);
+
 			_callback = null;
+			_newRewardsCallback = null;
 		}
 
 		public void ShowSurveys()
@@ -73,7 +78,7 @@ namespace InBrain
 
 		public void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
 		{
-			InBrainInst?.Call(Constants.GetRewardsJavaMethod, 
+			InBrainInst?.Call(Constants.GetRewardsJavaMethod,
 				new InBrainGetRewardsCallbackProxy(onRewardsReceived, onFailedToReceiveRewards, confirmRewardsAutomatically));
 		}
 
