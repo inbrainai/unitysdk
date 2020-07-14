@@ -22,9 +22,9 @@ namespace InBrain
 			_confirmRewardsAutomatically = confirmRewardsAutomatically;
 		}
 		
-		public void onFailToLoadRewards(int errorCode)
+		public void onFailToLoadRewards(AndroidJavaObject throwable)
 		{
-			Debug.Log(string.Format("Failed to receive rewards. Error code: {0}", errorCode));
+			Debug.Log("Failed to load rewards: " + throwable?.CallStr("getMessage"));
 			InBrainSceneHelper.Queue(() => _onFailedToReceiveFailedToReceiveRewards());
 		}
 
