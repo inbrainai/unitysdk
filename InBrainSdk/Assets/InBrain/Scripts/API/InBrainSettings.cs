@@ -18,14 +18,14 @@ namespace InBrain
 		const string DemoClientSecretKey = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==";
 
 		const bool DemoIsServer = false;
-		const bool DemoShouldUseLegacyFramework = false;
+		const bool DemoIsS2S = false;
 
 		static InBrainSettings _instance;
 
 		[SerializeField] string clientId = DemoClientId;
 		[SerializeField] string clientSecretKey = DemoClientSecretKey;
 		[SerializeField] bool isServer = DemoIsServer;
-		[SerializeField] bool shouldUseLegacy = DemoShouldUseLegacyFramework;
+		[SerializeField] bool isS2S = DemoIsS2S;
 
 		/// <summary>
 		/// Client identifier
@@ -65,7 +65,19 @@ namespace InBrain
 				MarkAssetDirty();
 			}
 		}
-
+		
+		/// <summary>
+		/// Flag indicating whether server to server connection is enabled
+		/// </summary>
+		public static bool IsS2S
+		{
+			get { return Instance.isS2S; }
+			set
+			{
+				Instance.isS2S = value;
+				MarkAssetDirty();
+			}
+		}
 		public static InBrainSettings Instance
 		{
 			get

@@ -8,9 +8,9 @@ namespace InBrain
 {
 	public class InBrainIosImpl : IInBrainImpl
 	{
-		public void Init(string clientId, string clientSecret)
+		public void Init(string clientId, string clientSecret, bool isS2S)
 		{
-			_ib_SetInBrain(clientId, clientSecret);
+			_ib_SetInBrain(clientId, clientSecret, isS2S);
 		}
 
 		public void SetAppUserId(string appUserId)
@@ -76,7 +76,7 @@ namespace InBrain
 		}
 
 		[DllImport("__Internal")]
-		static extern void _ib_SetInBrain(string clientId, string secret);
+		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S);
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetUserId(string userId);

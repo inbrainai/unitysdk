@@ -31,10 +31,10 @@ namespace InBrain
 			}
 		}
 
-		public void Init(string clientId, string clientSecret)
+		public void Init(string clientId, string clientSecret, bool isS2S)
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetInBrainJavaMethod, 
-				JniUtils.Activity, clientId, clientSecret, false); });
+				JniUtils.Activity, clientId, clientSecret, isS2S); });
 		}
 
 		public void SetAppUserId(string appUserId)

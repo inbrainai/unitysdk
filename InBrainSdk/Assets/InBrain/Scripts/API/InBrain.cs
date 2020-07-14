@@ -36,7 +36,7 @@ namespace InBrain
 			_inBrainImpl = new InBrainIosImpl();
 #endif
 
-			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey);
+			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey, InBrainSettings.IsS2S);
 		}
 
 		/// <summary>

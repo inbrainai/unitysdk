@@ -18,7 +18,7 @@ extern "C" {
 
     InBrainProxyViewController *inBrainView;
     
-    void _ib_SetInBrain(char* clientId, char* secret) {
+    void _ib_SetInBrain(char* clientId, char* secret, bool isS2S) {
         NSString* secretString = [InBrainUtils createNSStringFrom:secret];
         NSString* clientIdString = [InBrainUtils createNSStringFrom:clientId];
         
@@ -27,7 +27,7 @@ extern "C" {
         
         [[InBrain shared] setInBrainWithApiClientID:clientIdString
                                           apiSecret:secretString
-                                              isS2S:false
+                                              isS2S:isS2S
                                              userID:@""];
     }
 
