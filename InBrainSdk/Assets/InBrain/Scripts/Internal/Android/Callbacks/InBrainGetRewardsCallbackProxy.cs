@@ -13,8 +13,8 @@ namespace InBrain
 		
 		readonly bool _confirmRewardsAutomatically;
 		
-		public InBrainGetRewardsCallbackProxy(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
-			: base(Constants.GetRewardsCallbackJavaClass)
+		public InBrainGetRewardsCallbackProxy(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, 
+			bool confirmRewardsAutomatically = false) : base(Constants.GetRewardsCallbackJavaClass)
 		{
 			_onRewardsReceived = onRewardsReceived;
 			_onFailedToReceiveFailedToReceiveRewards = onFailedToReceiveRewards;
