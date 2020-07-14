@@ -33,7 +33,7 @@ bool isOpened = false;
     }
 }
 
-- (void)didReceiveInBrainRewards:(NSArray<InBrainReward*>* _Nonnull)rewardsArray {
+- (void)didReceiveInBrainRewardsWithRewardsArray:(NSArray<InBrainReward*>* _Nonnull)rewardsArray {
     NSString* rewards = [InBrainJsonUtils serializeRewards:rewardsArray];
     
     if (_onRewardsReceived != nil) {
