@@ -54,7 +54,6 @@ namespace InBrain
 					var inBrainDictPlist = plistInfoFile.root.CreateDict("InBrain");
 					inBrainDictPlist.SetString("client", InBrainSettings.ClientId);
 					inBrainDictPlist.SetBoolean("server", InBrainSettings.IsServer);
-					inBrainDictPlist.SetBoolean("prodEnv", InBrainSettings.IsProdEnvironment);
 				}
 
 				File.WriteAllText(infoPlistPath, plistInfoFile.WriteToString());

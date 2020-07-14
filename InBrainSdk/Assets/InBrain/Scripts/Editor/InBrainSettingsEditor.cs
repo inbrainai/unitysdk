@@ -30,7 +30,6 @@ namespace InBrain
 				GUILayout.Label("InBrain SDK Settings (iOS only)", EditorStyles.boldLabel);
 
 				InBrainSettings.IsServer = EditorGUILayout.Toggle("Server", InBrainSettings.IsServer);
-				InBrainSettings.IsProdEnvironment = EditorGUILayout.Toggle("Production environment", InBrainSettings.IsProdEnvironment);
 				InBrainSettings.ShouldUseLegacyFramework = EditorGUILayout.Toggle("Use legacy framework", InBrainSettings.ShouldUseLegacyFramework);
 			}
 		}

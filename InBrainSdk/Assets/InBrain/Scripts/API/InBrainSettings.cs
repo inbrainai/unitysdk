@@ -18,7 +18,6 @@ namespace InBrain
 		const string DemoClientSecretKey = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==";
 
 		const bool DemoIsServer = false;
-		const bool DemoIsProdEnvironment = true;
 		const bool DemoShouldUseLegacyFramework = false;
 
 		static InBrainSettings _instance;
@@ -26,7 +25,6 @@ namespace InBrain
 		[SerializeField] string clientId = DemoClientId;
 		[SerializeField] string clientSecretKey = DemoClientSecretKey;
 		[SerializeField] bool isServer = DemoIsServer;
-		[SerializeField] bool isProdEnvironment = DemoIsProdEnvironment;
 		[SerializeField] bool shouldUseLegacy = DemoShouldUseLegacyFramework;
 
 		/// <summary>
@@ -64,19 +62,6 @@ namespace InBrain
 			set
 			{
 				Instance.isServer = value;
-				MarkAssetDirty();
-			}
-		}
-
-		/// <summary>
-		/// Flag indicating whether production environment is enabled (iOS only)
-		/// </summary>
-		public static bool IsProdEnvironment
-		{
-			get { return Instance.isProdEnvironment; }
-			set
-			{
-				Instance.isProdEnvironment = value;
 				MarkAssetDirty();
 			}
 		}
