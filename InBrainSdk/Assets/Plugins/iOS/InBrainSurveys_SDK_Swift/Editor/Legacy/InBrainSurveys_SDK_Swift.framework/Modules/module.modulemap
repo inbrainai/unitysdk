@@ -1,4 +1,0 @@
-framework module InBrainSurveys_SDK_Swift {
-  header "InBrainSurveys_SDK_Swift-Swift.h"
-  requires objc
-}

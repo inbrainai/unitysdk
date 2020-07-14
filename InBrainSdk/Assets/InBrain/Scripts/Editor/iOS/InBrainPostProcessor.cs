@@ -28,9 +28,7 @@ namespace InBrain
 			var targetName = PBXProject.GetUnityTargetName();
 			var targetGuid = project.TargetGuidByName(targetName);
 #endif
-			var enableBitCode = InBrainSettings.ShouldUseLegacyFramework ? "YES" : "NO";
-			
-			project.SetBuildProperty(targetGuid, "ENABLE_BITCODE", enableBitCode);
+			project.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");
 			project.SetBuildProperty(targetGuid, "SWIFT_OBJC_BRIDGING_HEADER", "Libraries/Plugins/iOS/InBrainSurveys_SDK_Swift/Source/InBrainSurveys_SDK_Swift-Bridging-Header.h");
 			project.SetBuildProperty(targetGuid, "SWIFT_OBJC_INTERFACE_HEADER_NAME", "InBrainSurveys_SDK_Swift-Swift.h");
 			project.AddBuildProperty(targetGuid, "LD_RUNPATH_SEARCH_PATHS", "@executable_path/Frameworks $(PROJECT_DIR)/lib/$(CONFIGURATION) $(inherited)");
