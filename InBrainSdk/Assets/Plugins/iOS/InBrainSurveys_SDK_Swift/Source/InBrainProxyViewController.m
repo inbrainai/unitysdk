@@ -28,12 +28,12 @@ bool isOpened = false;
     [super viewDidAppear:animated];
     
     if (!isOpened) {
-        [inBrain presentInBrainWebViewWithSecret:self.secret withAppUID:self.appId];
+        [inBrain showSurveys];
         isOpened = true;
     }
 }
 
-- (void)inBrainRewardsReceivedWithRewardsArray:(NSArray<InBrainReward *> * _Nonnull)rewardsArray {
+- (void)didReceiveInBrainRewards:(NSArray<InBrainReward*>* _Nonnull)rewardsArray {
     NSString* rewards = [InBrainJsonUtils serializeRewards:rewardsArray];
     
     if (_onRewardsReceived != nil) {
@@ -41,7 +41,7 @@ bool isOpened = false;
     }
 }
 
-- (void)inBrainWebViewDismissed {
+- (void)surveysClosed {
     [self dismissViewControllerAnimated:NO completion:nil];
     isOpened = false;
     

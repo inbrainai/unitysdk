@@ -11,9 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InBrainProxyViewController : UIViewController<InBrainDelegate>
 
-@property(nonatomic, copy) NSString* secret;
-@property(nonatomic, copy) NSString* appId;
-
 @property(nonatomic, copy) void (^onRewardsReceived)(NSString* rewards);
 @property(nonatomic, copy) void (^onRewardsViewDismissed)();
 

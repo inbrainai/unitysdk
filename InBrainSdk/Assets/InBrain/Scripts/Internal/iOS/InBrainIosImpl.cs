@@ -10,12 +10,12 @@ namespace InBrain
 	{
 		public void Init(string clientId, string clientSecret)
 		{
-			_ib_Init(clientSecret);
+			_ib_SetInBrain(clientId, clientSecret);
 		}
 
 		public void SetAppUserId(string appUserId)
 		{
-			_ib_SetAppUserId(appUserId);
+			_ib_SetUserId(appUserId);
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
@@ -76,10 +76,10 @@ namespace InBrain
 		}
 
 		[DllImport("__Internal")]
-		static extern void _ib_Init(string secret);
+		static extern void _ib_SetInBrain(string clientId, string secret);
 
 		[DllImport("__Internal")]
-		static extern void _ib_SetAppUserId(string appId);
+		static extern void _ib_SetUserId(string userId);
 
 		[DllImport("__Internal")]
 		static extern void _ib_ShowSurveys();

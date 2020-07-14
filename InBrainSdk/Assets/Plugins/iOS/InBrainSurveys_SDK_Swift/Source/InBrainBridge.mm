@@ -18,26 +18,32 @@ extern "C" {
 
     InBrainProxyViewController *inBrainView;
     
-    void _ib_Init(char* secret) {
+    void _ib_SetInBrain(char* clientId, char* secret) {
+        NSString* secretString = [InBrainUtils createNSStringFrom:secret];
+        NSString* clientIdString = [InBrainUtils createNSStringFrom:clientId];
+        
         inBrainView = [[InBrainProxyViewController alloc] init];
-        
-        inBrainView.secret = [InBrainUtils createNSStringFrom:secret];
-        [[InBrain shared] setAppSecretWithSecret:[InBrainUtils createNSStringFrom:secret]];
-        
         inBrainView.modalPresentationStyle = UIModalPresentationFullScreen;
+        
+        [[InBrain shared] setInBrainWithApiClientID:clientIdString
+                                          apiSecret:secretString
+                                              isS2S:false
+                                             userID:@""];
     }
 
-    void _ib_SetAppUserId(char* appId) {
-        inBrainView.appId = [InBrainUtils createNSStringFrom:appId];
-        [[InBrain shared] setAppUserIdWithAppUID:[InBrainUtils createNSStringFrom:appId]];
+    void _ib_SetUserId(char* userId) {
+        NSString* userIdString = [InBrainUtils createNSStringFrom:userId];
+        [[InBrain shared] setUserIDWithValue:userIdString];
     }
 
     void _ib_ShowSurveys() {
         [UnityGetGLViewController() presentViewController:inBrainView animated:NO completion:nil];
     }
 
-    void _ib_SetCallback(ActionStringCallbackDelegate rewardReceivedCallback, void *rewardReceivedActionPtr,
-        ActionVoidCallbackDelegate rewardViewDismissedCallback, void *rewardViewDismissedActionPtr) {
+    void _ib_SetCallback(ActionStringCallbackDelegate rewardReceivedCallback,
+                         void *rewardReceivedActionPtr,
+                         ActionVoidCallbackDelegate rewardViewDismissedCallback,
+                         void *rewardViewDismissedActionPtr) {
         
         inBrainView.onRewardsReceived = ^(NSString* rewards) {
             rewardReceivedCallback(rewardReceivedActionPtr, [InBrainUtils createCStringFrom:rewards]);
