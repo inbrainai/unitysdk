@@ -33,7 +33,8 @@ namespace InBrain
 
 		public void Init(string clientId, string clientSecret)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetInBrainJavaMethod, JniUtils.Activity, clientId, clientSecret, ""); });
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetInBrainJavaMethod, 
+				JniUtils.Activity, clientId, clientSecret, false); });
 		}
 
 		public void SetAppUserId(string appUserId)
