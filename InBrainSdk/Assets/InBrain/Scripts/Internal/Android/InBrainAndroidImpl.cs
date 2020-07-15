@@ -33,15 +33,18 @@ namespace InBrain
 
 		public void Init(string clientId, string clientSecret, bool isS2S, string userId)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetInBrainJavaMethod, 
-				JniUtils.Activity, clientId, clientSecret, isS2S, userId); });
+			JniUtils.RunOnUiThread(() =>
+			{
+				InBrainInst?.Call(Constants.SetInBrainJavaMethod,
+					JniUtils.Activity, clientId, clientSecret, isS2S, userId);
+			});
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
 		{
 			_callback = new InBrainCallbackProxy(onRewardsViewDismissed, onRewardsReceived, confirmRewardsAutomatically);
 
-			InBrainInst?.Call(Constants.AddCallbackJavaMethod, _callback);
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.AddCallbackJavaMethod, _callback); });
 		}
 
 		public void RemoveCallback()
@@ -59,23 +62,26 @@ namespace InBrain
 
 		public void ShowSurveys()
 		{
-			InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy());
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy()); });
 		}
 
 		public void GetRewards()
 		{
-			InBrainInst?.Call(Constants.GetRewardsJavaMethod);
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetRewardsJavaMethod); });
 		}
 
 		public void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
 		{
-			InBrainInst?.Call(Constants.GetRewardsJavaMethod,
-				new InBrainGetRewardsCallbackProxy(onRewardsReceived, onFailedToReceiveRewards, confirmRewardsAutomatically));
+			JniUtils.RunOnUiThread(() =>
+			{
+				InBrainInst?.Call(Constants.GetRewardsJavaMethod,
+					new InBrainGetRewardsCallbackProxy(onRewardsReceived, onFailedToReceiveRewards, confirmRewardsAutomatically));
+			});
 		}
 
 		public void ConfirmRewards(List<InBrainReward> rewards)
 		{
-			InBrainInst?.Call(Constants.ConfirmRewardsJavaMethod, rewards.ToJavaList(reward => reward.ToAJO()));
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ConfirmRewardsJavaMethod, rewards.ToJavaList(reward => reward.ToAJO())); });
 		}
 	}
 }
