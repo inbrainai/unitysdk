@@ -18,9 +18,10 @@ extern "C" {
 
     InBrainProxyViewController *inBrainView;
     
-    void _ib_SetInBrain(char* clientId, char* secret, bool isS2S) {
+    void _ib_SetInBrain(char* clientId, char* secret, bool isS2S, char* userId) {
         NSString* secretString = [InBrainUtils createNSStringFrom:secret];
         NSString* clientIdString = [InBrainUtils createNSStringFrom:clientId];
+        NSString* userIdString = [InBrainUtils createNSStringFrom:userId];
         
         inBrainView = [[InBrainProxyViewController alloc] init];
         inBrainView.modalPresentationStyle = UIModalPresentationFullScreen;
@@ -28,12 +29,7 @@ extern "C" {
         [[InBrain shared] setInBrainWithApiClientID:clientIdString
                                           apiSecret:secretString
                                               isS2S:isS2S
-                                             userID:@""];
-    }
-
-    void _ib_SetUserId(char* userId) {
-        NSString* userIdString = [InBrainUtils createNSStringFrom:userId];
-        [[InBrain shared] setUserIDWithValue:userIdString];
+                                             userID:userIdString];
     }
 
     void _ib_ShowSurveys() {

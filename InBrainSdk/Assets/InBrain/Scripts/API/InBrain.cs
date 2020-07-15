@@ -35,8 +35,6 @@ namespace InBrain
 #if UNITY_IOS && !UNITY_EDITOR
 			_inBrainImpl = new InBrainIosImpl();
 #endif
-
-			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey, InBrainSettings.IsS2S);
 		}
 
 		/// <summary>
@@ -45,7 +43,7 @@ namespace InBrain
 		/// <param name="appUserId">Uniques user ID</param>
 		public void SetAppUserId([NotNull] string appUserId)
 		{
-			InBrainImpl?.SetAppUserId(appUserId);
+			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey, InBrainSettings.IsS2S, appUserId);
 		}
 
 		/// <summary>

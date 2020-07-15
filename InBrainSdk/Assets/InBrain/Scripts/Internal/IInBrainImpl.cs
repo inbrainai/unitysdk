@@ -5,8 +5,7 @@ namespace InBrain
 {
 	public interface IInBrainImpl
 	{
-		void Init(string clientId, string clientSecret, bool isS2S);
-		void SetAppUserId(string appUserId);
+		void Init(string clientId, string clientSecret, bool isS2S, string userId);
 		void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false);
 		void RemoveCallback();
 		void ShowSurveys();
