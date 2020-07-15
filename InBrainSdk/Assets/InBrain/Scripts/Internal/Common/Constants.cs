@@ -9,7 +9,6 @@
 
 		public const string GetInstanceJavaMethod = "getInstance";
 		public const string SetInBrainJavaMethod = "setInBrain";
-		public const string SetAppUserIdJavaMethod = "setUserID";
 		public const string AddCallbackJavaMethod = "addCallback";
 		public const string RemoveCallbackJavaMethod = "removeCallback";
 		public const string ShowSurveysJavaMethod = "showSurveys";

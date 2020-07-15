@@ -4,7 +4,7 @@ using UnityEngine;
 namespace InBrain
 {
 	[CustomEditor(typeof(InBrainSettings))]
-	public class InBrainSettingsEditor : UnityEditor.Editor
+	public class InBrainSettingsEditor : Editor
 	{
 		const string ClientIdTooltip = "Client id obtained by your account manager.";
 		const string ClientSecretKeyTooltip = "Client secret obtained by your account manager.";
@@ -25,13 +25,6 @@ namespace InBrain
 				InBrainSettings.ClientId = EditorGUILayout.TextField(new GUIContent("Client ID", ClientIdTooltip), InBrainSettings.ClientId);
 				InBrainSettings.ClientSecretKey = EditorGUILayout.TextField(new GUIContent("Secret key", ClientSecretKeyTooltip), InBrainSettings.ClientSecretKey);
 				InBrainSettings.IsS2S = EditorGUILayout.Toggle(new GUIContent("Server To Server", S2SKeyTooltip), InBrainSettings.IsS2S);
-			}
-
-			using (new EditorGUILayout.VerticalScope("box"))
-			{
-				GUILayout.Label("InBrain SDK Settings (iOS only)", EditorStyles.boldLabel);
-
-				InBrainSettings.IsServer = EditorGUILayout.Toggle("Server", InBrainSettings.IsServer);
 			}
 		}
 	}
