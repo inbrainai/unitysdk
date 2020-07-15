@@ -20,6 +20,7 @@ namespace InBrain
 			InBrain.Instance.SetAppUserId(appUserId);
 
 			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
+			InBrain.Instance.GetRewards();
 		}
 
 		public void OnShowSurveysClicked()
@@ -42,7 +43,6 @@ namespace InBrain
 			{
 				InBrain.Instance.ConfirmRewards(_receivedRewards);
 				_receivedRewards.Clear();
-				balanceText.text = "0";
 			}
 			else
 			{
@@ -56,15 +56,10 @@ namespace InBrain
 
 			_receivedRewards = rewards;
 
-			if (rewards.Any())
-			{
-				var balance = rewards.Sum(reward => reward.amount);
-				balanceText.text = ((int) balance).ToString();
-			}
-			else
-			{
-				Debug.Log("InBrain: There are no pending rewards");
-			}
+			var balance = rewards.Any() ? (int) rewards.Sum(reward => reward.amount) : 0;
+			balanceText.text = $"Total Points: {balance}";
+
+			Debug.Log($"InBrain: Pending rewards amount: {balance}");
 		}
 	}
 }
