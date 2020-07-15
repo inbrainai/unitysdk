@@ -3,7 +3,7 @@
     <package>com.github.inbrainai:sdk-android:1.1.0</package>
   </packages>
   <files>
-    <file>Assets/Plugins/Android/com.github.inbrainai.sdk-android-1.0.2.aar</file>
+    <file>Assets/Plugins/Android/com.github.inbrainai.sdk-android-1.0.3.aar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a,x86" />
