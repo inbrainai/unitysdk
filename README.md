@@ -18,15 +18,11 @@ Download latest version of InBrain Surveys Unity SDK (.unitypackage). In Unity e
 ## Configuration
 
 There are some prerequisites for InBrain Surveys Unity SDK:
-- Client identifier
-- Client secret
+- API ClientID (Provided in inBrain.ai dashboard)
+- API Secret (Provided in inBrain.ai dashboard)
+- Server to Server (flag indicating whether your app using S2S callbacks for inBrain rewards)
 
 In Unity editor go to Window -> InBrain -> Edit Settings and enter those values in corresponding input fields.
-
-Also, there are settings specific for iOS platform:
-- Production environment (flag indicating whether your app is launching in the inBrain production environment)
-- Use legacy framework (flag indicating whether legacy iOS framework with bitcode enabled should be used)
-- Server to Server (flag indicating whether your app using S2S callbacks for inBrain rewards)
 
 ## Usage
 
