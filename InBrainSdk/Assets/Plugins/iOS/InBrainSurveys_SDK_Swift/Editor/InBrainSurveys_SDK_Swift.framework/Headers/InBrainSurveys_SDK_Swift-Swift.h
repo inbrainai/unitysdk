@@ -227,19 +227,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull sha
 - (void)setInBrainWebViewTitleToString:(NSString * _Nonnull)toString;
 - (void)setInBrainWebViewNavBarColorToColor:(UIColor * _Nonnull)toColor;
 - (void)setInBrainWebViewNavButtonColorToColor:(UIColor * _Nonnull)toColor;
+/// <ul>
+///   <li>
+///     @method setLanguage
+///     @abstract MUST CALL setLanguage before and with 4 parameter setInBrain() function :
+///     Available Language values: “en-us”, “fr-fr”, “en-gb”, “en-ca”, “en-au”, “en-in
+///     **
+///   </li>
+/// </ul>
+- (void)setLanguageWithValue:(NSString * _Nonnull)value;
 - (void)setInBrainWithApiClientID:(NSString * _Nonnull)apiClientID apiSecret:(NSString * _Nonnull)apiSecret isS2S:(BOOL)isS2S userID:(NSString * _Nonnull)userID;
+- (void)setInBrainWithApiClientID:(NSString * _Nonnull)apiClientID apiSecret:(NSString * _Nonnull)apiSecret isS2S:(BOOL)isS2S userID:(NSString * _Nonnull)userID language:(NSString * _Nonnull)language;
 - (void)setInBrainValuesForSessionID:(NSString * _Nullable)sessionID dataOptions:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)dataOptions;
-- (NSString * _Nullable)getClientID SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nullable)getUserID SWIFT_WARN_UNUSED_RESULT;
-- (BOOL)getIsS2S SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nullable)getSessionID SWIFT_WARN_UNUSED_RESULT;
-- (NSArray<NSDictionary<NSString *, id> *> * _Nullable)getDataOptions SWIFT_WARN_UNUSED_RESULT;
-- (void)setAPIClientIDWithValue:(NSString * _Nonnull)value;
-- (void)setAPISecretWithValue:(NSString * _Nonnull)value;
-- (void)setServerSettingWithIsS2S:(BOOL)isS2S;
-- (void)setUserIDWithValue:(NSString * _Nonnull)value;
-- (void)setSessionIDWithValue:(NSString * _Nonnull)value;
-- (void)setDataOptionsWithValue:(NSArray<NSDictionary<NSString *, id> *> * _Nonnull)value;
 - (void)showSurveys;
 - (void)getRewardsWithRewardsReceived:(void (^ _Nonnull)(NSArray<InBrainReward *> * _Nonnull))rewardsReceived failedToGetRewards:(void (^ _Nonnull)(void))failedToGetRewards;
 - (void)getRewards;
@@ -266,6 +265,23 @@ SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 ///   </li>
 /// </ul>
 - (void)surveysClosed;
+/// <ul>
+///   <li>
+///     @method surveysClosedFromPage
+///     @abstract Delegate function is called upon dismissal of inBrainWebView from within the webview
+///     **
+///   </li>
+/// </ul>
+- (void)surveysClosedFromPage;
+@end
+
+
+SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift19InBrainNativeSurvey")
+@interface InBrainNativeSurvey : NSObject
+@property (nonatomic, readonly) NSInteger rank;
+@property (nonatomic, readonly) NSInteger time;
+@property (nonatomic, readonly) NSInteger value;
+@property (nonatomic, readonly) NSInteger buttonID;
 @end
 
 
@@ -512,19 +528,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) InBrain * _Nonnull sha
 - (void)setInBrainWebViewTitleToString:(NSString * _Nonnull)toString;
 - (void)setInBrainWebViewNavBarColorToColor:(UIColor * _Nonnull)toColor;
 - (void)setInBrainWebViewNavButtonColorToColor:(UIColor * _Nonnull)toColor;
+/// <ul>
+///   <li>
+///     @method setLanguage
+///     @abstract MUST CALL setLanguage before and with 4 parameter setInBrain() function :
+///     Available Language values: “en-us”, “fr-fr”, “en-gb”, “en-ca”, “en-au”, “en-in
+///     **
+///   </li>
+/// </ul>
+- (void)setLanguageWithValue:(NSString * _Nonnull)value;
 - (void)setInBrainWithApiClientID:(NSString * _Nonnull)apiClientID apiSecret:(NSString * _Nonnull)apiSecret isS2S:(BOOL)isS2S userID:(NSString * _Nonnull)userID;
+- (void)setInBrainWithApiClientID:(NSString * _Nonnull)apiClientID apiSecret:(NSString * _Nonnull)apiSecret isS2S:(BOOL)isS2S userID:(NSString * _Nonnull)userID language:(NSString * _Nonnull)language;
 - (void)setInBrainValuesForSessionID:(NSString * _Nullable)sessionID dataOptions:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)dataOptions;
-- (NSString * _Nullable)getClientID SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nullable)getUserID SWIFT_WARN_UNUSED_RESULT;
-- (BOOL)getIsS2S SWIFT_WARN_UNUSED_RESULT;
-- (NSString * _Nullable)getSessionID SWIFT_WARN_UNUSED_RESULT;
-- (NSArray<NSDictionary<NSString *, id> *> * _Nullable)getDataOptions SWIFT_WARN_UNUSED_RESULT;
-- (void)setAPIClientIDWithValue:(NSString * _Nonnull)value;
-- (void)setAPISecretWithValue:(NSString * _Nonnull)value;
-- (void)setServerSettingWithIsS2S:(BOOL)isS2S;
-- (void)setUserIDWithValue:(NSString * _Nonnull)value;
-- (void)setSessionIDWithValue:(NSString * _Nonnull)value;
-- (void)setDataOptionsWithValue:(NSArray<NSDictionary<NSString *, id> *> * _Nonnull)value;
 - (void)showSurveys;
 - (void)getRewardsWithRewardsReceived:(void (^ _Nonnull)(NSArray<InBrainReward *> * _Nonnull))rewardsReceived failedToGetRewards:(void (^ _Nonnull)(void))failedToGetRewards;
 - (void)getRewards;
@@ -551,6 +566,23 @@ SWIFT_PROTOCOL("_TtP24InBrainSurveys_SDK_Swift15InBrainDelegate_")
 ///   </li>
 /// </ul>
 - (void)surveysClosed;
+/// <ul>
+///   <li>
+///     @method surveysClosedFromPage
+///     @abstract Delegate function is called upon dismissal of inBrainWebView from within the webview
+///     **
+///   </li>
+/// </ul>
+- (void)surveysClosedFromPage;
+@end
+
+
+SWIFT_CLASS("_TtC24InBrainSurveys_SDK_Swift19InBrainNativeSurvey")
+@interface InBrainNativeSurvey : NSObject
+@property (nonatomic, readonly) NSInteger rank;
+@property (nonatomic, readonly) NSInteger time;
+@property (nonatomic, readonly) NSInteger value;
+@property (nonatomic, readonly) NSInteger buttonID;
 @end
 
 

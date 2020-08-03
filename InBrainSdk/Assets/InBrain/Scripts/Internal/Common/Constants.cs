@@ -14,5 +14,6 @@
 		public const string ShowSurveysJavaMethod = "showSurveys";
 		public const string GetRewardsJavaMethod = "getRewards";
 		public const string ConfirmRewardsJavaMethod = "confirmRewards";
+		public const string SetLanguageJavaMethod = "setLanguage";
 	}
 }

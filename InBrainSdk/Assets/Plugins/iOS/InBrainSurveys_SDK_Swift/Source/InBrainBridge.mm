@@ -74,4 +74,10 @@ extern "C" {
         NSArray<NSNumber *> *rewardsToConfirm = [InBrainJsonUtils deserializeNumbersArray:rewardsDictionary[@"ids"]];
         [[InBrain shared] confirmRewardsWithTxIdArray:rewardsToConfirm];
     }
+    
+    void _ib_SetLanguage(char* language) {
+            NSString* languageString = [InBrainUtils createNSStringFrom:language];
+            
+            [[InBrain shared] setLanguageWithValue:languageString];
+    }
 }

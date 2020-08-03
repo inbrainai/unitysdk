@@ -38,6 +38,7 @@ public enum HTTPMethod : Swift.String {
 @objc public protocol InBrainDelegate : AnyObject {
   @objc func didReceiveInBrainRewards(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
   @objc func surveysClosed()
+  @objc func surveysClosedFromPage()
 }
 @_inheritsConvenienceInitializers @objc public class InBrain : ObjectiveC.NSObject {
   @objc public static var shared: InBrainSurveys_SDK_Swift.InBrain
@@ -46,24 +47,24 @@ public enum HTTPMethod : Swift.String {
   @objc public func setInBrainWebViewTitle(toString: Swift.String)
   @objc public func setInBrainWebViewNavBarColor(toColor: UIKit.UIColor)
   @objc public func setInBrainWebViewNavButtonColor(toColor: UIKit.UIColor)
+  @objc public func setLanguage(value: Swift.String)
   @objc public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool, userID: Swift.String)
+  @objc public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool, userID: Swift.String, language: Swift.String)
   @objc public func setInBrainValuesFor(sessionID: Swift.String?, dataOptions: [[Swift.String : Any]]?)
-  @objc public func getClientID() -> Swift.String?
-  @objc public func getUserID() -> Swift.String?
-  @objc public func getIsS2S() -> Swift.Bool
-  @objc public func getSessionID() -> Swift.String?
-  @objc public func getDataOptions() -> [[Swift.String : Any]]?
-  @objc public func setAPIClientID(value: Swift.String)
-  @objc public func setAPISecret(value: Swift.String)
-  @objc public func setServerSetting(isS2S: Swift.Bool)
-  @objc public func setUserID(value: Swift.String)
-  @objc public func setSessionID(value: Swift.String)
-  @objc public func setDataOptions(value: [[Swift.String : Any]])
   @objc public func showSurveys()
   @objc public func getRewards(rewardsReceived: @escaping ([InBrainSurveys_SDK_Swift.InBrainReward]) -> (), failedToGetRewards: @escaping () -> ())
   @objc public func getRewards()
   @objc public func confirmRewards(txIdArray: [Swift.Int])
   @objc deinit
+}
+@objc public class InBrainNativeSurvey : ObjectiveC.NSObject, Swift.Codable {
+  @objc final public let rank: Swift.Int
+  @objc final public let time: Swift.Int
+  @objc final public let value: Swift.Int
+  @objc final public let buttonID: Swift.Int
+  @objc deinit
+  required public init(from decoder: Swift.Decoder) throws
+  public func encode(to encoder: Swift.Encoder) throws
 }
 public struct InBrainToken : Swift.Codable {
   public let access_token: Swift.String

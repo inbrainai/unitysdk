@@ -83,5 +83,10 @@ namespace InBrain
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ConfirmRewardsJavaMethod, rewards.ToJavaList(reward => reward.ToAJO())); });
 		}
+
+		public void SetLanguage(string language)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetLanguageJavaMethod, language); });
+		}
 	}
 }

@@ -102,5 +102,17 @@ namespace InBrain
 		{
 			InBrainImpl?.ConfirmRewards(rewards);
 		}
+
+		/// <summary>
+		/// Set the language for the browser view with the surveys.
+		/// </summary>
+		/// <param name="language">
+		/// Language to use.
+		/// Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in"
+		/// </param>
+		public void SetLanguage(string language)
+		{
+			InBrainImpl?.SetLanguage(language);
+		}
 	}
 }

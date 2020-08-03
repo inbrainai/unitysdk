@@ -69,6 +69,11 @@ namespace InBrain
 
 			_ib_ConfirmRewards(rewardsJson);
 		}
+		
+		public void SetLanguage(string language)
+		{
+			_ib_SetLanguage(language);
+		}
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);
@@ -92,5 +97,8 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_ConfirmRewards(string rewardsJson);
+
+		[DllImport("__Internal")]
+		static extern void _ib_SetLanguage(string language);
 	}
 }

@@ -16,6 +16,8 @@ namespace InBrain
 		void Start()
 		{
 			_receivedRewards = new List<InBrainReward>();
+			
+			InBrain.Instance.SetLanguage("fr-fr");
 
 			InBrain.Instance.SetAppUserId(appUserId);
 

@@ -1,6 +1,6 @@
 <dependencies>
   <packages>
-    <package>com.github.inbrainai:sdk-android:1.1.0</package>
+    <package>com.github.inbrainai:sdk-android:1.0.3</package>
   </packages>
   <files>
     <file>Assets/Plugins/Android/com.github.inbrainai.sdk-android-1.0.3.aar</file>
