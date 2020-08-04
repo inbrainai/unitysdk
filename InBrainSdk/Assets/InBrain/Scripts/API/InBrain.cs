@@ -104,10 +104,10 @@ namespace InBrain
 		}
 
 		/// <summary>
-		/// Set the language for the browser view with the surveys.
+		/// Set surveys web view language
 		/// </summary>
 		/// <param name="language">
-		/// Language to use.
+		/// Language to use in surveys web view.
 		/// Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in"
 		/// </param>
 		public void SetLanguage(string language)
