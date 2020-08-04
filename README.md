@@ -26,16 +26,6 @@ In Unity editor go to Window -> InBrain -> Edit Settings and enter those values 
 
 ## Usage
 
-### Language
-
-By default, device's locale's language will be used. If you want to change it, you need to the `SetLanguage` method before showing surveys.
-
-```
-InBrain.Instance.SetLanguage(language);
-```
-
-Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in".
-
 ### Setup
 
 In order to access SDK functionality InBrain singleton object required. One will be instantiated automatically after referencing its 'Instance' method for the first time.
@@ -96,3 +86,13 @@ InBrain.Instance.ConfirmRewards(rewardsList);
 ```
 
 This call should always be made following rewards data processing.
+
+### Language
+
+In order to change surveys web view language `SetLanguage` method should be called before it is opened.
+
+```
+InBrain.Instance.SetLanguage(language);
+```
+
+Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in". System language is used by default.
