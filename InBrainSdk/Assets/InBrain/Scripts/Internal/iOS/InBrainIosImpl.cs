@@ -10,7 +10,9 @@ namespace InBrain
 	{
 		public void Init(string clientId, string clientSecret, bool isS2S, string userId)
 		{
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_SetInBrain(clientId, clientSecret, isS2S, userId);
+#endif
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
@@ -26,23 +28,31 @@ namespace InBrain
 				}
 			};
 
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_SetCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(),
 				Callbacks.ActionVoidCallback, onRewardsViewDismissed.GetPointer());
+#endif
 		}
 
 		public void RemoveCallback()
 		{
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_RemoveCallback();
+#endif
 		}
 
 		public void ShowSurveys()
 		{
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_ShowSurveys();
+#endif
 		}
 
 		public void GetRewards()
 		{
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_GetRewards();
+#endif
 		}
 
 		public void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
@@ -58,8 +68,10 @@ namespace InBrain
 				}
 			};
 
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_GetRewardsWithCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(),
 				Callbacks.ActionVoidCallback, onFailedToReceiveRewards.GetPointer());
+#endif
 		}
 
 		public void ConfirmRewards(List<InBrainReward> rewards)
@@ -67,14 +79,19 @@ namespace InBrain
 			var rewardsIds = rewards.Select(reward => reward.transactionId).ToList();
 			var rewardsJson = JsonUtility.ToJson(new InBrainRewardIds(rewardsIds));
 
+#if UNITY_IOS && !UNITY_EDITOR
 			_ib_ConfirmRewards(rewardsJson);
-		}
-		
-		public void SetLanguage(string language)
-		{
-			_ib_SetLanguage(language);
+#endif
 		}
 
+		public void SetLanguage(string language)
+		{
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_SetLanguage(language);
+#endif
+		}
+
+#if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);
 
@@ -100,5 +117,6 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetLanguage(string language);
+#endif
 	}
 }
