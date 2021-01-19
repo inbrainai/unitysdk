@@ -88,5 +88,26 @@ namespace InBrain
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetLanguageJavaMethod, language); });
 		}
+
+		public void SetToolbarConfig(InBrainToolbarConfig config)
+		{
+			var javaConfig = new AndroidJavaObject(Constants.ToolbarConfigJavaClass)
+				.CallAJO("setElevationEnabled", config.ElevationEnabled)
+				.CallAJO("setToolbarColor", config.ToolbarColor.ToJavaColor())
+				.CallAJO("setBackButtonColor", config.BackButtonColor.ToJavaColor())
+				.CallAJO("setTitleColor", config.TitleColor.ToJavaColor())
+				.CallAJO("setTitle", config.Title);
+			
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetToolbarConfigJavaMethod, javaConfig); });
+		}
+
+		public void SetStatusBarConfig(InBrainStatusBarConfig config)
+		{
+			var javaConfig = new AndroidJavaObject(Constants.StatusBarConfigJavaClass)
+				.CallAJO("setStatusBarIconsLight", config.LightStatusBarIcons)
+				.CallAJO("setStatusBarColor", config.StatusBarColor.ToJavaColor());
+			
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetStatusBarConfigJavaMethod, javaConfig); });
+		}
 	}
 }

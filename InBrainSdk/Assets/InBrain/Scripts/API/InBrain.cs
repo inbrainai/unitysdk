@@ -114,5 +114,23 @@ namespace InBrain
 		{
 			InBrainImpl?.SetLanguage(language);
 		}
+
+		/// <summary>
+		/// Set custom style for the surveys web view toolbar
+		/// </summary>
+		/// <param name="config">Toolbar configuration parameters</param>
+		public void SetToolbarConfig(InBrainToolbarConfig config)
+		{
+			InBrainImpl?.SetToolbarConfig(config);
+		}
+
+		/// <summary>
+		/// Set custom style for the surveys web view status bar
+		/// </summary>
+		/// <param name="config">Status bar configuration parameters</param>
+		public void SetStatusBarConfig(InBrainStatusBarConfig config)
+		{
+			InBrainImpl?.SetStatusBarConfig(config);
+		}
 	}
 }

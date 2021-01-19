@@ -91,6 +91,16 @@ namespace InBrain
 #endif
 		}
 
+		public void SetToolbarConfig(InBrainToolbarConfig config)
+		{
+			//TODO
+		}
+
+		public void SetStatusBarConfig(InBrainStatusBarConfig config)
+		{
+			//TODO
+		}
+
 #if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);

@@ -32,5 +32,13 @@ namespace InBrain
 		{
 			return ajo == null || ajo.GetRawObject().ToInt32() == 0;
 		}
+
+		public static int ToJavaColor(this Color color)
+		{
+			using (var c = new AndroidJavaClass("android.graphics.Color"))
+			{
+				return c.CallStaticInt("argb", color.a, color.r, color.g, color.b);
+			}
+		}
 	}
 }

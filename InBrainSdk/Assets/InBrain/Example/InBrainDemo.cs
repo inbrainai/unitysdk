@@ -21,6 +21,11 @@ namespace InBrain
 
 			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
 			InBrain.Instance.GetRewards();
+
+			InBrain.Instance.SetLanguage("en-us");
+
+			SetStatusBarConfiguration();
+			SetToolbarConfiguration();
 		}
 
 		public void OnShowSurveysClicked()
@@ -60,6 +65,29 @@ namespace InBrain
 			balanceText.text = $"Total Points: {balance}";
 
 			Debug.Log($"InBrain: Pending rewards amount: {balance}");
+		}
+		
+		void SetStatusBarConfiguration()
+		{
+			var statusBarConfig = new InBrainStatusBarConfig
+			{
+				StatusBarColor = Color.green,
+				LightStatusBarIcons = true
+			};
+			InBrain.Instance.SetStatusBarConfig(statusBarConfig);
+		}
+
+		void SetToolbarConfiguration()
+		{
+			var toolbarConfig = new InBrainToolbarConfig
+			{
+				Title = "InBrain Demo (Unity)",
+				ElevationEnabled = false,
+				TitleColor = Color.red,
+				ToolbarColor = Color.gray,
+				BackButtonColor = Color.magenta
+			};
+			InBrain.Instance.SetToolbarConfig(toolbarConfig);
 		}
 	}
 }

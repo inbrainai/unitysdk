@@ -6,6 +6,8 @@
 		public const string InBrainCallbackJavaCLass = "com.inbrain.sdk.callback.InBrainCallback";
 		public const string StartSurveysCallbackJavaClass = "com.inbrain.sdk.callback.StartSurveysCallback";
 		public const string GetRewardsCallbackJavaClass = "com.inbrain.sdk.callback.GetRewardsCallback";
+		public const string ToolbarConfigJavaClass = "com.inbrain.sdk.config.ToolBarConfig";
+		public const string StatusBarConfigJavaClass = "com.inbrain.sdk.config.StatusBarConfig";
 
 		public const string GetInstanceJavaMethod = "getInstance";
 		public const string SetInBrainJavaMethod = "setInBrain";
@@ -15,5 +17,7 @@
 		public const string GetRewardsJavaMethod = "getRewards";
 		public const string ConfirmRewardsJavaMethod = "confirmRewards";
 		public const string SetLanguageJavaMethod = "setLanguage";
+		public const string SetToolbarConfigJavaMethod = "setToolbarConfig";
+		public const string SetStatusBarConfigJavaMethod = "setStatusBarConfig";
 	}
 }
