@@ -1,90 +1,89 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.2.2 (swiftlang-1103.0.32.6 clang-1103.0.32.51)
+// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
 // swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name InBrainSurveys_SDK_Swift
 import Foundation
 @_exported import InBrainSurveys_SDK_Swift
 import Swift
+import SystemConfiguration
 import UIKit
 import WebKit
-public enum Model : Swift.String {
-  case simulator, iPod1, iPod2, iPod3, iPod4, iPod5, iPad2, iPad3, iPad4, iPadAir, iPadAir2, iPad5, iPad6, iPadMini, iPadMini2, iPadMini3, iPadMini4, iPadPro9_7, iPadPro10_5, iPadPro12_9, iPadPro2_12_9, iPhone4, iPhone4S, iPhone5, iPhone5S, iPhone5C, iPhone6, iPhone6plus, iPhone6S, iPhone6Splus, iPhoneSE, iPhone7, iPhone7plus, iPhone8, iPhone8plus, iPhoneX, iPhoneXS, iPhoneXSMax, iPhoneXR, iPhone11, iPhone11Pro, iPhone11ProMax, AppleTV, AppleTV_4K, unrecognized
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
-}
-extension UIDevice {
-  public var type: InBrainSurveys_SDK_Swift.Model {
-    get
-  }
-}
-public enum HTTPMethod : Swift.String {
-  case options
-  case get
-  case head
-  case post
-  case put
-  case patch
-  case delete
-  case trace
-  case connect
-  public typealias RawValue = Swift.String
-  public init?(rawValue: Swift.String)
-  public var rawValue: Swift.String {
-    get
-  }
-}
 @objc public protocol InBrainDelegate : AnyObject {
-  @objc func didReceiveInBrainRewards(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
-  @objc func surveysClosed()
-  @objc func surveysClosedFromPage()
+  @objc optional func didReceiveInBrainRewards(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
+  @objc optional func didFailToReceiveRewards(error: Swift.Error)
+  @objc optional func surveysClosedFromPage()
+  @objc optional func surveysClosed()
 }
-@_inheritsConvenienceInitializers @objc public class InBrain : ObjectiveC.NSObject {
-  @objc public static var shared: InBrainSurveys_SDK_Swift.InBrain
-  @objc public var inBrainDelegate: InBrainSurveys_SDK_Swift.InBrainDelegate?
-  @objc override dynamic public init()
-  @objc public func setInBrainWebViewTitle(toString: Swift.String)
-  @objc public func setInBrainWebViewNavBarColor(toColor: UIKit.UIColor)
-  @objc public func setInBrainWebViewNavButtonColor(toColor: UIKit.UIColor)
-  @objc public func setLanguage(value: Swift.String)
-  @objc public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool, userID: Swift.String)
-  @objc public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool, userID: Swift.String, language: Swift.String)
-  @objc public func setInBrainValuesFor(sessionID: Swift.String?, dataOptions: [[Swift.String : Any]]?)
-  @objc public func showSurveys()
-  @objc public func getRewards(rewardsReceived: @escaping ([InBrainSurveys_SDK_Swift.InBrainReward]) -> (), failedToGetRewards: @escaping () -> ())
-  @objc public func getRewards()
-  @objc public func confirmRewards(txIdArray: [Swift.Int])
+@objc public protocol NativeSurveyDelegate : AnyObject {
+  @objc func nativeSurveysLoadingStarted()
+  @objc func nativeSurveysReceived(_ surveys: [InBrainSurveys_SDK_Swift.InBrainNativeSurvey])
+  @objc func failedToReceiveNativeSurveys(error: Swift.Error)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc final public class InBrain : ObjectiveC.NSObject {
+  @objc public static let shared: InBrainSurveys_SDK_Swift.InBrain
+  @objc weak final public var inBrainDelegate: InBrainSurveys_SDK_Swift.InBrainDelegate?
+  @objc weak final public var nativeSurveysDelegate: InBrainSurveys_SDK_Swift.NativeSurveyDelegate?
+  @objc final public var isOnScreen: Swift.Bool {
+    @objc get
+  }
+  @objc final public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool)
+  @objc final public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool, userID: Swift.String?)
+  @objc final public func setInBrain(apiClientID: Swift.String, apiSecret: Swift.String, isS2S: Swift.Bool, userID: Swift.String?, language: Swift.String)
+  @objc final public func set(userID: Swift.String?)
+  @available(*, deprecated, message: "Please, use setNavigationBarConfig instead")
+  @objc final public func setInBrainWebViewTitle(toString: Swift.String)
+  @available(*, deprecated, message: "Please, use setNavigationBarConfig instead")
+  @objc final public func setInBrainWebViewNavBarColor(toColor: UIKit.UIColor)
+  @available(*, deprecated, message: "Please, use setNavigationBarConfig instead")
+  @objc final public func setInBrainWebViewNavButtonColor(toColor: UIKit.UIColor)
+  @available(*, deprecated, message: "Please, use setNavigationBarConfig instead")
+  @objc final public func setNavigationBarBackgroundColor(_ color: UIKit.UIColor)
+  @available(*, deprecated, message: "Please, use setNavigationBarConfig instead")
+  @objc final public func setNavigationBarButtonColor(_ color: UIKit.UIColor)
+  @available(*, deprecated, message: "Please, use setNavigationBarConfig instead")
+  @objc final public func setNavigationBarTitleColor(_ color: UIKit.UIColor)
+  @objc final public func setNavigationBarTitle(_ title: Swift.String)
+  @objc final public func setNavigationBarConfig(_ config: InBrainSurveys_SDK_Swift.InBrainNavBarConfig)
+  @objc final public func setStatusBarConfig(_ config: InBrainSurveys_SDK_Swift.InBrainStatusBarConfig)
+  @objc final public func setInBrainValuesFor(sessionID: Swift.String?, dataOptions: [[Swift.String : Any]]?)
+  @objc final public func setLanguage(value: Swift.String)
+  @objc final public func checkForAvailableSurveys(completion: @escaping ((Swift.Bool, Swift.Error?) -> (Swift.Void)))
+  @objc final public func showSurveys()
+  @objc final public func showSurveys(from viewController: UIKit.UIViewController)
+  @objc final public func showNativeSurveyWith(id: Swift.String)
+  @objc final public func showNativeSurveyWith(id: Swift.String, from viewController: UIKit.UIViewController)
+  @available(*, deprecated, renamed: "getRewards(success:failed:)")
+  @objc final public func getRewards(rewardsReceived: @escaping ([InBrainSurveys_SDK_Swift.InBrainReward]) -> (), failedToGetRewards: @escaping () -> ())
+  @objc final public func getRewards(success: @escaping ([InBrainSurveys_SDK_Swift.InBrainReward]) -> (), failed: @escaping (Swift.Error) -> ())
+  @objc final public func getRewards()
+  @objc final public func confirmRewards(txIdArray: [Swift.Int])
+  @objc final public func getNativeSurveys()
+  @objc final public func getNativeSurveys(success: @escaping ([InBrainSurveys_SDK_Swift.InBrainNativeSurvey]) -> (), failed: @escaping (Swift.Error) -> ())
   @objc deinit
 }
-@objc public class InBrainNativeSurvey : ObjectiveC.NSObject, Swift.Codable {
+@objc public class InBrainNavBarConfig : ObjectiveC.NSObject {
+  @objc public init(backgroundColor: UIKit.UIColor? = nil, buttonsColor: UIKit.UIColor? = nil, titleColor: UIKit.UIColor? = nil, isTranslucent: Swift.Bool = false, hasShadow: Swift.Bool = false)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class InBrainNativeSurvey : ObjectiveC.NSObject, Swift.Decodable {
+  @objc final public let id: Swift.String
   @objc final public let rank: Swift.Int
   @objc final public let time: Swift.Int
-  @objc final public let value: Swift.Int
-  @objc final public let buttonID: Swift.Int
+  @objc final public let value: Swift.Double
   @objc deinit
   required public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
 }
-public struct InBrainToken : Swift.Codable {
-  public let access_token: Swift.String
-  public let expires_in: Swift.Int
-  public let token_type: Swift.String
-  public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
+@objc public class InBrainStatusBarConfig : ObjectiveC.NSObject {
+  @objc public init(statusBarStyle: UIKit.UIStatusBarStyle, hideStatusBar: Swift.Bool)
+  @objc deinit
+  @objc override dynamic public init()
 }
-@objc public class InBrainReward : ObjectiveC.NSObject, Swift.Codable {
+@objc final public class InBrainReward : ObjectiveC.NSObject, Swift.Decodable {
   @objc final public let transactionId: Swift.Int
   @objc final public let amount: Swift.Float
   @objc final public let currency: Swift.String
   @objc final public let transactionType: Swift.Int
+  public init(from decoder: Swift.Decoder) throws
   @objc deinit
-  required public init(from decoder: Swift.Decoder) throws
-  public func encode(to encoder: Swift.Encoder) throws
+  @objc override dynamic public init()
 }
-extension InBrainSurveys_SDK_Swift.Model : Swift.Equatable {}
-extension InBrainSurveys_SDK_Swift.Model : Swift.Hashable {}
-extension InBrainSurveys_SDK_Swift.Model : Swift.RawRepresentable {}
-extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.Equatable {}
-extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.Hashable {}
-extension InBrainSurveys_SDK_Swift.HTTPMethod : Swift.RawRepresentable {}

@@ -61,10 +61,10 @@ extern "C" {
 
     void _ib_GetRewardsWithCallback(ActionStringCallbackDelegate rewardReceivedCallback, void *rewardReceivedActionPtr,
         ActionVoidCallbackDelegate failedToReceiveRewardsCallback, void *failedToReceiveRewardsActionPtr) {
-        [[InBrain shared] getRewardsWithRewardsReceived:^(NSArray<InBrainReward *> * _Nonnull rewardsArray) {
+        [[InBrain shared] getRewardsWithSuccess:^(NSArray<InBrainReward *> * _Nonnull rewardsArray) {
             NSString* rewards = [InBrainJsonUtils serializeRewards:rewardsArray];
             rewardReceivedCallback(rewardReceivedActionPtr, [InBrainUtils createCStringFrom:rewards]);
-        } failedToGetRewards:^{
+        } failed:^(NSError* error){
             failedToReceiveRewardsCallback(failedToReceiveRewardsActionPtr);
         }];
     }

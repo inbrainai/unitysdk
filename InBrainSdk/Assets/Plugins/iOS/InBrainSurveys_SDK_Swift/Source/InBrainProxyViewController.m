@@ -41,6 +41,10 @@ bool isOpened = false;
     }
 }
 
+- (void)didFailToReceiveRewardsWithError:(NSError * _Nonnull)error {
+
+}
+
 - (void)surveysClosed {
     [self dismissViewControllerAnimated:NO completion:nil];
     isOpened = false;
