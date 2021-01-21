@@ -24,8 +24,10 @@ namespace InBrain
 
 			InBrain.Instance.SetLanguage("en-us");
 
-			SetStatusBarConfiguration();
-			SetToolbarConfiguration();
+			// Uncomment following two lines of code in order to customize surveys wall UI
+
+			// SetStatusBarConfiguration();
+			// SetToolbarConfiguration();
 		}
 
 		public void OnShowSurveysClicked()
