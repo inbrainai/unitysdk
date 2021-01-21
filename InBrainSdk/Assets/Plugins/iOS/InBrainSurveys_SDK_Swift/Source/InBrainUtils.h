@@ -16,4 +16,6 @@
 // Conver NSString to C style string
 + (char *)createCStringFrom:(NSString *)string;
 
++ (UIColor *)colorFrom:(int)colorInt;
+
 @end

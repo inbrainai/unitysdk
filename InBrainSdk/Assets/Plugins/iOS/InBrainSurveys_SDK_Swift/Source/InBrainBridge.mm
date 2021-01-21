@@ -17,7 +17,7 @@
 extern "C" {
 
     InBrainProxyViewController *inBrainView;
-    
+
     void _ib_SetInBrain(char* clientId, char* secret, bool isS2S, char* userId) {
         NSString* secretString = [InBrainUtils createNSStringFrom:secret];
         NSString* clientIdString = [InBrainUtils createNSStringFrom:clientId];
@@ -49,12 +49,12 @@ extern "C" {
             rewardViewDismissedCallback(rewardViewDismissedActionPtr);
         };
     }
-    
+
     void _ib_RemoveCallback() {
         inBrainView.onRewardsReceived = nil;
         inBrainView.onRewardsViewDismissed = nil;
     }
-    
+
     void _ib_GetRewards() {
         [[InBrain shared] getRewards];
     }
@@ -74,10 +74,28 @@ extern "C" {
         NSArray<NSNumber *> *rewardsToConfirm = [InBrainJsonUtils deserializeNumbersArray:rewardsDictionary[@"ids"]];
         [[InBrain shared] confirmRewardsWithTxIdArray:rewardsToConfirm];
     }
-    
+
     void _ib_SetLanguage(char* language) {
-            NSString* languageString = [InBrainUtils createNSStringFrom:language];
-            
-            [[InBrain shared] setLanguageWithValue:languageString];
+        NSString* languageString = [InBrainUtils createNSStringFrom:language];
+        [[InBrain shared] setLanguageWithValue:languageString];
+    }
+
+    void _ib_SetNavigationBarConfig(char* title, int backgroundColor, int titleColor, int backButtonColor) {
+        [[InBrain shared] setNavigationBarTitle:[InBrainUtils createNSStringFrom:title]];
+
+        InBrainNavBarConfig* config = [[InBrainNavBarConfig alloc] initWithBackgroundColor:[InBrainUtils colorFrom:backgroundColor] buttonsColor:[InBrainUtils colorFrom:backButtonColor] titleColor:[InBrainUtils colorFrom:titleColor] isTranslucent:false hasShadow:false];
+
+        [[InBrain shared] setNavigationBarConfig:config];
+    }
+
+    void _ib_SetStatusBarConfig(bool white, bool hide) {
+        UIStatusBarStyle style;
+        if (@available(iOS 13, *)) {
+            style = white ? UIStatusBarStyleLightContent : UIStatusBarStyleDarkContent;
+        } else {
+            style = UIStatusBarStyleLightContent;
+        }
+        InBrainStatusBarConfig* config = [[InBrainStatusBarConfig alloc] 	initWithStatusBarStyle:style hideStatusBar:hide];
+        [[InBrain shared] setStatusBarConfig:config];
     }
 }

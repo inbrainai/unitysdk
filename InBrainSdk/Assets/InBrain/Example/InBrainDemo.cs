@@ -72,7 +72,8 @@ namespace InBrain
 			var statusBarConfig = new InBrainStatusBarConfig
 			{
 				StatusBarColor = Color.green,
-				LightStatusBarIcons = true
+				LightStatusBarIcons = false,
+				HideStatusBarIos = false
 			};
 			InBrain.Instance.SetStatusBarConfig(statusBarConfig);
 		}
@@ -84,7 +85,7 @@ namespace InBrain
 				Title = "InBrain Demo (Unity)",
 				ElevationEnabled = false,
 				TitleColor = Color.red,
-				ToolbarColor = Color.gray,
+				ToolbarColor = Color.white,
 				BackButtonColor = Color.magenta
 			};
 			InBrain.Instance.SetToolbarConfig(toolbarConfig);

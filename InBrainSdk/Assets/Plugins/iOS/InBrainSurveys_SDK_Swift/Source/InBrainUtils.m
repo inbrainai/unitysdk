@@ -26,4 +26,12 @@
     return [self cStringCopy:[string UTF8String]];
 }
 
++ (UIColor *)colorFrom:(int)colorInt {
+    CGFloat a = ((colorInt & 0xFF000000) >> 24) / 255;
+    CGFloat r = ((colorInt & 0x00FF0000) >> 16) / 255;
+    CGFloat g = ((colorInt & 0x0000FF00) >> 8) / 255;
+    CGFloat b = ((colorInt & 0x000000FF)) / 255;
+    return [UIColor colorWithRed:r green:g blue:b alpha:a];
+}
+
 @end

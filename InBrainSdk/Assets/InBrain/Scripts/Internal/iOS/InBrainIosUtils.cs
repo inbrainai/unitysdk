@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using UnityEngine;
 
 namespace InBrain
 {
@@ -20,6 +21,16 @@ namespace InBrain
 		public static IntPtr GetPointer(this object obj)
 		{
 			return obj == null ? IntPtr.Zero : GCHandle.ToIntPtr(GCHandle.Alloc(obj));
+		}
+
+		public static int ToARGBColor(this Color color)
+		{
+			var a = Mathf.RoundToInt(color.a * 255);
+			var r = Mathf.RoundToInt(color.r * 255);
+			var g = Mathf.RoundToInt(color.g * 255);
+			var b = Mathf.RoundToInt(color.b * 255);
+
+			return System.Drawing.Color.FromArgb(a, r, g, b).ToArgb();
 		}
 	}
 }

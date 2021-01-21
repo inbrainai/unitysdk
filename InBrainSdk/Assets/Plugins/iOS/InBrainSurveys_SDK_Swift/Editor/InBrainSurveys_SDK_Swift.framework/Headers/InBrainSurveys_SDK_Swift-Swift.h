@@ -277,7 +277,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) InBrain * _N
 /// Set values before calling <code>showSurveys()</code>
 - (void)setInBrainValuesForSessionID:(NSString * _Nullable)sessionID dataOptions:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)dataOptions;
 /// Set language to be used. If not set - device language will be used.
-/// \param value Available languages are “de-de”, “en-au”, “en-ca”, “en-gb”, “en-in”, “en-us”, “es-es”, “es-mx”, “es-us”, “fr-ca”, “fr-fr”, “fr-br”
+/// \param value Available languages are “de-de”, “en-au”, “en-ca”, “en-gb”, “en-in”, “en-us”, “es-es”, “es-mx”, “es-us”, “fr-ca”, fr-fr”, “fr-br”
 ///
 - (void)setLanguageWithValue:(NSString * _Nonnull)value;
 /// Check is surveys available.
@@ -742,7 +742,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) InBrain * _N
 /// Set values before calling <code>showSurveys()</code>
 - (void)setInBrainValuesForSessionID:(NSString * _Nullable)sessionID dataOptions:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)dataOptions;
 /// Set language to be used. If not set - device language will be used.
-/// \param value Available languages are “de-de”, “en-au”, “en-ca”, “en-gb”, “en-in”, “en-us”, “es-es”, “es-mx”, “es-us”, “fr-ca”, “fr-fr”, “fr-br”
+/// \param value Available languages are “de-de”, “en-au”, “en-ca”, “en-gb”, “en-in”, “en-us”, “es-es”, “es-mx”, “es-us”, “fr-ca”, fr-fr”, “fr-br”
 ///
 - (void)setLanguageWithValue:(NSString * _Nonnull)value;
 /// Check is surveys available.

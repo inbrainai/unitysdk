@@ -93,12 +93,24 @@ namespace InBrain
 
 		public void SetToolbarConfig(InBrainToolbarConfig config)
 		{
-			//TODO
+#if UNITY_IOS && !UNITY_EDITOR
+			var title = config.Title;
+			var backgroundColor = config.ToolbarColor.ToARGBColor();
+			var titleColor = config.TitleColor.ToARGBColor();
+			var backButtonColor = config.BackButtonColor.ToARGBColor();
+
+			_ib_SetNavigationBarConfig(title, backgroundColor, titleColor, backButtonColor);
+#endif
 		}
 
 		public void SetStatusBarConfig(InBrainStatusBarConfig config)
 		{
-			//TODO
+#if UNITY_IOS && !UNITY_EDITOR
+			var white = config.LightStatusBarIcons;
+			var hide = config.HideStatusBarIos;
+
+			_ib_SetStatusBarConfig(white, hide);
+#endif
 		}
 
 #if UNITY_IOS && !UNITY_EDITOR
@@ -127,6 +139,12 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetLanguage(string language);
+		
+		[DllImport("__Internal")]
+		static extern void _ib_SetNavigationBarConfig(string title, int backgroundColor, int titleColor, int backButtonColor);
+
+		[DllImport("__Internal")]
+		static extern void _ib_SetStatusBarConfig(bool light, bool hide);
 #endif
 	}
 }
