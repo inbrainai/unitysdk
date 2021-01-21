@@ -96,3 +96,31 @@ InBrain.Instance.SetLanguage(language);
 ```
 
 Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in". System language is used by default.
+
+## Customization
+
+SDK provides additional means that allow surveys wall UI customization.
+
+### Status bar
+
+```
+var statusBarConfig = new InBrainStatusBarConfig
+{
+	StatusBarColor = Color.green,
+	LightStatusBarIcons = false,
+	HideStatusBarIos = false
+};
+InBrain.Instance.SetStatusBarConfig(statusBarConfig);
+```
+
+### Toolbar
+
+```
+var statusBarConfig = new InBrainStatusBarConfig
+{
+	StatusBarColor = Color.green,
+	LightStatusBarIcons = false,
+	HideStatusBarIos = false
+};
+InBrain.Instance.SetStatusBarConfig(statusBarConfig);
+```
