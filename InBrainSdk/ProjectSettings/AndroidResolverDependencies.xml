@@ -1,9 +1,9 @@
 <dependencies>
   <packages>
-    <package>com.github.inbrainai:sdk-android:1.0.15</package>
+    <package>com.github.inbrainai:sdk-android:1.0.16</package>
   </packages>
   <files>
-    <file>Assets/Plugins/Android/com.github.inbrainai.sdk-android-1.0.15.aar</file>
+    <file>Assets/Plugins/Android/com.github.inbrainai.sdk-android-1.0.16.aar</file>
   </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a,x86" />
