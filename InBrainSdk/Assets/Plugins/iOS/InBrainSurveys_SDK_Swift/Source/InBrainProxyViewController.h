@@ -14,6 +14,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, copy) void (^onRewardsReceived)(NSString* rewards);
 @property(nonatomic, copy) void (^onRewardsViewDismissed)();
 
+@property(nonatomic, copy) NSString* surveyId;
+
 @end
 
 NS_ASSUME_NONNULL_END

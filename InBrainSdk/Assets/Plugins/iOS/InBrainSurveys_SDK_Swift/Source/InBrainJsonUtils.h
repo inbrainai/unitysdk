@@ -13,6 +13,7 @@
 + (NSString *)serializeArray:(NSMutableArray *)array;
 + (NSString *)serializeDictionary:(NSDictionary *)dictionary;
 + (NSString *)serializeRewards:(NSArray<InBrainReward *> *)rewards;
++ (NSString *)serializeSurveys:(NSArray<InBrainNativeSurvey *> *)surveys;
 
 + (NSArray *)deserializeArray:(NSString *)jsonArray;
 + (NSDictionary *)deserializeDictionary:(NSString *)jsonDic;

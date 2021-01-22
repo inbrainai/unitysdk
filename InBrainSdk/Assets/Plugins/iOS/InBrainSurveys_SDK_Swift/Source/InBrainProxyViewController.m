@@ -28,7 +28,12 @@ bool isOpened = false;
     [super viewDidAppear:animated];
     
     if (!isOpened) {
-        [inBrain showSurveys];
+        if([_surveyId length] == 0) {
+            [inBrain showSurveys];
+        }
+        else {
+            [inBrain showNativeSurveyWithId:_surveyId];
+        }
         isOpened = true;
     }
 }

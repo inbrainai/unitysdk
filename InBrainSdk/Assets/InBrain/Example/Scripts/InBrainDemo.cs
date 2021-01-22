@@ -9,6 +9,8 @@ namespace InBrain
 	{
 		[SerializeField] string appUserId = "testing-unity@inbrain.ai";
 
+		[SerializeField] InBrainSurveysListPanel inBrainSurveysListPanel = null;
+
 		[Space] [SerializeField] Text balanceText;
 
 		List<InBrainReward> _receivedRewards;
@@ -34,6 +36,11 @@ namespace InBrain
 		{
 			Debug.Log("InBrain: ShowSurveys button clicked");
 			InBrain.Instance.ShowSurveys();
+		}
+
+		public void OnShowSurveysListClicked()
+		{
+			inBrainSurveysListPanel?.Show();
 		}
 
 		public void OnGetRewardsClicked()

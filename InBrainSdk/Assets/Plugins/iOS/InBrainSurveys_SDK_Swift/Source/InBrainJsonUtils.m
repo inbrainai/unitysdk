@@ -23,9 +23,9 @@
 
 + (NSString *)serializeRewards:(NSArray<InBrainReward *> *)rewards {
     NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    
+
     NSMutableArray *rewardsArray = [NSMutableArray arrayWithCapacity:rewards.count];
-    
+
     for (NSUInteger i = 0; i < rewards.count; ++i) {
         NSMutableDictionary *reward = [NSMutableDictionary dictionary];
         reward[@"transactionId"] = @(rewards[i].transactionId);
@@ -34,9 +34,28 @@
         reward[@"transactionType"] = @(rewards[i].transactionType);
         [rewardsArray addObject:reward];
     }
-    
+
     dictionary[@"rewards"] = rewardsArray;
+
+    return [self serializeDictionary:dictionary];
+}
+
++ (NSString *)serializeSurveys:(NSArray<InBrainNativeSurvey *> *)surveys {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+
+    NSMutableArray *surveysArray = [NSMutableArray arrayWithCapacity:surveys.count];
+
+    for (NSUInteger i = 0; i < surveys.count; ++i) {
+        NSMutableDictionary *survey = [NSMutableDictionary dictionary];
+        survey[@"id"] = surveys[i].id;
+        survey[@"rank"] = @(surveys[i].rank);
+        survey[@"time"] = @(surveys[i].time);
+        survey[@"value"] = @(surveys[i].value);
+        [surveysArray addObject:survey];
+    }
     
+    dictionary[@"surveys"] = surveysArray;
+
     return [self serializeDictionary:dictionary];
 }
 

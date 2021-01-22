@@ -65,6 +65,11 @@ namespace InBrain
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy()); });
 		}
 
+		public void ShowSurvey(string surveyId)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, new InBrainStartSurveysCallbackProxy()); });
+		}
+
 		public void GetRewards()
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetRewardsJavaMethod); });
@@ -97,7 +102,7 @@ namespace InBrain
 				.CallAJO("setBackButtonColor", config.BackButtonColor.ToJavaColor())
 				.CallAJO("setTitleColor", config.TitleColor.ToJavaColor())
 				.CallAJO("setTitle", config.Title);
-			
+
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetToolbarConfigJavaMethod, javaConfig); });
 		}
 
@@ -106,8 +111,13 @@ namespace InBrain
 			var javaConfig = new AndroidJavaObject(Constants.StatusBarConfigJavaClass)
 				.CallAJO("setStatusBarIconsLight", config.LightStatusBarIcons)
 				.CallAJO("setStatusBarColor", config.StatusBarColor.ToJavaColor());
-			
+
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetStatusBarConfigJavaMethod, javaConfig); });
+		}
+
+		public void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
 		}
 	}
 }

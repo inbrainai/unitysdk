@@ -73,6 +73,14 @@ namespace InBrain
 		{
 			InBrainImpl?.ShowSurveys();
 		}
+		
+		/// <summary>
+		/// Open web view for specified survey
+		/// </summary>
+		public void ShowSurvey(string surveyId)
+		{
+			InBrainImpl?.ShowSurvey(surveyId);
+		}
 
 		/// <summary>
 		/// Request list of pending (unconfirmed) rewards. Rewards list can be obtained via global callback. See AddCallback for more details
@@ -131,6 +139,14 @@ namespace InBrain
 		public void SetStatusBarConfig(InBrainStatusBarConfig config)
 		{
 			InBrainImpl?.SetStatusBarConfig(config);
+		}
+		
+		/// <summary>
+		/// Request list of available surveys
+		/// </summary>
+		public void GetSurveys([NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			InBrainImpl?.GetSurveys(onSurveysReceived);
 		}
 	}
 }

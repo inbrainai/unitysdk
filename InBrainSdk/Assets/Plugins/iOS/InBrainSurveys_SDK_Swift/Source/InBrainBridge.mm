@@ -33,6 +33,13 @@ extern "C" {
     }
 
     void _ib_ShowSurveys() {
+        inBrainView.surveyId = @"";
+        [UnityGetGLViewController() presentViewController:inBrainView animated:NO completion:nil];
+    }
+
+    void _ib_ShowSurvey(char* id) {
+        NSString* surveyId = [InBrainUtils createNSStringFrom:id];
+        inBrainView.surveyId = surveyId;
         [UnityGetGLViewController() presentViewController:inBrainView animated:NO completion:nil];
     }
 
@@ -97,5 +104,15 @@ extern "C" {
         }
         InBrainStatusBarConfig* config = [[InBrainStatusBarConfig alloc] 	initWithStatusBarStyle:style hideStatusBar:hide];
         [[InBrain shared] setStatusBarConfig:config];
+    }
+
+    void _ib_GetNativeSurveysWithCallback(ActionStringCallbackDelegate surveysReceivedCallback, void *surveysReceivedActionPtr,
+        ActionVoidCallbackDelegate failedToReceiveSurveysCallback, void *failedToReceiveSurveysActionPtr) {
+        [[InBrain shared] getNativeSurveysWithSuccess:^(NSArray<InBrainNativeSurvey *> * _Nonnull surveysArray) {
+            NSString* surveys = [InBrainJsonUtils serializeSurveys:surveysArray];
+            surveysReceivedCallback(surveysReceivedActionPtr, [InBrainUtils createCStringFrom:surveys]);
+        } failed:^(NSError* error){
+            failedToReceiveSurveysCallback(failedToReceiveSurveysActionPtr);
+        }];
     }
 }
