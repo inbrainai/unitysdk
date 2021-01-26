@@ -30,7 +30,13 @@ namespace InBrain
 			var g = Mathf.RoundToInt(color.g * 255);
 			var b = Mathf.RoundToInt(color.b * 255);
 
-			return System.Drawing.Color.FromArgb(a, r, g, b).ToArgb();
+			var result = 0;
+			result += a << 24;
+			result += r << 16;
+			result += g << 8;
+			result += b;
+
+			return result;
 		}
 	}
 }
