@@ -124,3 +124,17 @@ var statusBarConfig = new InBrainStatusBarConfig
 };
 InBrain.Instance.SetStatusBarConfig(statusBarConfig);
 ```
+
+### Native surveys
+
+There is a possibility to open only one specific survey in a web view. In order to that list of available surveys should be requested first by calling a `GetSurveys` method.
+
+```
+InBrain.Instance.GetSurveys(OnSurveysFetched);
+```
+
+Each recieved survey has its own `id` value that should be passed to `ShowSurvey` method.
+
+```
+InBrain.Instance.ShowSurvey(surveyId);
+```

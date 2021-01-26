@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.4.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.0.0) - 2020-01-22
+## [1.4.1](https://github.com/inbrainai/unitysdk/releases/tag/v.1.4.1) - 2020-01-26
+
+### Fixed
+- Internal color conversion method for iOS.
+---
+
+## [1.4.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.4.0) - 2020-01-22
 
 ### Added
 - New  `GetSurveys` method for fetching available surveys list.
