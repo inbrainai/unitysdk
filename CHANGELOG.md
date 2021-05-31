@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.4.2](https://github.com/inbrainai/unitysdk/releases/tag/v.1.4.2) - 2021-05-31
+
+### Changed
+- Android and iOS libraries updated in order to add landscape orientation support for surveys wall.
+---
+
 ## [1.4.1](https://github.com/inbrainai/unitysdk/releases/tag/v.1.4.1) - 2020-01-26
 
 ### Fixed
