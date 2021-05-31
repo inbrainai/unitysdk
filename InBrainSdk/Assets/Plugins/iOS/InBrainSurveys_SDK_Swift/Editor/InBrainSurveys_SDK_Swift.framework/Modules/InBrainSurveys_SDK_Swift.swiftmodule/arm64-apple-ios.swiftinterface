@@ -1,5 +1,5 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.3.2 (swiftlang-1200.0.45 clang-1200.0.32.28)
+// swift-compiler-version: Apple Swift version 5.4 (swiftlang-1205.0.26.9 clang-1205.0.19.55)
 // swift-module-flags: -target arm64-apple-ios10.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name InBrainSurveys_SDK_Swift
 import Foundation
 @_exported import InBrainSurveys_SDK_Swift
@@ -7,13 +7,13 @@ import Swift
 import SystemConfiguration
 import UIKit
 import WebKit
-@objc public protocol InBrainDelegate : AnyObject {
+@objc public protocol InBrainDelegate {
   @objc optional func didReceiveInBrainRewards(rewardsArray: [InBrainSurveys_SDK_Swift.InBrainReward])
   @objc optional func didFailToReceiveRewards(error: Swift.Error)
   @objc optional func surveysClosedFromPage()
   @objc optional func surveysClosed()
 }
-@objc public protocol NativeSurveyDelegate : AnyObject {
+@objc public protocol NativeSurveyDelegate {
   @objc func nativeSurveysLoadingStarted()
   @objc func nativeSurveysReceived(_ surveys: [InBrainSurveys_SDK_Swift.InBrainNativeSurvey])
   @objc func failedToReceiveNativeSurveys(error: Swift.Error)
@@ -75,8 +75,8 @@ import WebKit
 }
 @objc public class InBrainStatusBarConfig : ObjectiveC.NSObject {
   @objc public init(statusBarStyle: UIKit.UIStatusBarStyle, hideStatusBar: Swift.Bool)
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
 @objc final public class InBrainReward : ObjectiveC.NSObject, Swift.Decodable {
   @objc final public let transactionId: Swift.Int
@@ -84,6 +84,6 @@ import WebKit
   @objc final public let currency: Swift.String
   @objc final public let transactionType: Swift.Int
   public init(from decoder: Swift.Decoder) throws
-  @objc deinit
   @objc override dynamic public init()
+  @objc deinit
 }
