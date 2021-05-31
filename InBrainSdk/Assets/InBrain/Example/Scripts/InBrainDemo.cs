@@ -11,7 +11,7 @@ namespace InBrain
 
 		[SerializeField] InBrainSurveysListPanel inBrainSurveysListPanel = null;
 
-		[Space] [SerializeField] Text balanceText;
+		[Space] [SerializeField] Text balanceText = null;
 
 		List<InBrainReward> _receivedRewards;
 

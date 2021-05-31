@@ -5,9 +5,9 @@ namespace InBrain
 {
 	public class InBrainSurveysListPanel : MonoBehaviour
 	{
-		[SerializeField] GameObject loadingIcon;
-		[SerializeField] Transform surveysContent;
-		[SerializeField] InBrainSurveyListItem inBrainSurveyItemPrefab;
+		[SerializeField] GameObject loadingIcon = null;
+		[SerializeField] Transform surveysContent = null;
+		[SerializeField] InBrainSurveyListItem inBrainSurveyItemPrefab = null;
 
 		readonly List<InBrainSurveyListItem> _surveys = new List<InBrainSurveyListItem>();
 

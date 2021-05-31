@@ -5,9 +5,9 @@ namespace InBrain
 {
 	public class InBrainSurveyListItem : MonoBehaviour
 	{
-		[SerializeField] Text pointsText;
-		[SerializeField] Text durationText;
-		[SerializeField] InBrainSurveyRating inBrainSurveyRating;
+		[SerializeField] Text pointsText = null;
+		[SerializeField] Text durationText = null;
+		[SerializeField] InBrainSurveyRating inBrainSurveyRating = null;
 
 		string _surveyId;
 
