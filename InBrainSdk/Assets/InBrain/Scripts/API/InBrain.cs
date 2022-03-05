@@ -116,7 +116,7 @@ namespace InBrain
 		/// </summary>
 		/// <param name="language">
 		/// Language to use in surveys web view.
-		/// Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in"
+		/// Accepted languages: "en-us", "en-gb", "en-ca", "en-au", "en-in", "de-de", "es-es", "es-mx", "es-us", "fr-fr", "fr-ca", "fr-br"
 		/// </param>
 		public void SetLanguage(string language)
 		{
