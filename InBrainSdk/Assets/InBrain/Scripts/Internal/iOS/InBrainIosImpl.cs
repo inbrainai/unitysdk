@@ -15,6 +15,11 @@ namespace InBrain
 #endif
 		}
 
+		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
 		{
 			Action<string> onRewardsReceivedNative = rewardsJson =>
@@ -41,6 +46,11 @@ namespace InBrain
 #endif
 		}
 
+		public void CheckSurveysAvailability(Action<bool> onAvailabilityChecked)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void ShowSurveys()
 		{
 #if UNITY_IOS && !UNITY_EDITOR
@@ -53,6 +63,11 @@ namespace InBrain
 #if UNITY_IOS && !UNITY_EDITOR
 			_ib_ShowSurvey(surveyId);
 #endif
+		}
+
+		public void ShowSurvey(string surveyId, string placementId)
+		{
+			throw new NotImplementedException();
 		}
 
 		public void GetRewards()
@@ -137,6 +152,11 @@ namespace InBrain
 			_ib_GetNativeSurveysWithCallback(Callbacks.ActionStringCallback, onSurveysReceivedNative.GetPointer(),
 				Callbacks.ActionVoidCallback, onFailedToReceiveSurveys.GetPointer());
 #endif
+		}
+
+		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			throw new NotImplementedException();
 		}
 
 #if UNITY_IOS && !UNITY_EDITOR

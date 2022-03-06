@@ -47,6 +47,16 @@ namespace InBrain
 		}
 
 		/// <summary>
+		/// Set additional data for enhancing InBrain experience
+		/// </summary>
+		/// <param name="trackingData">Additional data that will be provided in the S2S callback</param>
+		/// <param name="demographicData">Additional data to provide seamless user on-boarding into the InBrain experience</param>
+		public void SetCustomData([CanBeNull] InBrainTrackingData trackingData, [CanBeNull] InBrainDemographicData demographicData)
+		{
+			InBrainImpl?.SetCustomData(trackingData, demographicData);
+		}
+
+		/// <summary>
 		/// Set global callback that will be triggered every time when new rewards received or surveys web view dismissed
 		/// </summary>
 		/// <param name="onRewardsReceived">Callback triggered when new rewards received</param>
@@ -67,6 +77,18 @@ namespace InBrain
 		}
 
 		/// <summary>
+		/// Check if there are any surveys available
+		/// </summary>
+		/// <param name="onAvailabilityChecked">
+		/// Callback triggered when surveys availability checked
+		/// Received flag is true if there are surveys available, false otherwise
+		/// </param>
+		public void CheckSurveysAvailability([NotNull] Action<bool> onAvailabilityChecked)
+		{
+			InBrainImpl?.CheckSurveysAvailability(onAvailabilityChecked);
+		}
+
+		/// <summary>
 		/// Open surveys web view
 		/// </summary>
 		public void ShowSurveys()
@@ -80,6 +102,16 @@ namespace InBrain
 		public void ShowSurvey(string surveyId)
 		{
 			InBrainImpl?.ShowSurvey(surveyId);
+		}
+		
+		/// <summary>
+		/// Open web view for specified survey with given placement identifier
+		/// </summary>
+		/// <param name="surveyId">Specific survey identifier</param>
+		/// <param name="placementId">Placement identifier</param>
+		public void ShowSurvey(string surveyId, string placementId)
+		{
+			InBrainImpl?.ShowSurvey(surveyId, placementId);
 		}
 
 		/// <summary>
@@ -115,7 +147,7 @@ namespace InBrain
 		/// Set surveys web view language
 		/// </summary>
 		/// <param name="language">
-		/// Language to use in surveys web view.
+		/// Language to use in surveys web view
 		/// Accepted languages: "en-us", "en-gb", "en-ca", "en-au", "en-in", "de-de", "es-es", "es-mx", "es-us", "fr-fr", "fr-ca", "fr-br"
 		/// </param>
 		public void SetLanguage(string language)
@@ -127,7 +159,7 @@ namespace InBrain
 		/// Set custom style for the surveys web view toolbar
 		/// </summary>
 		/// <param name="config">Toolbar configuration parameters</param>
-		public void SetToolbarConfig(InBrainToolbarConfig config)
+		public void SetToolbarConfig([NotNull] InBrainToolbarConfig config)
 		{
 			InBrainImpl?.SetToolbarConfig(config);
 		}
@@ -136,17 +168,28 @@ namespace InBrain
 		/// Set custom style for the surveys web view status bar
 		/// </summary>
 		/// <param name="config">Status bar configuration parameters</param>
-		public void SetStatusBarConfig(InBrainStatusBarConfig config)
+		public void SetStatusBarConfig([NotNull] InBrainStatusBarConfig config)
 		{
 			InBrainImpl?.SetStatusBarConfig(config);
 		}
-		
+
 		/// <summary>
 		/// Request list of available surveys
 		/// </summary>
+		/// <param name="onSurveysReceived">Callback triggered when surveys received</param>
 		public void GetSurveys([NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
 		{
 			InBrainImpl?.GetSurveys(onSurveysReceived);
+		}
+
+		/// <summary>
+		/// Request list of available surveys with given placement identifier
+		/// </summary>
+		/// <param name="placementId">Placement identifier</param>
+		/// <param name="onSurveysReceived">Callback triggered when surveys received</param>
+		public void GetSurveys(string placementId, [NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			InBrainImpl?.GetSurveys(placementId, onSurveysReceived);
 		}
 	}
 }

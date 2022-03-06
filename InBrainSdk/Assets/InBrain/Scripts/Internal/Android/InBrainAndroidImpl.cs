@@ -40,6 +40,17 @@ namespace InBrain
 			});
 		}
 
+		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
+		{
+			var demographicDataHashMap = new AndroidJavaObject("java.util.HashMap");
+			demographicDataHashMap.Call<string>("put", "gender", demographicData?.gender);
+			demographicDataHashMap.Call<string>("put", "age", demographicData?.age.ToString());
+
+			var sessionId = trackingData?.sessionId;
+
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetInBrainValuesJavaMethod, sessionId, demographicDataHashMap); });
+		}
+
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
 		{
 			_callback = new InBrainCallbackProxy(onRewardsViewDismissed, onRewardsReceived, confirmRewardsAutomatically);
@@ -60,6 +71,11 @@ namespace InBrain
 			_callback = null;
 		}
 
+		public void CheckSurveysAvailability(Action<bool> onAvailabilityChecked)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.CheckSurveysAvailabilityJavaMethod, JniUtils.Activity, new InBrainCheckSurveysAvailabilityCallbackProxy(onAvailabilityChecked)); });
+		}
+
 		public void ShowSurveys()
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy()); });
@@ -68,6 +84,11 @@ namespace InBrain
 		public void ShowSurvey(string surveyId)
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, new InBrainStartSurveysCallbackProxy()); });
+		}
+
+		public void ShowSurvey(string surveyId, string placementId)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, placementId, new InBrainStartSurveysCallbackProxy()); });
 		}
 
 		public void GetRewards()
@@ -118,6 +139,11 @@ namespace InBrain
 		public void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived)
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
+		}
+
+		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
 		}
 	}
 }

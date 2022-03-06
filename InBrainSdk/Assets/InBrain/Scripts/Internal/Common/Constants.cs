@@ -7,13 +7,16 @@
 		public const string StartSurveysCallbackJavaClass = "com.inbrain.sdk.callback.StartSurveysCallback";
 		public const string GetRewardsCallbackJavaClass = "com.inbrain.sdk.callback.GetRewardsCallback";
 		public const string GetSurveysCallbackJavaClass = "com.inbrain.sdk.callback.GetNativeSurveysCallback";
+		public const string CheckSurveysAvailabilityCallbackJavaClass = "com.inbrain.sdk.callback.SurveysAvailableCallback";
 		public const string ToolbarConfigJavaClass = "com.inbrain.sdk.config.ToolBarConfig";
 		public const string StatusBarConfigJavaClass = "com.inbrain.sdk.config.StatusBarConfig";
 
 		public const string GetInstanceJavaMethod = "getInstance";
 		public const string SetInBrainJavaMethod = "setInBrain";
+		public const string SetInBrainValuesJavaMethod = "setInBrainValuesFor";
 		public const string AddCallbackJavaMethod = "addCallback";
 		public const string RemoveCallbackJavaMethod = "removeCallback";
+		public const string CheckSurveysAvailabilityJavaMethod = "areSurveysAvailable";
 		public const string ShowSurveysJavaMethod = "showSurveys";
 		public const string ShowSurveyJavaMethod = "showNativeSurveyWith";
 		public const string GetRewardsJavaMethod = "getRewards";
