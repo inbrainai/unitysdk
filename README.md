@@ -49,6 +49,17 @@ InBrain.Instance.AddCallback(rewards => {
 
 Optionally you can specify whether to confirm received rewards automatically (by default they are not).
 
+### Check surveys availability
+
+Check if there are any surveys available before presenting inBrain experience:
+
+```
+InBrain.Instance.CheckSurveysAvailability(flag =>
+{
+	// handle result...
+});
+```
+
 ### Show surveys
 
 Present surveys web view with the following call:
@@ -137,4 +148,14 @@ Each recieved survey has its own `id` value that should be passed to `ShowSurvey
 
 ```
 InBrain.Instance.ShowSurvey(surveyId);
+```
+
+Both methods have versions which accept additional `placementId` parameter.
+
+### Advanced usage
+
+To add tracking and/or demographic data to the inBrain session corresponding values should be passed to `SetCustomData` method.
+
+```
+InBrain.Instance.SetCustomData(trackingData, demographicData);
 ```
