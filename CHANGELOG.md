@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.5.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.5.0) - 2022-03-08
+
+### Added
+- New `CheckSurveysAvailability` method for checking if there are any surveys available.
+- New `SetCustomData` method for adding custom tracking and demographic data to inBrain session.
+---
+
+### Changed
+- Android and iOS libraries updated in order to unify plugin behavior on both platforms.
+- Native surveys methods now accept `placementId` parameter.
+---
+
 ## [1.4.2](https://github.com/inbrainai/unitysdk/releases/tag/v.1.4.2) - 2021-05-31
 
 ### Changed
@@ -20,8 +32,8 @@ and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 ## [1.4.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.4.0) - 2020-01-22
 
 ### Added
-- New  `GetSurveys` method for fetching available surveys list.
-- New  `ShowSurvey` for presenting specified survey in a web view.
+- New `GetSurveys` method for fetching available surveys list.
+- New `ShowSurvey` for presenting specified survey in a web view.
 ---
 
 ## [1.3.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.3.0) - 2021-01-21
