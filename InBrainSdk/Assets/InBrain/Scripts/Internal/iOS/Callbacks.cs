@@ -10,6 +10,8 @@ namespace InBrain
 
 		internal delegate void ActionStringCallbackDelegate(IntPtr actionPtr, string msg);
 
+		internal delegate void ActionBoolCallbackDelegate(IntPtr actionPtr, bool flag);
+
 		[MonoPInvokeCallback(typeof(ActionVoidCallbackDelegate))]
 		public static void ActionVoidCallback(IntPtr actionPtr)
 		{
@@ -37,6 +39,21 @@ namespace InBrain
 			{
 				var action = actionPtr.Cast<Action<string>>();
 				action(msg);
+			}
+		}
+
+		[MonoPInvokeCallback(typeof(ActionBoolCallbackDelegate))]
+		public static void ActionBoolCallback(IntPtr actionPtr, bool flag)
+		{
+			if (Debug.isDebugBuild)
+			{
+				Debug.Log("ActionBoolCallback");
+			}
+
+			if (actionPtr != IntPtr.Zero)
+			{
+				var action = actionPtr.Cast<Action<bool>>();
+				action(flag);
 			}
 		}
 	}

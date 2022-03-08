@@ -29,10 +29,10 @@ bool isOpened = false;
     
     if (!isOpened) {
         if([_surveyId length] == 0) {
-            [inBrain showSurveys];
+            [inBrain showSurveysFrom:self];
         }
         else {
-            [inBrain showNativeSurveyWithId:_surveyId];
+            [inBrain showNativeSurveyWithId:_surveyId placementId:_placementId from:self];
         }
         isOpened = true;
     }
@@ -50,7 +50,7 @@ bool isOpened = false;
 
 }
 
-- (void)surveysClosed {
+- (void)surveysClosedByWebView:(BOOL)byWebView completedSurvey:(BOOL)completedSurvey {
     [self dismissViewControllerAnimated:NO completion:nil];
     isOpened = false;
     

@@ -51,6 +51,8 @@
         survey[@"rank"] = @(surveys[i].rank);
         survey[@"time"] = @(surveys[i].time);
         survey[@"value"] = @(surveys[i].value);
+        survey[@"currencySale"] = @(surveys[i].currencySale);
+        survey[@"multiplier"] = @(surveys[i].multiplier);
         [surveysArray addObject:survey];
     }
     

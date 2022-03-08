@@ -28,18 +28,50 @@ extern "C" {
         
         [[InBrain shared] setInBrainWithApiClientID:clientIdString
                                           apiSecret:secretString
-                                              isS2S:isS2S
-                                             userID:userIdString];
+                                          isS2S:isS2S
+                                          userID:userIdString];
+    }
+    
+    void _ib_SetInBrainValues(char* trackingDataJson, char* demographicDataJson) {
+        NSString* sessionId;
+        if(trackingDataJson != nil) {
+            NSDictionary* trackingDataDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:trackingDataJson]];
+            sessionId = trackingDataDictionary[@"sessionId"];
+        }
+        
+        NSMutableArray<NSDictionary<NSString*, id>*>* demographicData = [NSMutableArray new];
+        if(demographicDataJson != nil) {
+            NSDictionary* demographicDataDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:demographicDataJson]];
+            
+            NSMutableDictionary *genderDict = [NSMutableDictionary dictionary];
+            genderDict[@"gender"] = demographicDataDictionary[@"gender"];
+            [demographicData addObject:genderDict];
+            
+            NSMutableDictionary *ageDict = [NSMutableDictionary dictionary];
+            ageDict[@"age"] = demographicDataDictionary[@"age"];
+            [demographicData addObject:ageDict];
+        }
+        
+        [[InBrain shared] setInBrainValuesForSessionID:sessionId dataOptions:demographicData];
+    }
+    
+    void _ib_CheckSurveysAvailability(ActionBoolCallbackDelegate surveysAvailabilityCheckedCallback, void *surveysAvailabilityCheckedActionPtr) {
+        [[InBrain shared] checkForAvailableSurveysWithCompletion:^(BOOL isAvailable, NSError* error) {
+            surveysAvailabilityCheckedCallback(surveysAvailabilityCheckedActionPtr, isAvailable);
+        }];
     }
 
     void _ib_ShowSurveys() {
         inBrainView.surveyId = @"";
+        inBrainView.placementId = @"";
         [UnityGetGLViewController() presentViewController:inBrainView animated:NO completion:nil];
     }
 
-    void _ib_ShowSurvey(char* id) {
+    void _ib_ShowSurvey(char* id, char* placementId) {
         NSString* surveyId = [InBrainUtils createNSStringFrom:id];
+        NSString* placeId = [InBrainUtils createNSStringFrom:placementId];
         inBrainView.surveyId = surveyId;
+        inBrainView.placementId = placeId;
         [UnityGetGLViewController() presentViewController:inBrainView animated:NO completion:nil];
     }
 
@@ -84,7 +116,7 @@ extern "C" {
 
     void _ib_SetLanguage(char* language) {
         NSString* languageString = [InBrainUtils createNSStringFrom:language];
-        [[InBrain shared] setLanguageWithValue:languageString];
+        [[InBrain shared] setLanguage:languageString error:nil];
     }
 
     void _ib_SetNavigationBarConfig(char* title, int backgroundColor, int titleColor, int backButtonColor) {
@@ -106,12 +138,13 @@ extern "C" {
         [[InBrain shared] setStatusBarConfig:config];
     }
 
-    void _ib_GetNativeSurveysWithCallback(ActionStringCallbackDelegate surveysReceivedCallback, void *surveysReceivedActionPtr,
+    void _ib_GetNativeSurveysWithCallback(char* placementId, ActionStringCallbackDelegate surveysReceivedCallback, void *surveysReceivedActionPtr,
         ActionVoidCallbackDelegate failedToReceiveSurveysCallback, void *failedToReceiveSurveysActionPtr) {
-        [[InBrain shared] getNativeSurveysWithSuccess:^(NSArray<InBrainNativeSurvey *> * _Nonnull surveysArray) {
+        NSString* placeId = [InBrainUtils createNSStringFrom:placementId];
+        [[InBrain shared] getNativeSurveysWithPlacementID:placeId success:^(NSArray<InBrainNativeSurvey *> * _Nonnull surveysArray) {
             NSString* surveys = [InBrainJsonUtils serializeSurveys:surveysArray];
             surveysReceivedCallback(surveysReceivedActionPtr, [InBrainUtils createCStringFrom:surveys]);
-        } failed:^(NSError* error){
+        } failed:^(NSError* error) {
             failedToReceiveSurveysCallback(failedToReceiveSurveysActionPtr);
         }];
     }

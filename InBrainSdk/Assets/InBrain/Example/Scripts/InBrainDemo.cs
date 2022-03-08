@@ -27,9 +27,16 @@ namespace InBrain
 			InBrain.Instance.SetLanguage("en-us");
 
 			// Uncomment following two lines of code in order to customize surveys wall UI
-
 			// SetStatusBarConfiguration();
 			// SetToolbarConfiguration();
+
+			// Uncomment following line to set additional data for enhancing InBrain experience
+			// SetInBrainCustomData();
+
+			InBrain.Instance.CheckSurveysAvailability(flag =>
+			{
+				Debug.Log("Surveys availability: " + flag);
+			});
 		}
 
 		public void OnShowSurveysClicked()
@@ -98,6 +105,20 @@ namespace InBrain
 				BackButtonColor = Color.magenta
 			};
 			InBrain.Instance.SetToolbarConfig(toolbarConfig);
+		}
+
+		void SetInBrainCustomData()
+		{
+			var trackingData = new InBrainTrackingData
+			{
+				sessionId = "testing33_Session"
+			};
+			var demographicData = new InBrainDemographicData
+			{
+				gender = "male", 
+				age = 34
+			};
+			InBrain.Instance.SetCustomData(trackingData, demographicData);
 		}
 	}
 }

@@ -17,7 +17,21 @@ namespace InBrain
 
 		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
 		{
-			throw new NotImplementedException();
+			string trackingDataJson = null;
+			if (trackingData != null)
+			{
+				trackingDataJson = JsonUtility.ToJson(trackingData);
+			}
+
+			string demographicDataJson = null;
+			if (demographicData != null)
+			{
+				demographicDataJson = JsonUtility.ToJson(demographicData);
+			}
+
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_SetInBrainValues(trackingDataJson, demographicDataJson);
+#endif
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
@@ -48,7 +62,9 @@ namespace InBrain
 
 		public void CheckSurveysAvailability(Action<bool> onAvailabilityChecked)
 		{
-			throw new NotImplementedException();
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_CheckSurveysAvailability(Callbacks.ActionBoolCallback, onAvailabilityChecked.GetPointer());
+#endif
 		}
 
 		public void ShowSurveys()
@@ -60,14 +76,14 @@ namespace InBrain
 
 		public void ShowSurvey(string surveyId)
 		{
-#if UNITY_IOS && !UNITY_EDITOR
-			_ib_ShowSurvey(surveyId);
-#endif
+			ShowSurvey(surveyId, null);
 		}
 
 		public void ShowSurvey(string surveyId, string placementId)
 		{
-			throw new NotImplementedException();
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_ShowSurvey(surveyId, placementId);
+#endif
 		}
 
 		public void GetRewards()
@@ -137,6 +153,11 @@ namespace InBrain
 
 		public void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived)
 		{
+			GetSurveys(null, onSurveysReceived);
+		}
+
+		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
+		{
 			Action<string> onSurveysReceivedNative = surveysJson =>
 			{
 				var surveysResult = JsonUtility.FromJson<InBrainGetSurveysResult>(surveysJson);
@@ -149,14 +170,9 @@ namespace InBrain
 			};
 
 #if UNITY_IOS && !UNITY_EDITOR
-			_ib_GetNativeSurveysWithCallback(Callbacks.ActionStringCallback, onSurveysReceivedNative.GetPointer(),
+			_ib_GetNativeSurveysWithCallback(placementId, Callbacks.ActionStringCallback, onSurveysReceivedNative.GetPointer(),
 				Callbacks.ActionVoidCallback, onFailedToReceiveSurveys.GetPointer());
 #endif
-		}
-
-		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
-		{
-			throw new NotImplementedException();
 		}
 
 #if UNITY_IOS && !UNITY_EDITOR
@@ -164,10 +180,16 @@ namespace InBrain
 		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);
 
 		[DllImport("__Internal")]
+		static extern void _ib_SetInBrainValues(string trackingData, string demographicData);
+
+		[DllImport("__Internal")]
+		static extern void _ib_CheckSurveysAvailability(Callbacks.ActionBoolCallbackDelegate surveysAvailabilityCheckedCallback, IntPtr surveysAvailabilityCheckedActionPtr);
+
+		[DllImport("__Internal")]
 		static extern void _ib_ShowSurveys();
 
 		[DllImport("__Internal")]
-		static extern void _ib_ShowSurvey(string id);
+		static extern void _ib_ShowSurvey(string id, string placementId);
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
@@ -196,7 +218,7 @@ namespace InBrain
 		static extern void _ib_SetStatusBarConfig(bool light, bool hide);
 
 		[DllImport("__Internal")]
-		static extern void _ib_GetNativeSurveysWithCallback(Callbacks.ActionStringCallbackDelegate surveysReceivedCallback, IntPtr surveysReceivedActionPtr,
+		static extern void _ib_GetNativeSurveysWithCallback(string placementId, Callbacks.ActionStringCallbackDelegate surveysReceivedCallback, IntPtr surveysReceivedActionPtr,
 			Callbacks.ActionVoidCallbackDelegate failedToReceiveSurveysCallback, IntPtr failedToReceiveSurveysActionPtr);
 #endif
 	}
