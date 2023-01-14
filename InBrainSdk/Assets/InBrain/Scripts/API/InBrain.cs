@@ -105,13 +105,13 @@ namespace InBrain
 		}
 		
 		/// <summary>
-		/// Open web view for specified survey with given placement identifier
+		/// Open web view for specified survey with given search identifier
 		/// </summary>
 		/// <param name="surveyId">Specific survey identifier</param>
-		/// <param name="placementId">Placement identifier</param>
-		public void ShowSurvey(string surveyId, string placementId)
+		/// <param name="searchId">Search identifier</param>
+		public void ShowSurvey(string surveyId, string searchId)
 		{
-			InBrainImpl?.ShowSurvey(surveyId, placementId);
+			InBrainImpl?.ShowSurvey(surveyId, searchId);
 		}
 
 		/// <summary>
@@ -187,9 +187,20 @@ namespace InBrain
 		/// </summary>
 		/// <param name="placementId">Placement identifier</param>
 		/// <param name="onSurveysReceived">Callback triggered when surveys received</param>
+		[Obsolete("This method is deprecated. Use `GetSurveysWithFilter` instead.")]
 		public void GetSurveys(string placementId, [NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
 		{
 			InBrainImpl?.GetSurveys(placementId, onSurveysReceived);
+		}
+		
+		/// <summary>
+		/// Request list of available surveys matching given filter
+		/// </summary>
+		/// <param name="filter">Surveys filter</param>
+		/// <param name="onSurveysReceived">Callback triggered when surveys received</param>
+		public void GetSurveysWithFilter(InBrainSurveyFilter filter, [NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			InBrainImpl?.GetSurveysWithFilter(filter, onSurveysReceived);
 		}
 	}
 }

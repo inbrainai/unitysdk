@@ -1,0 +1,11 @@
+framework module InBrainSurveys {
+  umbrella header "InBrainSurveys.h"
+
+  export *
+  module * { export * }
+}
+
+module InBrainSurveys.Swift {
+  header "InBrainSurveys-Swift.h"
+  requires objc
+}

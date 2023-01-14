@@ -86,9 +86,9 @@ namespace InBrain
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, new InBrainStartSurveysCallbackProxy()); });
 		}
 
-		public void ShowSurvey(string surveyId, string placementId)
+		public void ShowSurvey(string surveyId, string searchId)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, placementId, new InBrainStartSurveysCallbackProxy()); });
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, searchId, new InBrainStartSurveysCallbackProxy()); });
 		}
 
 		public void GetRewards()
@@ -144,6 +144,11 @@ namespace InBrain
 		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
+		}
+
+		public void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }
