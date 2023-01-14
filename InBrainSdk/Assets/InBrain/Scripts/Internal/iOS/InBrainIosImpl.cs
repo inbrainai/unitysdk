@@ -79,10 +79,10 @@ namespace InBrain
 			ShowSurvey(surveyId, null);
 		}
 
-		public void ShowSurvey(string surveyId, string placementId)
+		public void ShowSurvey(string surveyId, string searchId)
 		{
 #if UNITY_IOS && !UNITY_EDITOR
-			_ib_ShowSurvey(surveyId, placementId);
+			_ib_ShowSurvey(surveyId, searchId);
 #endif
 		}
 
@@ -175,6 +175,11 @@ namespace InBrain
 #endif
 		}
 
+		public void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived)
+		{
+			throw new NotImplementedException();
+		}
+
 #if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);
@@ -189,7 +194,7 @@ namespace InBrain
 		static extern void _ib_ShowSurveys();
 
 		[DllImport("__Internal")]
-		static extern void _ib_ShowSurvey(string id, string placementId);
+		static extern void _ib_ShowSurvey(string id, string searchId);
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,

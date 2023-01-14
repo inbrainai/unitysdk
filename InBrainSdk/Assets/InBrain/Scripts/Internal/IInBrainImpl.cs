@@ -12,7 +12,7 @@ namespace InBrain
 		void CheckSurveysAvailability(Action<bool> onAvailabilityChecked);
 		void ShowSurveys();
 		void ShowSurvey(string surveyId);
-		void ShowSurvey(string surveyId, string placementId);
+		void ShowSurvey(string surveyId, string searchId);
 		void GetRewards();
 		void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false);
 		void ConfirmRewards(List<InBrainReward> rewards);
@@ -21,5 +21,6 @@ namespace InBrain
 		void SetStatusBarConfig(InBrainStatusBarConfig config);
 		void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived);
 		void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived);
+		void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived);
 	}
 }
