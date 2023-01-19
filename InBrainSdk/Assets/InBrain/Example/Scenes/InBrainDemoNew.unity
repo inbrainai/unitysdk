@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311915, g: 0.3807396, b: 0.35872662, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7260ba83ab3674f1583cb3fc0afaa906, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appUserId: 
+  appUserId: testing-unity@inbrain.ai
   inBrainSurveysListPanel: {fileID: 1121197428}
   balanceText: {fileID: 498855631}
 --- !u!1 &63961095
