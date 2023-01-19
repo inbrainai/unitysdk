@@ -149,4 +149,19 @@ extern "C" {
             failedToReceiveSurveysCallback(failedToReceiveSurveysActionPtr);
         }];
     }
+
+    void _ib_GetNativeSurveysWithFilterAndCallback(char* filterJson, ActionStringCallbackDelegate surveysReceivedCallback, void *surveysReceivedActionPtr,
+        ActionVoidCallbackDelegate failedToReceiveSurveysCallback, void *failedToReceiveSurveysActionPtr) {
+        NSDictionary* filterDataDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:filterJson]];
+        NSString* placeId = filterDataDictionary[@"placementId"];
+        NSArray<NSNumber *> *categoryIds = [InBrainJsonUtils deserializeNumbersArray:filterDataDictionary[@"categoryIds"]];
+        NSArray<NSNumber *> *excludedCategoryIds = [InBrainJsonUtils deserializeNumbersArray:filterDataDictionary[@"excludedCategoryIds"]];
+        InBrainSurveyFilter* filter = [[InBrainSurveyFilter alloc] initWithPlacementId:placeId categoryIDs:categoryIds excludedCategoryIDs:excludedCategoryIds];
+        [[InBrain shared] getNativeSurveysWithFilter:filter success:^(NSArray<InBrainNativeSurvey *> * _Nonnull surveysArray) {
+            NSString* surveys = [InBrainJsonUtils serializeSurveys:surveysArray];
+            surveysReceivedCallback(surveysReceivedActionPtr, [InBrainUtils createCStringFrom:surveys]);
+        } failed:^(NSError* error) {
+            failedToReceiveSurveysCallback(failedToReceiveSurveysActionPtr);
+        }];
+    }
 }
