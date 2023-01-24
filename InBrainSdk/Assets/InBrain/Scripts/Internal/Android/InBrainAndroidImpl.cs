@@ -83,7 +83,7 @@ namespace InBrain
 
 		public void ShowSurvey(string surveyId)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, new InBrainStartSurveysCallbackProxy()); });
+			ShowSurvey(surveyId, null);
 		}
 
 		public void ShowSurvey(string surveyId, string searchId)
