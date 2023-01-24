@@ -143,12 +143,12 @@ namespace InBrain
 
 		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, null, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
 		}
 
 		public void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			throw new NotImplementedException();
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, filter.ToAJO(), new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
 		}
 	}
 }

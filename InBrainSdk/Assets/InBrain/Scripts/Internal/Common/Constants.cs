@@ -10,6 +10,7 @@
 		public const string CheckSurveysAvailabilityCallbackJavaClass = "com.inbrain.sdk.callback.SurveysAvailableCallback";
 		public const string ToolbarConfigJavaClass = "com.inbrain.sdk.config.ToolBarConfig";
 		public const string StatusBarConfigJavaClass = "com.inbrain.sdk.config.StatusBarConfig";
+		public const string InBrainSurveyCategoryJavaClass = "com.inbrain.sdk.model.SurveyCategory";
 
 		public const string GetInstanceJavaMethod = "getInstance";
 		public const string SetInBrainJavaMethod = "setInBrain";
@@ -25,5 +26,6 @@
 		public const string SetToolbarConfigJavaMethod = "setToolbarConfig";
 		public const string SetStatusBarConfigJavaMethod = "setStatusBarConfig";
 		public const string GetSurveysJavaMethod = "getNativeSurveys";
+		public const string FromIdJavaMethod = "fromId";
 	}
 }
