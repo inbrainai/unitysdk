@@ -21,14 +21,19 @@ namespace InBrain
 			_confirmRewardsAutomatically = confirmRewardsAutomatically;
 		}
 
-		public void surveysClosed()
+		public void surveysClosed(bool byWebView, AndroidJavaObject rewards)
 		{
 			InBrainSceneHelper.Queue(() => _onRewardsViewDismissed());
 		}
 
+		public void surveysClosed()
+		{
+			// Deprecated
+		}
+
 		public void surveysClosedFromPage()
 		{
-			InBrainSceneHelper.Queue(() => _onRewardsViewDismissed());
+			// Deprecated
 		}
 
 		public bool didReceiveInBrainRewards(AndroidJavaObject rewardsList /* List<Reward> rewards */)
