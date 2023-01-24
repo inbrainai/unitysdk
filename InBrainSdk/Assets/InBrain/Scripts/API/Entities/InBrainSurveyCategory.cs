@@ -38,4 +38,15 @@ namespace InBrain
 		FashionAndClothingOther,
 		FashionAndClothingDepartmentStore
 	}
+
+	static class InBrainSurveyCategoryExtensions 
+	{
+		public static AndroidJavaObject ToAJO(this InBrainSurveyCategory category)
+		{
+			using (var inBrainSurveyCategoryClass = new AndroidJavaClass(Constants.InBrainSurveyCategoryJavaClass))
+			{
+				return inBrainSurveyCategoryClass.CallStatic<AndroidJavaObject>(Constants.FromIdJavaMethod, (int) category);
+			}
+		}
+	}
 }
