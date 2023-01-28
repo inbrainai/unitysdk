@@ -61,6 +61,22 @@
     return [self serializeDictionary:dictionary];
 }
 
++ (NSString *)serializeCurrencySale:(InBrainCurrencySale *)currencySale {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss'Z'"];
+
+    dictionary[@"title"] = currencySale.title;
+    dictionary[@"multiplier"] = @(currencySale.multiplier);
+    dictionary[@"description"] = currencySale.description;
+    dictionary[@"start"] = [dateFormatter stringFromDate:currencySale.start];
+    dictionary[@"end"] = [dateFormatter stringFromDate:currencySale.end];
+
+    return [self serializeDictionary:dictionary];
+}
+
 + (NSArray *)deserializeArray:(NSString *)jsonArray {
     NSError *e = nil;
     NSArray *array = [NSJSONSerialization JSONObjectWithData:[jsonArray dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&e];

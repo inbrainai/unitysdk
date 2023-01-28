@@ -150,5 +150,10 @@ namespace InBrain
 		{
 			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, filter.ToAJO(), new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
 		}
+
+		public void GetCurrencySale(Action<InBrainCurrencySale> onCurrencySaleReceived)
+		{
+			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetCurrencySaleJavaMethod, new InBrainCurrencySaleCallbackProxy(onCurrencySaleReceived)); });
+		}
 	}
 }

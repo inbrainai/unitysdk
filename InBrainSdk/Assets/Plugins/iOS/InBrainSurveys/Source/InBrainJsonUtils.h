@@ -14,6 +14,7 @@
 + (NSString *)serializeDictionary:(NSDictionary *)dictionary;
 + (NSString *)serializeRewards:(NSArray<InBrainReward *> *)rewards;
 + (NSString *)serializeSurveys:(NSArray<InBrainNativeSurvey *> *)surveys;
++ (NSString *)serializeCurrencySale:(InBrainCurrencySale *)currencySale;
 
 + (NSArray *)deserializeArray:(NSString *)jsonArray;
 + (NSDictionary *)deserializeDictionary:(NSString *)jsonDic;

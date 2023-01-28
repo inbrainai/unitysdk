@@ -150,6 +150,7 @@ namespace InBrain
 		/// Language to use in surveys web view
 		/// Accepted languages: "en-us", "en-gb", "en-ca", "en-au", "en-in", "de-de", "es-es", "es-mx", "es-us", "fr-fr", "fr-ca", "fr-br"
 		/// </param>
+		[Obsolete("This method is deprecated.")]
 		public void SetLanguage(string language)
 		{
 			InBrainImpl?.SetLanguage(language);
@@ -201,6 +202,15 @@ namespace InBrain
 		public void GetSurveysWithFilter(InBrainSurveyFilter filter, [NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
 		{
 			InBrainImpl?.GetSurveysWithFilter(filter, onSurveysReceived);
+		}
+		
+		/// <summary>
+		/// Request information about active currency sale
+		/// </summary>
+		/// <param name="onCurrencySaleReceived">Callback triggered when currency sale received</param>
+		public void GetCurrencySale([NotNull] Action<InBrainCurrencySale> onCurrencySaleReceived)
+		{
+			InBrainImpl?.GetCurrencySale(onCurrencySaleReceived);
 		}
 	}
 }

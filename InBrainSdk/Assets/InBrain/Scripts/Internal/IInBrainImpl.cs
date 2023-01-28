@@ -22,5 +22,6 @@ namespace InBrain
 		void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived);
 		void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived);
 		void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived);
+		void GetCurrencySale(Action<InBrainCurrencySale> onCurrencySaleReceived);
 	}
 }

@@ -196,6 +196,25 @@ namespace InBrain
 #endif
 		}
 
+		public void GetCurrencySale(Action<InBrainCurrencySale> onCurrencySaleReceived)
+		{
+			Action<string> onCurrencySaleReceivedNative = currencySaleJson =>
+			{
+				var currencySale = JsonUtility.FromJson<InBrainCurrencySale>(currencySaleJson);
+				onCurrencySaleReceived?.Invoke(currencySale);
+			};
+
+			Action onFailedToReceiveCurrencySale = () =>
+			{
+				Debug.Log("Failed to receive currency sale");
+			};
+			
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_GetCurrencySale(Callbacks.ActionStringCallback, onCurrencySaleReceivedNative.GetPointer(),
+				Callbacks.ActionVoidCallback, onFailedToReceiveCurrencySale.GetPointer());
+#endif
+		}
+
 #if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]
 		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);
@@ -245,6 +264,10 @@ namespace InBrain
 		[DllImport("__Internal")]
 		static extern void _ib_GetNativeSurveysWithFilterAndCallback(string filterJson, Callbacks.ActionStringCallbackDelegate surveysReceivedCallback, IntPtr surveysReceivedActionPtr,
 			Callbacks.ActionVoidCallbackDelegate failedToReceiveSurveysCallback, IntPtr failedToReceiveSurveysActionPtr);
+
+		[DllImport("__Internal")]
+		static extern void _ib_GetCurrencySale(Callbacks.ActionStringCallbackDelegate currencySaleReceivedCallback, IntPtr currencySaleReceivedActionPtr,
+			Callbacks.ActionVoidCallbackDelegate failedToReceiveCurrencySaleCallback, IntPtr failedToReceiveCurrencySaleActionPtr);
 #endif
 	}
 }
