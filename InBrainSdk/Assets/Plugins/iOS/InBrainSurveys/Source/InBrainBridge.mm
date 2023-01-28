@@ -164,4 +164,14 @@ extern "C" {
             failedToReceiveSurveysCallback(failedToReceiveSurveysActionPtr);
         }];
     }
+    
+    void _ib_GetCurrencySale(ActionStringCallbackDelegate currencySaleReceivedCallback, void *currencySaleReceivedActionPtr,
+        ActionVoidCallbackDelegate failedToReceiveCurrencySaleCallback, void *failedToReceiveCurrencySaleActionPtr) {
+        [[InBrain shared] getCurrencySaleWithSuccess:^(InBrainCurrencySale * _Nonnull currencySaleObject) {
+            NSString* currencySale = [InBrainJsonUtils serializeCurrencySale:currencySaleObject];
+            currencySaleReceivedCallback(currencySaleReceivedActionPtr, [InBrainUtils createCStringFrom:currencySale]);
+        } failed:^(NSError* error) {
+            failedToReceiveCurrencySaleCallback(failedToReceiveCurrencySaleActionPtr);
+        }];
+    }
 }

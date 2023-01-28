@@ -7,6 +7,7 @@
 		public const string StartSurveysCallbackJavaClass = "com.inbrain.sdk.callback.StartSurveysCallback";
 		public const string GetRewardsCallbackJavaClass = "com.inbrain.sdk.callback.GetRewardsCallback";
 		public const string GetSurveysCallbackJavaClass = "com.inbrain.sdk.callback.GetNativeSurveysCallback";
+		public const string GetCurrencySaleCallbackJavaClass = "com.inbrain.sdk.callback.GetCurrencySaleCallback";
 		public const string CheckSurveysAvailabilityCallbackJavaClass = "com.inbrain.sdk.callback.SurveysAvailableCallback";
 		public const string ToolbarConfigJavaClass = "com.inbrain.sdk.config.ToolBarConfig";
 		public const string StatusBarConfigJavaClass = "com.inbrain.sdk.config.StatusBarConfig";
@@ -27,5 +28,6 @@
 		public const string SetStatusBarConfigJavaMethod = "setStatusBarConfig";
 		public const string GetSurveysJavaMethod = "getNativeSurveys";
 		public const string FromIdJavaMethod = "fromId";
+		public const string GetCurrencySaleJavaMethod = "getCurrencySale";
 	}
 }
