@@ -193,7 +193,7 @@ namespace InBrain
 		{
 			InBrainImpl?.GetSurveys(placementId, onSurveysReceived);
 		}
-		
+
 		/// <summary>
 		/// Request list of available surveys matching given filter
 		/// </summary>
@@ -203,7 +203,7 @@ namespace InBrain
 		{
 			InBrainImpl?.GetSurveysWithFilter(filter, onSurveysReceived);
 		}
-		
+
 		/// <summary>
 		/// Request information about active currency sale
 		/// </summary>
