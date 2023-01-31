@@ -33,11 +33,8 @@ namespace InBrain
 
 		public void Init(string clientId, string clientSecret, bool isS2S, string userId)
 		{
-			JniUtils.RunOnUiThread(() =>
-			{
-				InBrainInst?.Call(Constants.SetInBrainJavaMethod,
-					JniUtils.Activity, clientId, clientSecret, isS2S, userId);
-			});
+			InBrainInst?.Call(Constants.SetInBrainJavaMethod,
+				JniUtils.Activity, clientId, clientSecret, isS2S, userId);
 		}
 
 		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
@@ -48,14 +45,14 @@ namespace InBrain
 
 			var sessionId = trackingData?.sessionId;
 
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetInBrainValuesJavaMethod, sessionId, demographicDataHashMap); });
+			InBrainInst?.Call(Constants.SetInBrainValuesJavaMethod, sessionId, demographicDataHashMap);
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
 		{
 			_callback = new InBrainCallbackProxy(onRewardsViewDismissed, onRewardsReceived, confirmRewardsAutomatically);
 
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.AddCallbackJavaMethod, _callback); });
+			InBrainInst?.Call(Constants.AddCallbackJavaMethod, _callback);
 		}
 
 		public void RemoveCallback()
@@ -73,12 +70,12 @@ namespace InBrain
 
 		public void CheckSurveysAvailability(Action<bool> onAvailabilityChecked)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.CheckSurveysAvailabilityJavaMethod, JniUtils.Activity, new InBrainCheckSurveysAvailabilityCallbackProxy(onAvailabilityChecked)); });
+			InBrainInst?.Call(Constants.CheckSurveysAvailabilityJavaMethod, JniUtils.Activity, new InBrainCheckSurveysAvailabilityCallbackProxy(onAvailabilityChecked));
 		}
 
 		public void ShowSurveys()
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy()); });
+			InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy());
 		}
 
 		public void ShowSurvey(string surveyId)
@@ -88,7 +85,7 @@ namespace InBrain
 
 		public void ShowSurvey(string surveyId, string searchId)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, searchId, new InBrainStartSurveysCallbackProxy()); });
+			InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, searchId, new InBrainStartSurveysCallbackProxy());
 		}
 
 		public void GetRewards()
@@ -98,21 +95,18 @@ namespace InBrain
 
 		public void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false)
 		{
-			JniUtils.RunOnUiThread(() =>
-			{
-				InBrainInst?.Call(Constants.GetRewardsJavaMethod,
-					new InBrainGetRewardsCallbackProxy(onRewardsReceived, onFailedToReceiveRewards, confirmRewardsAutomatically));
-			});
+			InBrainInst?.Call(Constants.GetRewardsJavaMethod,
+				new InBrainGetRewardsCallbackProxy(onRewardsReceived, onFailedToReceiveRewards, confirmRewardsAutomatically));
 		}
 
 		public void ConfirmRewards(List<InBrainReward> rewards)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.ConfirmRewardsJavaMethod, rewards.ToJavaList(reward => reward.ToAJO())); });
+			InBrainInst?.Call(Constants.ConfirmRewardsJavaMethod, rewards.ToJavaList(reward => reward.ToAJO()));
 		}
 
 		public void SetLanguage(string language)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetLanguageJavaMethod, language); });
+			InBrainInst?.Call(Constants.SetLanguageJavaMethod, language);
 		}
 
 		public void SetToolbarConfig(InBrainToolbarConfig config)
@@ -124,7 +118,7 @@ namespace InBrain
 				.CallAJO("setTitleColor", config.TitleColor.ToJavaColor())
 				.CallAJO("setTitle", config.Title);
 
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetToolbarConfigJavaMethod, javaConfig); });
+			InBrainInst?.Call(Constants.SetToolbarConfigJavaMethod, javaConfig);
 		}
 
 		public void SetStatusBarConfig(InBrainStatusBarConfig config)
@@ -133,27 +127,27 @@ namespace InBrain
 				.CallAJO("setStatusBarIconsLight", config.LightStatusBarIcons)
 				.CallAJO("setStatusBarColor", config.StatusBarColor.ToJavaColor());
 
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.SetStatusBarConfigJavaMethod, javaConfig); });
+			InBrainInst?.Call(Constants.SetStatusBarConfigJavaMethod, javaConfig);
 		}
 
 		public void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
+			InBrainInst?.Call(Constants.GetSurveysJavaMethod, new InBrainGetSurveysCallbackProxy(onSurveysReceived));
 		}
 
 		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, null, new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
+			InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, null, new InBrainGetSurveysCallbackProxy(onSurveysReceived));
 		}
 
 		public void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetSurveysJavaMethod, filter.ToAJO(), new InBrainGetSurveysCallbackProxy(onSurveysReceived)); });
+			InBrainInst?.Call(Constants.GetSurveysJavaMethod, filter.ToAJO(), new InBrainGetSurveysCallbackProxy(onSurveysReceived));
 		}
 
 		public void GetCurrencySale(Action<InBrainCurrencySale> onCurrencySaleReceived)
 		{
-			JniUtils.RunOnUiThread(() => { InBrainInst?.Call(Constants.GetCurrencySaleJavaMethod, new InBrainCurrencySaleCallbackProxy(onCurrencySaleReceived)); });
+			InBrainInst?.Call(Constants.GetCurrencySaleJavaMethod, new InBrainCurrencySaleCallbackProxy(onCurrencySaleReceived));
 		}
 	}
 }
