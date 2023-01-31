@@ -25,15 +25,13 @@ namespace InBrain
 		{
 			loadingIcon.SetActive(true);
 
-			// Uncomment following lines of code in order to filter native surveys
-			// var filter = new InBrainSurveyFilter();
-			// filter.placementId = "76f52733-62e0-4b0d-bb62-72ebf1b42edf";
-			// filter.categoryIds = new List<InBrainSurveyCategory>() { InBrainSurveyCategory.HealthCare, InBrainSurveyCategory.Food };
-			// filter.excludedCategoryIds = new List<InBrainSurveyCategory>() { InBrainSurveyCategory.Business };
-			//
-			// InBrain.Instance.GetSurveysWithFilter(filter, OnSurveysFetched);
-
+			// Comment following line in order to proceed with native surveys filtering
 			InBrain.Instance.GetSurveys(OnSurveysFetched);
+
+			// Uncomment following lines of code in order to filter native surveys
+			// var filter = new InBrainSurveyFilter("76f52733-62e0-4b0d-bb62-72ebf1b42edf", 
+			// 	new List<InBrainSurveyCategory> { InBrainSurveyCategory.SocialResearch });
+			// InBrain.Instance.GetSurveysWithFilter(filter, OnSurveysFetched);
 		}
 
 		void OnDisable()
