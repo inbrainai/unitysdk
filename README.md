@@ -150,7 +150,22 @@ Each recieved survey has its own `id` value that should be passed to `ShowSurvey
 InBrain.Instance.ShowSurvey(surveyId);
 ```
 
-Both methods have versions which accept additional `placementId` parameter.
+Alternatively one can fetch list of available surveys that metch certain criteria (i.e. survey category) by calling the `GetSurveysWithFilter` method instead.
+
+```
+var filter = new InBrainSurveyFilter("SURVEY_PLACEMENT_ID", new List<InBrainSurveyCategory> { InBrainSurveyCategory.SocialResearch });
+InBrain.Instance.GetSurveysWithFilter(filter, OnSurveysFetched);
+```
+
+### Currency sales
+
+The plugin provides an API allowing to get active currency sale. This can be done with method `GetCurrencySale`.
+
+```
+InBrain.Instance.GetCurrencySale(sale => {
+	// process currency sale...
+});
+```
 
 ### Advanced usage
 
