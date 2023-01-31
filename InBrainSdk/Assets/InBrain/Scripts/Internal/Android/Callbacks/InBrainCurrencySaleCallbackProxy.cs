@@ -17,7 +17,7 @@ namespace InBrain
 
 		public void currencySaleReceived(AndroidJavaObject currencySale)
 		{
-			InBrainSceneHelper.Queue(() => _onCurrencySaleReceived(InBrainCurrencySale.FromAJO(currencySale)));
+			InBrainSceneHelper.Queue(() => _onCurrencySaleReceived(currencySale != null ? InBrainCurrencySale.FromAJO(currencySale) : null));
 		}
 	}
 }

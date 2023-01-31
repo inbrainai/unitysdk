@@ -37,6 +37,14 @@ namespace InBrain
 			{
 				Debug.Log("Surveys availability: " + flag);
 			});
+			
+			InBrain.Instance.GetCurrencySale(sale =>
+			{
+				if (sale != null)
+				{
+					Debug.Log(sale.ToString());
+				}
+			});
 		}
 
 		public void OnShowSurveysClicked()
