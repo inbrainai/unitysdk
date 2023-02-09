@@ -11,7 +11,6 @@ namespace InBrain
 		void RemoveCallback();
 		void CheckSurveysAvailability(Action<bool> onAvailabilityChecked);
 		void ShowSurveys();
-		void ShowSurvey(string surveyId);
 		void ShowSurvey(string surveyId, string searchId);
 		void GetRewards();
 		void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false);

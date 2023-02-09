@@ -10,6 +10,7 @@ namespace InBrain
 		[SerializeField] InBrainSurveyRating inBrainSurveyRating = null;
 
 		string _surveyId;
+		string _searchId;
 
 		public void Init(InBrainSurvey data)
 		{
@@ -18,11 +19,12 @@ namespace InBrain
 			inBrainSurveyRating.SetRating((int) data.rank);
 
 			_surveyId = data.id;
+			_searchId = data.searchId;
 		}
 
 		public void OnStartSurveyButtonClicked()
 		{
-			InBrain.Instance.ShowSurvey(_surveyId);
+			InBrain.Instance.ShowSurvey(_surveyId, _searchId);
 		}
 	}
 }

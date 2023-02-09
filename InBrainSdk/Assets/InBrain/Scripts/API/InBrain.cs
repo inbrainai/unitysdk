@@ -95,15 +95,7 @@ namespace InBrain
 		{
 			InBrainImpl?.ShowSurveys();
 		}
-		
-		/// <summary>
-		/// Open web view for specified survey
-		/// </summary>
-		public void ShowSurvey(string surveyId)
-		{
-			InBrainImpl?.ShowSurvey(surveyId);
-		}
-		
+
 		/// <summary>
 		/// Open web view for specified survey with given search identifier
 		/// </summary>

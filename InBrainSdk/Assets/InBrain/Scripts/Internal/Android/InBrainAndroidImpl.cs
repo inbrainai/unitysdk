@@ -78,11 +78,6 @@ namespace InBrain
 			InBrainInst?.Call(Constants.ShowSurveysJavaMethod, JniUtils.Activity, new InBrainStartSurveysCallbackProxy());
 		}
 
-		public void ShowSurvey(string surveyId)
-		{
-			ShowSurvey(surveyId, null);
-		}
-
 		public void ShowSurvey(string surveyId, string searchId)
 		{
 			InBrainInst?.Call(Constants.ShowSurveyJavaMethod, JniUtils.Activity, surveyId, searchId, new InBrainStartSurveysCallbackProxy());

@@ -48,11 +48,14 @@
     for (NSUInteger i = 0; i < surveys.count; ++i) {
         NSMutableDictionary *survey = [NSMutableDictionary dictionary];
         survey[@"id"] = surveys[i].id;
+        survey[@"searchId"] = surveys[i].searchId;
         survey[@"rank"] = @(surveys[i].rank);
         survey[@"time"] = @(surveys[i].time);
         survey[@"value"] = @(surveys[i].value);
         survey[@"currencySale"] = @(surveys[i].currencySale);
         survey[@"multiplier"] = @(surveys[i].multiplier);
+        survey[@"categories"] = surveys[i].categoryIds;
+        survey[@"conversionLevel"] = @(surveys[i].conversionLevel);
         [surveysArray addObject:survey];
     }
     
