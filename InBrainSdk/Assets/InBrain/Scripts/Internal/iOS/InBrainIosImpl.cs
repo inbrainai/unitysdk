@@ -74,11 +74,6 @@ namespace InBrain
 #endif
 		}
 
-		public void ShowSurvey(string surveyId)
-		{
-			ShowSurvey(surveyId, null);
-		}
-
 		public void ShowSurvey(string surveyId, string searchId)
 		{
 #if UNITY_IOS && !UNITY_EDITOR

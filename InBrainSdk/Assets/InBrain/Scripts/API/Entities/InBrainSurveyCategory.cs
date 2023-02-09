@@ -48,5 +48,10 @@ namespace InBrain
 				return inBrainSurveyCategoryClass.CallStatic<AndroidJavaObject>(Constants.FromIdJavaMethod, (int) category);
 			}
 		}
+
+		public static InBrainSurveyCategory FromSurveyCategoryAJO(this AndroidJavaObject category)
+		{
+			return (InBrainSurveyCategory) category.Call<int>(Constants.GetIdJavaMethod);
+		}
 	}
 }

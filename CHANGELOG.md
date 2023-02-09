@@ -5,17 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.6.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.6.0) - 2023-01-31
+## [2.0.0](https://github.com/inbrainai/unitysdk/releases/tag/v.2.0.0) - 2023-02-10
 
 ### Added
 - New `GetCurrencySale` method for fetching info regarding active currency sales.
 - New `GetSurveysWithFilter` method for fetching active surveys list matching certain criteria.
+- New properties for `InBrainSurvey`
 ---
 
 ### Changed
 - Android and iOS libraries updated in order to improve plugin stability and performance on both platforms.
 - Existing `SetLanguage` method has been deprecated.
 - Existing `GetSurveys` method accepting `placementId` parameter has been deprecated.
+---
+
+### Removed
+- `ShowSurvey` method which takes a single `surveyId` imput parameter.
 ---
 
 ## [1.5.0](https://github.com/inbrainai/unitysdk/releases/tag/v.1.5.0) - 2022-03-08
