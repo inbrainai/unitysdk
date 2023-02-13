@@ -17,7 +17,6 @@ namespace InBrain
 		void GetRewards();
 		void GetRewards(Action<List<InBrainReward>> onRewardsReceived, Action onFailedToReceiveRewards, bool confirmRewardsAutomatically = false);
 		void ConfirmRewards(List<InBrainReward> rewards);
-		void SetLanguage(string language);
 		void SetToolbarConfig(InBrainToolbarConfig config);
 		void SetStatusBarConfig(InBrainStatusBarConfig config);
 		void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived);

@@ -168,10 +168,10 @@ namespace InBrain
 		/// Language to use in surveys web view
 		/// Accepted languages: "en-us", "en-gb", "en-ca", "en-au", "en-in", "de-de", "es-es", "es-mx", "es-us", "fr-fr", "fr-ca", "fr-br"
 		/// </param>
-		[Obsolete("This method is deprecated.")]
+		[Obsolete("This method is deprecated.", true)]
 		public void SetLanguage(string language)
 		{
-			InBrainImpl?.SetLanguage(language);
+			// Implementation removed due to its deprecation
 		}
 
 		/// <summary>

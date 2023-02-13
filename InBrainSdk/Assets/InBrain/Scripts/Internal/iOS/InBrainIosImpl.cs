@@ -131,13 +131,6 @@ namespace InBrain
 #endif
 		}
 
-		public void SetLanguage(string language)
-		{
-#if UNITY_IOS && !UNITY_EDITOR
-			_ib_SetLanguage(language);
-#endif
-		}
-
 		public void SetToolbarConfig(InBrainToolbarConfig config)
 		{
 #if UNITY_IOS && !UNITY_EDITOR
@@ -263,9 +256,6 @@ namespace InBrain
 		[DllImport("__Internal")]
 		static extern void _ib_ConfirmRewards(string rewardsJson);
 
-		[DllImport("__Internal")]
-		static extern void _ib_SetLanguage(string language);
-		
 		[DllImport("__Internal")]
 		static extern void _ib_SetNavigationBarConfig(string title, int backgroundColor, int titleColor, int backButtonColor);
 
