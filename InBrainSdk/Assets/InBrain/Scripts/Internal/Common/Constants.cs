@@ -17,7 +17,8 @@
 		public const string GetInstanceJavaMethod = "getInstance";
 		public const string SetInBrainJavaMethod = "setInBrain";
 		public const string SetInBrainUserIdJavaMethod = "setUserID";
-		public const string SetInBrainValuesJavaMethod = "setInBrainValuesFor";
+		public const string SetSessionIdJavaMethod = "setSessionId";
+		public const string SetDataOptionsJavaMethod = "setDataOptions";
 		public const string AddCallbackJavaMethod = "addCallback";
 		public const string RemoveCallbackJavaMethod = "removeCallback";
 		public const string CheckSurveysAvailabilityJavaMethod = "areSurveysAvailable";
@@ -25,7 +26,6 @@
 		public const string ShowSurveyJavaMethod = "showNativeSurveyWith";
 		public const string GetRewardsJavaMethod = "getRewards";
 		public const string ConfirmRewardsJavaMethod = "confirmRewards";
-		public const string SetLanguageJavaMethod = "setLanguage";
 		public const string SetToolbarConfigJavaMethod = "setToolbarConfig";
 		public const string SetStatusBarConfigJavaMethod = "setStatusBarConfig";
 		public const string GetSurveysJavaMethod = "getNativeSurveys";

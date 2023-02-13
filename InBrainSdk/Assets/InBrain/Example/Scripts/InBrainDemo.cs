@@ -29,9 +29,6 @@ namespace InBrain
 			// SetStatusBarConfiguration();
 			// SetToolbarConfiguration();
 
-			// Uncomment following line to set additional data for enhancing InBrain experience
-			// SetInBrainCustomData();
-
 			InBrain.Instance.CheckSurveysAvailability(flag =>
 			{
 				Debug.Log("Surveys availability: " + flag);
