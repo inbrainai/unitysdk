@@ -20,8 +20,6 @@ namespace InBrain
 		void ConfirmRewards(List<InBrainReward> rewards);
 		void SetToolbarConfig(InBrainToolbarConfig config);
 		void SetStatusBarConfig(InBrainStatusBarConfig config);
-		void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived);
-		void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived);
 		void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived);
 		void GetCurrencySale(Action<InBrainCurrencySale> onCurrencySaleReceived);
 	}
