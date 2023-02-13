@@ -32,6 +32,7 @@ In order to access SDK functionality InBrain singleton object required. One will
 Also, provide unique user ID before calling any other methods to specify which player should receive rewards.
 
 ```
+InBrain.Instance.Init();
 InBrain.Instance.SetAppUserId(appUserId);
 ```
 
@@ -97,16 +98,6 @@ InBrain.Instance.ConfirmRewards(rewardsList);
 ```
 
 This call should always be made following rewards data processing.
-
-### Language
-
-In order to change surveys web view language `SetLanguage` method should be called before it is opened.
-
-```
-InBrain.Instance.SetLanguage(language);
-```
-
-Accepted languages: "en-us", "fr-fr", "en-gb", "en-ca", "en-au", "en-in". System language is used by default.
 
 ## Customization
 

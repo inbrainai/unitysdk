@@ -54,6 +54,8 @@ namespace InBrain
 				var surveyItem = Instantiate(inBrainSurveyItemPrefab, surveysContent);
 				surveyItem.Init(survey);
 				_surveys.Add(surveyItem);
+
+				Debug.Log(survey);
 			}
 		}
 	}

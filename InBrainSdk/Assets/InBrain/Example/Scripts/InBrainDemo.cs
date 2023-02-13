@@ -19,6 +19,7 @@ namespace InBrain
 		{
 			_receivedRewards = new List<InBrainReward>();
 
+			InBrain.Instance.Init();
 			InBrain.Instance.SetAppUserId(appUserId);
 
 			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
