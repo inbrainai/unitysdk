@@ -29,14 +29,15 @@ namespace InBrain
 #endif
 		}
 
-		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
+		public void SetSessionId(string sessionId)
 		{
-			string trackingDataJson = null;
-			if (trackingData != null)
-			{
-				trackingDataJson = JsonUtility.ToJson(trackingData);
-			}
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_SetSessionId(sessionId);
+#endif
+		}
 
+		public void SetDemographicData(InBrainDemographicData demographicData)
+		{
 			string demographicDataJson = null;
 			if (demographicData != null)
 			{
@@ -44,7 +45,7 @@ namespace InBrain
 			}
 
 #if UNITY_IOS && !UNITY_EDITOR
-			_ib_SetInBrainValues(trackingDataJson, demographicDataJson);
+			_ib_SetDataOptions(demographicDataJson);
 #endif
 		}
 
@@ -228,7 +229,10 @@ namespace InBrain
 		static extern void _ib_SetInBrainUserId(string userId);
 
 		[DllImport("__Internal")]
-		static extern void _ib_SetInBrainValues(string trackingData, string demographicData);
+		static extern void _ib_SetSessionId(string sessionId);
+
+		[DllImport("__Internal")]
+		static extern void _ib_SetDataOptions(string demographicData);
 
 		[DllImport("__Internal")]
 		static extern void _ib_CheckSurveysAvailability(Callbacks.ActionBoolCallbackDelegate surveysAvailabilityCheckedCallback, IntPtr surveysAvailabilityCheckedActionPtr);

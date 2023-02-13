@@ -48,15 +48,18 @@ namespace InBrain
 			InBrainInst?.Call(Constants.SetInBrainUserIdJavaMethod, JniUtils.Activity, userId);
 		}
 
-		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
+		public void SetSessionId(string sessionId)
+		{
+			InBrainInst?.Call(Constants.SetSessionIdJavaMethod, sessionId);
+		}
+
+		public void SetDemographicData(InBrainDemographicData demographicData)
 		{
 			var demographicDataHashMap = new AndroidJavaObject("java.util.HashMap");
 			demographicDataHashMap.Call<string>("put", "gender", demographicData?.gender);
 			demographicDataHashMap.Call<string>("put", "age", demographicData?.age.ToString());
 
-			var sessionId = trackingData?.sessionId;
-
-			InBrainInst?.Call(Constants.SetInBrainValuesJavaMethod, sessionId, demographicDataHashMap);
+			InBrainInst?.Call(Constants.SetDataOptionsJavaMethod, demographicDataHashMap);
 		}
 
 		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)

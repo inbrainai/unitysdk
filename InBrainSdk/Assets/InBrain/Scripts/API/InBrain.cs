@@ -64,13 +64,32 @@ namespace InBrain
 		}
 
 		/// <summary>
+		/// Set unique session ID provided in the S2S callback which is required for user session tracking
+		/// </summary>
+		/// <param name="sessionId">Uniques session ID</param>
+		public void SetSessionId([NotNull] string sessionId)
+		{
+			InBrainImpl?.SetSessionId(sessionId);
+		}
+
+		/// <summary>
+		/// Set additional demographic data for enhancing InBrain experience
+		/// </summary>
+		/// <param name="demographicData">Additional data to provide seamless user on-boarding into the InBrain experience</param>
+		public void SetDemographicData([NotNull] InBrainDemographicData demographicData)
+		{
+			InBrainImpl?.SetDemographicData(demographicData);
+		}
+		
+		/// <summary>
 		/// Set additional data for enhancing InBrain experience
 		/// </summary>
 		/// <param name="trackingData">Additional data that will be provided in the S2S callback</param>
 		/// <param name="demographicData">Additional data to provide seamless user on-boarding into the InBrain experience</param>
+		[Obsolete("This method is deprecated. Use `SetSessionId` and `SetDemographicData` methods instead", true)]
 		public void SetCustomData([CanBeNull] InBrainTrackingData trackingData, [CanBeNull] InBrainDemographicData demographicData)
 		{
-			InBrainImpl?.SetCustomData(trackingData, demographicData);
+			// Implementation removed due to its deprecation
 		}
 
 		/// <summary>
@@ -116,7 +135,7 @@ namespace InBrain
 		/// <summary>
 		/// Open web view for specified survey
 		/// </summary>
-		[Obsolete("This method is deprecated.", true)]
+		[Obsolete("This method is deprecated. Use `void ShowSurvey(string surveyId, string searchId)` method instead.", true)]
 		public void ShowSurvey(string surveyId)
 		{
 			// Implementation removed due to its deprecation

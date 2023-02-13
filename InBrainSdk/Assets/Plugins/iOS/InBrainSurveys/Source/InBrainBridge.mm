@@ -49,13 +49,12 @@ extern "C" {
         [[InBrain shared] setWithUserID:userIdString];
     }
 
-    void _ib_SetInBrainValues(char* trackingDataJson, char* demographicDataJson) {
-        NSString* sessionId;
-        if(trackingDataJson != nil) {
-            NSDictionary* trackingDataDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:trackingDataJson]];
-            sessionId = trackingDataDictionary[@"sessionId"];
-        }
-        
+    void _ib_SetSessionId(char* sessionId) {
+        NSString* sessionIdString = [InBrainUtils createNSStringFrom:sessionId];
+        [[InBrain shared] setSessionID:sessionIdString];
+    }
+
+    void _ib_SetDataOptions(char* demographicDataJson) {
         NSMutableArray<NSDictionary<NSString*, id>*>* demographicData = [NSMutableArray new];
         if(demographicDataJson != nil) {
             NSDictionary* demographicDataDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:demographicDataJson]];
@@ -69,7 +68,6 @@ extern "C" {
             [demographicData addObject:ageDict];
         }
         
-        [[InBrain shared] setSessionID:sessionId];
         [[InBrain shared] setDataOptions:demographicData];
     }
     
