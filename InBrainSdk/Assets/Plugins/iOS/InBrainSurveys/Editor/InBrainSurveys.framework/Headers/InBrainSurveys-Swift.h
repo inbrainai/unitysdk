@@ -274,43 +274,43 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) InBrain * _N
 @property (nonatomic, readonly) BOOL isOnScreen;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
-/// Config inBrain at app launch using this method.
-/// <ul>
-///   <li>
-///     The userID can be provided after auth, using <code>set(userID:)</code> method;
-///   </li>
-///   <li>
-///     If userID not set (or empty) - <code>identifierForVendor</code> will be used.
-///   </li>
-/// </ul>
+/// Initial inBrain SDK configuration
+/// \param apiClientID The client ID provided in inBrain.ai dashboard
+///
+/// \param apiSecret The client secret provided in inBrain.ai dashboard
+///
+/// \param isS2S Set <code>true</code> to get new rewards automatically at <code>didReceiveInBrainRewards(rewardsArray:)</code> method of InBrainDelegate
+///
 - (void)setInBrainWithApiClientID:(NSString * _Nonnull)apiClientID apiSecret:(NSString * _Nonnull)apiSecret isS2S:(BOOL)isS2S;
-/// Config inBrain before <code>showSurveys</code> function call.
-/// \param userID If userID not set (or empty) - <code>identifierForVendor</code> will be used.
+/// Initial inBrain SDK configuration
+/// \param apiClientID The client ID provided in inBrain.ai dashboard
+///
+/// \param apiSecret The client secret provided in inBrain.ai dashboard
+///
+/// \param isS2S Set <code>true</code> to get new rewards automatically at <code>didReceiveInBrainRewards(rewardsArray:)</code> method of InBrainDelegate
+///
+/// \param userID The string value that uniquely identifies each user within your application. Can be provided later, using <code>set(userID:)</code> method
 ///
 - (void)setInBrainWithApiClientID:(NSString * _Nonnull)apiClientID apiSecret:(NSString * _Nonnull)apiSecret isS2S:(BOOL)isS2S userID:(NSString * _Nullable)userID;
-/// Set userID to identify the user by the server.
-/// <ul>
-///   <li>
-///     If userID not set (or empty) - <code>identifierForVendor</code> will be used.
-///   </li>
-/// </ul>
+/// Set uniq identifier of user within your application. If value not set (or empty) - <code>identifierForVendor</code> will be used
+/// \param userID The string value that uniquely identifies each user within your application
+///
 - (void)setWithUserID:(NSString * _Nullable)userID;
-/// Set title before calling <code>showSurveys()</code>
-- (void)setNavigationBarTitle:(NSString * _Nonnull)title;
-/// Customize Navigation Bar before calling <code>showSurveys()</code>
+- (void)setNavigationBarTitle:(NSString * _Nullable)title;
+/// Customize Navigation Bar to match your application style
 - (void)setNavigationBarConfig:(InBrainNavBarConfig * _Nonnull)config;
-/// Customize Status Bar before calling <code>showSurveys()</code>
+/// Customize Status Bar to match your application style
 /// In order to customize status bar - needs to set <code>View controller-based status bar appearance</code> to <code>YES</code>
 - (void)setStatusBarConfig:(InBrainStatusBarConfig * _Nonnull)config;
-/// Set the value before calling <code>showSurveys()</code>
-/// \param sessionID Value to track each user session. This value is provided via S2S Callbacks as SessionId.
+/// Set the value to track user session. This value is provided via S2S Callbacks as SessionId.
+/// \param sessionID Session identifier
 ///
 - (void)setSessionID:(NSString * _Nullable)sessionID;
 /// Set values before calling <code>showSurveys()</code>
 - (void)setDataOptions:(NSArray<NSDictionary<NSString *, id> *> * _Nullable)dataOptions;
 /// Check are surveys available.
 - (void)checkForAvailableSurveysWithCompletion:(void (^ _Nonnull)(BOOL, NSError * _Nullable))completion;
-/// All the configs should be done <code>BEFORE</code> calling <code>showSurveys()</code>.
+/// Show the Survey Wall. All the configs should be done <code>BEFORE</code> calling <code>showSurveys()</code>.
 /// If you are using <em>NativeSurveys</em> (regardless of filters) - please, take care about refreshing them after some survey(s) completed. Additional details may be found at <em>getNativeSurveys</em> function description.
 /// \param viewController ViewController to present InBrain from. If no controller specified - InBrain will be presented from inBrainDelegate (if subclass of UIViewController) OR from UIApplication’s keyWindow
 ///
