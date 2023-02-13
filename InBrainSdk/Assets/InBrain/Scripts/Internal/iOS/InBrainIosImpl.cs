@@ -154,30 +154,6 @@ namespace InBrain
 #endif
 		}
 
-		public void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived)
-		{
-			GetSurveys(null, onSurveysReceived);
-		}
-
-		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
-		{
-			Action<string> onSurveysReceivedNative = surveysJson =>
-			{
-				var surveysResult = JsonUtility.FromJson<InBrainGetSurveysResult>(surveysJson);
-				onSurveysReceived?.Invoke(surveysResult.surveys);
-			};
-
-			Action onFailedToReceiveSurveys = () =>
-			{
-				Debug.Log("Failed to receive surveys list");
-			};
-
-#if UNITY_IOS && !UNITY_EDITOR
-			_ib_GetNativeSurveysWithCallback(placementId, Callbacks.ActionStringCallback, onSurveysReceivedNative.GetPointer(),
-				Callbacks.ActionVoidCallback, onFailedToReceiveSurveys.GetPointer());
-#endif
-		}
-
 		public void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
 			var filterJson = JsonUtility.ToJson(filter);
@@ -265,10 +241,6 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetStatusBarConfig(bool light, bool hide);
-
-		[DllImport("__Internal")]
-		static extern void _ib_GetNativeSurveysWithCallback(string placementId, Callbacks.ActionStringCallbackDelegate surveysReceivedCallback, IntPtr surveysReceivedActionPtr,
-			Callbacks.ActionVoidCallbackDelegate failedToReceiveSurveysCallback, IntPtr failedToReceiveSurveysActionPtr);
 
 		[DllImport("__Internal")]
 		static extern void _ib_GetNativeSurveysWithFilterAndCallback(string filterJson, Callbacks.ActionStringCallbackDelegate surveysReceivedCallback, IntPtr surveysReceivedActionPtr,

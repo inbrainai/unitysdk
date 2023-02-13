@@ -110,19 +110,5 @@ namespace InBrain
 			};
 			InBrain.Instance.SetToolbarConfig(toolbarConfig);
 		}
-
-		void SetInBrainCustomData()
-		{
-			var trackingData = new InBrainTrackingData
-			{
-				sessionId = "testing33_Session"
-			};
-			var demographicData = new InBrainDemographicData
-			{
-				gender = "male", 
-				age = 34
-			};
-			InBrain.Instance.SetCustomData(trackingData, demographicData);
-		}
 	}
 }

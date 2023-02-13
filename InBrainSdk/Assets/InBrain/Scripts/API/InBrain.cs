@@ -80,7 +80,7 @@ namespace InBrain
 		{
 			InBrainImpl?.SetDemographicData(demographicData);
 		}
-		
+
 		/// <summary>
 		/// Set additional data for enhancing InBrain experience
 		/// </summary>
@@ -215,9 +215,10 @@ namespace InBrain
 		/// Request list of available surveys
 		/// </summary>
 		/// <param name="onSurveysReceived">Callback triggered when surveys received</param>
+		[Obsolete("This method is deprecated. Use `GetSurveysWithFilter` instead.")]
 		public void GetSurveys([NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			InBrainImpl?.GetSurveys(onSurveysReceived);
+			InBrainImpl?.GetSurveysWithFilter(null, onSurveysReceived);
 		}
 
 		/// <summary>
@@ -228,7 +229,8 @@ namespace InBrain
 		[Obsolete("This method is deprecated. Use `GetSurveysWithFilter` instead.")]
 		public void GetSurveys(string placementId, [NotNull] Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			InBrainImpl?.GetSurveys(placementId, onSurveysReceived);
+			var filter = new InBrainSurveyFilter(placementId);
+			InBrainImpl?.GetSurveysWithFilter(filter, onSurveysReceived);
 		}
 
 		/// <summary>

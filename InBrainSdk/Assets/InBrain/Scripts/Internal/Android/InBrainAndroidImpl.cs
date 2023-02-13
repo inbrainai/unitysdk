@@ -134,19 +134,9 @@ namespace InBrain
 			InBrainInst?.Call(Constants.SetStatusBarConfigJavaMethod, javaConfig);
 		}
 
-		public void GetSurveys(Action<List<InBrainSurvey>> onSurveysReceived)
-		{
-			InBrainInst?.Call(Constants.GetSurveysJavaMethod, new InBrainGetSurveysCallbackProxy(onSurveysReceived));
-		}
-
-		public void GetSurveys(string placementId, Action<List<InBrainSurvey>> onSurveysReceived)
-		{
-			InBrainInst?.Call(Constants.GetSurveysJavaMethod, placementId, null, new InBrainGetSurveysCallbackProxy(onSurveysReceived));
-		}
-
 		public void GetSurveysWithFilter(InBrainSurveyFilter filter, Action<List<InBrainSurvey>> onSurveysReceived)
 		{
-			InBrainInst?.Call(Constants.GetSurveysJavaMethod, filter.ToAJO(), new InBrainGetSurveysCallbackProxy(onSurveysReceived));
+			InBrainInst?.Call(Constants.GetSurveysJavaMethod, filter?.ToAJO(), new InBrainGetSurveysCallbackProxy(onSurveysReceived));
 		}
 
 		public void GetCurrencySale(Action<InBrainCurrencySale> onCurrencySaleReceived)

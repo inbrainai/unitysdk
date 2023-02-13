@@ -149,17 +149,6 @@ extern "C" {
         [[InBrain shared] setStatusBarConfig:config];
     }
 
-    void _ib_GetNativeSurveysWithCallback(char* placementId, ActionStringCallbackDelegate surveysReceivedCallback, void *surveysReceivedActionPtr,
-        ActionVoidCallbackDelegate failedToReceiveSurveysCallback, void *failedToReceiveSurveysActionPtr) {
-        NSString* placeId = [InBrainUtils createNSStringFrom:placementId];
-        [[InBrain shared] getNativeSurveysWithPlacementID:placeId success:^(NSArray<InBrainNativeSurvey *> * _Nonnull surveysArray) {
-            NSString* surveys = [InBrainJsonUtils serializeSurveys:surveysArray];
-            surveysReceivedCallback(surveysReceivedActionPtr, [InBrainUtils createCStringFrom:surveys]);
-        } failed:^(NSError* error) {
-            failedToReceiveSurveysCallback(failedToReceiveSurveysActionPtr);
-        }];
-    }
-
     void _ib_GetNativeSurveysWithFilterAndCallback(char* filterJson, ActionStringCallbackDelegate surveysReceivedCallback, void *surveysReceivedActionPtr,
         ActionVoidCallbackDelegate failedToReceiveSurveysCallback, void *failedToReceiveSurveysActionPtr) {
         NSDictionary* filterDataDictionary = [InBrainJsonUtils deserializeDictionary:[InBrainUtils createNSStringFrom:filterJson]];
