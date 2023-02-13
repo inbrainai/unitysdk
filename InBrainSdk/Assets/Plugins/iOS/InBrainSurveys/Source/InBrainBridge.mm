@@ -132,11 +132,6 @@ extern "C" {
         [[InBrain shared] confirmRewardsWithTxIdArray:rewardsToConfirm];
     }
 
-    void _ib_SetLanguage(char* language) {
-        NSString* languageString = [InBrainUtils createNSStringFrom:language];
-        [[InBrain shared] setLanguage:languageString error:nil];
-    }
-
     void _ib_SetNavigationBarConfig(char* title, int backgroundColor, int titleColor, int backButtonColor) {
         [[InBrain shared] setNavigationBarTitle:[InBrainUtils createNSStringFrom:title]];
 

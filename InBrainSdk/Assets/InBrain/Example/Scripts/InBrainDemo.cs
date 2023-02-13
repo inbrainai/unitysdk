@@ -25,8 +25,6 @@ namespace InBrain
 			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
 			InBrain.Instance.GetRewards();
 
-			InBrain.Instance.SetLanguage("en-us");
-
 			// Uncomment following two lines of code in order to customize surveys wall UI
 			// SetStatusBarConfiguration();
 			// SetToolbarConfiguration();
@@ -38,7 +36,7 @@ namespace InBrain
 			{
 				Debug.Log("Surveys availability: " + flag);
 			});
-			
+
 			InBrain.Instance.GetCurrencySale(sale =>
 			{
 				if (sale != null)
