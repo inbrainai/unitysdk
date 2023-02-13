@@ -62,7 +62,8 @@ namespace InBrain
 			InBrainInst?.Call(Constants.SetDataOptionsJavaMethod, demographicDataHashMap);
 		}
 
-		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
+		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action<InBrainRewardsViewDismissedResult> onRewardsViewDismissed,
+			bool confirmRewardsAutomatically = false)
 		{
 			_callback = new InBrainCallbackProxy(onRewardsViewDismissed, onRewardsReceived, confirmRewardsAutomatically);
 

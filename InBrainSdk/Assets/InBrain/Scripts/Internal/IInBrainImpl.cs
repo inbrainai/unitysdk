@@ -10,7 +10,7 @@ namespace InBrain
 		void SetUserId(string userId);
 		void SetSessionId(string sessionId);
 		void SetDemographicData(InBrainDemographicData demographicData);
-		void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false);
+		void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action<InBrainRewardsViewDismissedResult> onRewardsViewDismissed, bool confirmRewardsAutomatically = false);
 		void RemoveCallback();
 		void CheckSurveysAvailability(Action<bool> onAvailabilityChecked);
 		void ShowSurveys();

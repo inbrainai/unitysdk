@@ -54,8 +54,10 @@ bool isOpened = false;
     [self dismissViewControllerAnimated:NO completion:nil];
     isOpened = false;
     
+    NSString* webViewDismissedResult = [InBrainJsonUtils serializeRewardsViewDismissedResult:rewards byWebView:byWebView];
+    
     if (_onRewardsViewDismissed) {
-        _onRewardsViewDismissed();
+        _onRewardsViewDismissed(webViewDismissedResult);
     }
 }
 

@@ -80,6 +80,27 @@
     return [self serializeDictionary:dictionary];
 }
 
++ (NSString *)serializeRewardsViewDismissedResult:(NSArray<InBrainSurveyReward *> *)rewards byWebView:(BOOL)status {
+    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
+
+    NSMutableArray *rewardsArray = [NSMutableArray arrayWithCapacity:rewards.count];
+
+    for (NSUInteger i = 0; i < rewards.count; ++i) {
+        NSMutableDictionary *reward = [NSMutableDictionary dictionary];
+        reward[@"surveyId"] = rewards[i].surveyId;
+        reward[@"placementId"] = rewards[i].placementId;
+        reward[@"categories"] = rewards[i].categoryIds;
+        reward[@"userReward"] = @(rewards[i].userReward);
+        reward[@"outcomeType"] = @(rewards[i].outcomeType);
+        [rewardsArray addObject:reward];
+    }
+
+    dictionary[@"rewards"] = rewardsArray;
+    dictionary[@"byWebView"] = [NSNumber numberWithBool:status];
+
+    return [self serializeDictionary:dictionary];
+}
+
 + (NSArray *)deserializeArray:(NSString *)jsonArray {
     NSError *e = nil;
     NSArray *array = [NSJSONSerialization JSONObjectWithData:[jsonArray dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:&e];

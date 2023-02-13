@@ -98,7 +98,7 @@ namespace InBrain
 		/// <param name="onRewardsReceived">Callback triggered when new rewards received</param>
 		/// <param name="onRewardsViewDismissed">Callback triggered when surveys web view dismissed</param>
 		/// <param name="confirmRewardsAutomatically">Flag indicating whether to confirm received rewards automatically</param>
-		public void AddCallback([NotNull] Action<List<InBrainReward>> onRewardsReceived, [NotNull] Action onRewardsViewDismissed,
+		public void AddCallback([NotNull] Action<List<InBrainReward>> onRewardsReceived, [NotNull] Action<InBrainRewardsViewDismissedResult> onRewardsViewDismissed,
 			bool confirmRewardsAutomatically = false)
 		{
 			InBrainImpl?.AddCallback(onRewardsReceived, onRewardsViewDismissed, confirmRewardsAutomatically);

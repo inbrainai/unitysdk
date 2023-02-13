@@ -49,7 +49,8 @@ namespace InBrain
 #endif
 		}
 
-		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action onRewardsViewDismissed, bool confirmRewardsAutomatically = false)
+		public void AddCallback(Action<List<InBrainReward>> onRewardsReceived, Action<InBrainRewardsViewDismissedResult> onRewardsViewDismissed,
+			bool confirmRewardsAutomatically = false)
 		{
 			Action<string> onRewardsReceivedNative = rewardsJson =>
 			{
@@ -61,10 +62,16 @@ namespace InBrain
 					ConfirmRewards(rewardsResult.rewards);
 				}
 			};
+			
+			Action<string> onRewardsViewDismissedNative = dismissedResultJson =>
+			{
+				var dismissedResult = JsonUtility.FromJson<InBrainRewardsViewDismissedResult>(dismissedResultJson);
+				onRewardsViewDismissed?.Invoke(dismissedResult);
+			};
 
 #if UNITY_IOS && !UNITY_EDITOR
 			_ib_SetCallback(Callbacks.ActionStringCallback, onRewardsReceivedNative.GetPointer(),
-				Callbacks.ActionVoidCallback, onRewardsViewDismissed.GetPointer());
+				Callbacks.ActionStringCallback, onRewardsViewDismissedNative.GetPointer());
 #endif
 		}
 
@@ -221,7 +228,7 @@ namespace InBrain
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetCallback(Callbacks.ActionStringCallbackDelegate rewardReceivedCallback, IntPtr rewardReceivedActionPtr,
-			Callbacks.ActionVoidCallbackDelegate rewardViewDismissedCallback, IntPtr rewardViewDismissedActionPtr);
+			Callbacks.ActionStringCallbackDelegate rewardViewDismissedCallback, IntPtr rewardViewDismissedActionPtr);
 
 		[DllImport("__Internal")]
 		static extern void _ib_RemoveCallback();

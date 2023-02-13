@@ -93,15 +93,15 @@ extern "C" {
 
     void _ib_SetCallback(ActionStringCallbackDelegate rewardReceivedCallback,
                          void *rewardReceivedActionPtr,
-                         ActionVoidCallbackDelegate rewardViewDismissedCallback,
+                         ActionStringCallbackDelegate rewardViewDismissedCallback,
                          void *rewardViewDismissedActionPtr) {
         
         inBrainView.onRewardsReceived = ^(NSString* rewards) {
             rewardReceivedCallback(rewardReceivedActionPtr, [InBrainUtils createCStringFrom:rewards]);
         };
         
-        inBrainView.onRewardsViewDismissed = ^{
-            rewardViewDismissedCallback(rewardViewDismissedActionPtr);
+        inBrainView.onRewardsViewDismissed = ^(NSString* dismissedResult) {
+            rewardViewDismissedCallback(rewardViewDismissedActionPtr, [InBrainUtils createCStringFrom:dismissedResult]);
         };
     }
 

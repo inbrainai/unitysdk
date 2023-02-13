@@ -22,7 +22,7 @@ namespace InBrain
 			InBrain.Instance.Init();
 			InBrain.Instance.SetAppUserId(appUserId);
 
-			InBrain.Instance.AddCallback(ProcessRewards, () => { Debug.Log("InBrain: Surveys web view was dismissed"); });
+			InBrain.Instance.AddCallback(ProcessRewards, ProcessWebViewDismissed);
 			InBrain.Instance.GetRewards();
 
 			// Uncomment following two lines of code in order to customize surveys wall UI
@@ -86,7 +86,17 @@ namespace InBrain
 
 			Debug.Log($"InBrain: Pending rewards amount: {balance}");
 		}
-		
+
+		void ProcessWebViewDismissed(InBrainRewardsViewDismissedResult result)
+		{
+			Debug.Log($"InBrain: Surveys web view was dismissed (by WebView: {result.byWebView})");
+
+			foreach (var reward in result.rewards)
+			{
+				Debug.Log(reward);
+			}
+		}
+
 		void SetStatusBarConfiguration()
 		{
 			var statusBarConfig = new InBrainStatusBarConfig
