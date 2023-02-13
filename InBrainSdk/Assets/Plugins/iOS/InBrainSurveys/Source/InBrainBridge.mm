@@ -18,7 +18,19 @@ extern "C" {
 
     InBrainProxyViewController *inBrainView;
 
-    void _ib_SetInBrain(char* clientId, char* secret, bool isS2S, char* userId) {
+    void _ib_SetInBrain(char* clientId, char* secret, bool isS2S) {
+            NSString* secretString = [InBrainUtils createNSStringFrom:secret];
+            NSString* clientIdString = [InBrainUtils createNSStringFrom:clientId];
+            
+            inBrainView = [[InBrainProxyViewController alloc] init];
+            inBrainView.modalPresentationStyle = UIModalPresentationFullScreen;
+            
+            [[InBrain shared] setInBrainWithApiClientID:clientIdString
+                                              apiSecret:secretString
+                                              isS2S:isS2S];
+    }
+
+    void _ib_SetInBrainWithUserId(char* clientId, char* secret, bool isS2S, char* userId) {
         NSString* secretString = [InBrainUtils createNSStringFrom:secret];
         NSString* clientIdString = [InBrainUtils createNSStringFrom:clientId];
         NSString* userIdString = [InBrainUtils createNSStringFrom:userId];
@@ -31,7 +43,12 @@ extern "C" {
                                           isS2S:isS2S
                                           userID:userIdString];
     }
-    
+
+    void _ib_SetInBrainUserId(char* userId) {
+        NSString* userIdString = [InBrainUtils createNSStringFrom:userId];
+        [[InBrain shared] setWithUserID:userIdString];
+    }
+
     void _ib_SetInBrainValues(char* trackingDataJson, char* demographicDataJson) {
         NSString* sessionId;
         if(trackingDataJson != nil) {

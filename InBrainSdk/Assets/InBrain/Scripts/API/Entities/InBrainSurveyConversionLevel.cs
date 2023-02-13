@@ -26,9 +26,7 @@ namespace InBrain
 
 		public static InBrainSurveyConversionLevel FromSurveyConversionLevelAJO(this AndroidJavaObject category)
 		{
-			// Native Android `getLevel` method implementation is missing!
-			// return (InBrainSurveyConversionLevel) category.Call<int>(Constants.GetLevelJavaMethod);
-			return InBrainSurveyConversionLevel.NewSurvey;
+			return (InBrainSurveyConversionLevel) category.Call<int>(Constants.GetLevelJavaMethod);
 		}
 	}
 } 

@@ -8,10 +8,24 @@ namespace InBrain
 {
 	public class InBrainIosImpl : IInBrainImpl
 	{
+		public void Init(string clientId, string clientSecret, bool isS2S)
+		{
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_SetInBrain(clientId, clientSecret, isS2S);
+#endif
+		}
+
 		public void Init(string clientId, string clientSecret, bool isS2S, string userId)
 		{
 #if UNITY_IOS && !UNITY_EDITOR
-			_ib_SetInBrain(clientId, clientSecret, isS2S, userId);
+			_ib_SetInBrainWithUserId(clientId, clientSecret, isS2S, userId);
+#endif
+		}
+
+		public void SetUserId(string userId)
+		{
+#if UNITY_IOS && !UNITY_EDITOR
+			_ib_SetInBrainUserId(userId);
 #endif
 		}
 
@@ -212,7 +226,13 @@ namespace InBrain
 
 #if UNITY_IOS && !UNITY_EDITOR
 		[DllImport("__Internal")]
-		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S, string userId);
+		static extern void _ib_SetInBrain(string clientId, string secret, bool isS2S);
+
+		[DllImport("__Internal")]
+		static extern void _ib_SetInBrainWithUserId(string clientId, string secret, bool isS2S, string userId);
+
+		[DllImport("__Internal")]
+		static extern void _ib_SetInBrainUserId(string userId);
 
 		[DllImport("__Internal")]
 		static extern void _ib_SetInBrainValues(string trackingData, string demographicData);

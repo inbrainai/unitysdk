@@ -36,6 +36,23 @@ namespace InBrain
 			_inBrainImpl = new InBrainIosImpl();
 #endif
 		}
+		
+		/// <summary>
+		/// Initialize InBrain SDK
+		/// </summary>
+		public void Init()
+		{
+			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey, InBrainSettings.IsS2S);
+		}
+
+		/// <summary>
+		/// Initialize InBrain SDK with optional user ID
+		/// </summary>
+		/// <param name="appUserId">Uniques user ID</param>
+		public void Init([NotNull] string appUserId)
+		{
+			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey, InBrainSettings.IsS2S, appUserId);
+		}
 
 		/// <summary>
 		/// Set unique user ID required for interaction with InBrain surveys API
@@ -43,7 +60,7 @@ namespace InBrain
 		/// <param name="appUserId">Uniques user ID</param>
 		public void SetAppUserId([NotNull] string appUserId)
 		{
-			InBrainImpl?.Init(InBrainSettings.ClientId, InBrainSettings.ClientSecretKey, InBrainSettings.IsS2S, appUserId);
+			InBrainImpl?.SetUserId(appUserId);
 		}
 
 		/// <summary>
@@ -94,6 +111,15 @@ namespace InBrain
 		public void ShowSurveys()
 		{
 			InBrainImpl?.ShowSurveys();
+		}
+
+		/// <summary>
+		/// Open web view for specified survey
+		/// </summary>
+		[Obsolete("This method is deprecated.", true)]
+		public void ShowSurvey(string surveyId)
+		{
+			// Implementation removed due to its deprecation
 		}
 
 		/// <summary>

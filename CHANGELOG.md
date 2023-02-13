@@ -8,13 +8,15 @@ and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 ## [2.0.0](https://github.com/inbrainai/unitysdk/releases/tag/v.2.0.0) - 2023-02-10
 
 ### Added
+- New `Init` method for extra InBrain SDK initialization flexibility.
 - New `GetCurrencySale` method for fetching info regarding active currency sales.
 - New `GetSurveysWithFilter` method for fetching active surveys list matching certain criteria.
-- New properties for `InBrainSurvey`
+- New properties for `InBrainSurvey` entity.
 ---
 
 ### Changed
 - Android and iOS libraries updated in order to improve plugin stability and performance on both platforms.
+- Existing `SetAppUserId` method doesn't initialize InBrain SDK anymore.
 - Existing `SetLanguage` method has been deprecated.
 - Existing `GetSurveys` method accepting `placementId` parameter has been deprecated.
 ---

@@ -31,10 +31,21 @@ namespace InBrain
 			}
 		}
 
+		public void Init(string clientId, string clientSecret, bool isS2S)
+		{
+			InBrainInst?.Call(Constants.SetInBrainJavaMethod,
+				JniUtils.Activity, clientId, clientSecret, isS2S);
+		}
+
 		public void Init(string clientId, string clientSecret, bool isS2S, string userId)
 		{
 			InBrainInst?.Call(Constants.SetInBrainJavaMethod,
 				JniUtils.Activity, clientId, clientSecret, isS2S, userId);
+		}
+
+		public void SetUserId(string userId)
+		{
+			InBrainInst?.Call(Constants.SetInBrainUserIdJavaMethod, JniUtils.Activity, userId);
 		}
 
 		public void SetCustomData(InBrainTrackingData trackingData, InBrainDemographicData demographicData)
