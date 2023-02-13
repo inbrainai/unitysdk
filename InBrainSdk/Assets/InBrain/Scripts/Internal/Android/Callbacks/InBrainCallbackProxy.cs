@@ -8,11 +8,11 @@ namespace InBrain
 	[SuppressMessage("ReSharper", "InconsistentNaming")]
 	public class InBrainCallbackProxy : AndroidJavaProxy
 	{
-		readonly Action _onRewardsViewDismissed;
+		readonly Action<InBrainRewardsViewDismissedResult> _onRewardsViewDismissed;
 		readonly Action<List<InBrainReward>> _onRewardsReceived;
 		readonly bool _confirmRewardsAutomatically;
 
-		public InBrainCallbackProxy(Action onRewardsViewDismissed, Action<List<InBrainReward>> onRewardsReceived, 
+		public InBrainCallbackProxy(Action<InBrainRewardsViewDismissedResult> onRewardsViewDismissed, Action<List<InBrainReward>> onRewardsReceived, 
 			bool confirmRewardsAutomatically)
 			: base(Constants.InBrainCallbackJavaCLass)
 		{
@@ -21,9 +21,9 @@ namespace InBrain
 			_confirmRewardsAutomatically = confirmRewardsAutomatically;
 		}
 
-		public void surveysClosed(bool byWebView, AndroidJavaObject rewards)
+		public void surveysClosed(bool byWebView, AndroidJavaObject rewards /* List<InBrainSurveyReward> rewards */)
 		{
-			InBrainSceneHelper.Queue(() => _onRewardsViewDismissed());
+			InBrainSceneHelper.Queue(() => _onRewardsViewDismissed(new InBrainRewardsViewDismissedResult(byWebView, rewards)));
 		}
 
 		public void surveysClosed()

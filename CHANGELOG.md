@@ -17,6 +17,7 @@ and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Android and iOS libraries updated in order to improve plugin stability and performance on both platforms.
+- Callback for handling WebView dismiss result.
 - Existing `SetAppUserId` method doesn't initialize InBrain SDK anymore.
 - Existing `SetLanguage` method has been deprecated.
 - Existing `SetCustomData` method has been deprecated. 

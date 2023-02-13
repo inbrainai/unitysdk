@@ -13,6 +13,7 @@
 		public const string StatusBarConfigJavaClass = "com.inbrain.sdk.config.StatusBarConfig";
 		public const string InBrainSurveyCategoryJavaClass = "com.inbrain.sdk.model.SurveyCategory";
 		public const string InBrainSurveyConversionLevelJavaClass = "com.inbrain.sdk.model.SurveyConversionLevel";
+		public const string InBrainSurveyOutcomeTypeJavaClass = "com.inbrain.sdk.model.SurveyOutcomeType";
 
 		public const string GetInstanceJavaMethod = "getInstance";
 		public const string SetInBrainJavaMethod = "setInBrain";
@@ -31,8 +32,10 @@
 		public const string GetSurveysJavaMethod = "getNativeSurveys";
 		public const string FromIdJavaMethod = "fromId";
 		public const string FromLevelJavaMethod = "fromLevel";
+		public const string FromTypeJavaMethod = "fromType";
 		public const string GetIdJavaMethod = "getId";
 		public const string GetLevelJavaMethod = "getLevel";
+		public const string GetTypeJavaMethod = "getType";
 		public const string GetCurrencySaleJavaMethod = "getCurrencySale";
 	}
 }
