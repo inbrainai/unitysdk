@@ -90,11 +90,6 @@ namespace InBrain
 		void ProcessWebViewDismissed(InBrainRewardsViewDismissedResult result)
 		{
 			Debug.Log($"InBrain: Surveys web view was dismissed (by WebView: {result.byWebView})");
-
-			foreach (var reward in result.rewards)
-			{
-				Debug.Log(reward);
-			}
 		}
 
 		void SetStatusBarConfiguration()
