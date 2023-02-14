@@ -10,10 +10,10 @@ namespace InBrain
 		[SerializeField] public string surveyId;
 		[SerializeField] public string placementId;
 		[SerializeField] public List<InBrainSurveyCategory> categories;
-		[SerializeField] public float userReward;
+		[SerializeField] public double userReward;
 		[SerializeField] public InBrainSurveyOutcomeType outcomeType;
 		
-		public InBrainSurveyReward(string surveyId, string placementId, List<InBrainSurveyCategory> categories, float userReward, InBrainSurveyOutcomeType outcomeType)
+		public InBrainSurveyReward(string surveyId, string placementId, List<InBrainSurveyCategory> categories, double userReward, InBrainSurveyOutcomeType outcomeType)
 		{
 			this.surveyId = surveyId;
 			this.placementId = placementId;
@@ -27,7 +27,7 @@ namespace InBrain
 			return new InBrainSurveyReward(ajo.Get<string>("surveyId"),
 				ajo.Get<string>("placementId"),
 				ajo.GetAJO("categories").FromJavaList(category => category.FromSurveyCategoryAJO()),
-				ajo.Get<float>("userReward"),
+				ajo.Get<double>("userReward"),
 				ajo.GetAJO("outcomeType").FromSurveyOutcomeTypeAJO());
 		}
 
