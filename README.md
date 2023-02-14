@@ -43,8 +43,8 @@ Set global callback that will be triggered every time when new rewards received 
 ```
 InBrain.Instance.AddCallback(rewards => {
 	// process rewards...
-}, () => { 
-	// handle web view dismissal... 
+}, result => { 
+	// handle web view dismissal result... 
 });
 ```
 
