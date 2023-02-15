@@ -135,10 +135,10 @@ There is a possibility to open only one specific survey in a web view. In order 
 InBrain.Instance.GetSurveys(OnSurveysFetched);
 ```
 
-Each recieved survey has its own `id` value that should be passed to `ShowSurvey` method.
+Each recieved survey has its own `id` and `searchId` values that should be passed to `ShowSurvey` method.
 
 ```
-InBrain.Instance.ShowSurvey(surveyId);
+InBrain.Instance.ShowSurvey(surveyId, searchId);
 ```
 
 Alternatively one can fetch list of available surveys that metch certain criteria (i.e. survey category) by calling the `GetSurveysWithFilter` method instead.
@@ -156,12 +156,4 @@ The plugin provides an API allowing to get active currency sale. This can be don
 InBrain.Instance.GetCurrencySale(sale => {
 	// process currency sale...
 });
-```
-
-### Advanced usage
-
-To add tracking and/or demographic data to the inBrain session corresponding values should be passed to `SetCustomData` method.
-
-```
-InBrain.Instance.SetCustomData(trackingData, demographicData);
 ```
