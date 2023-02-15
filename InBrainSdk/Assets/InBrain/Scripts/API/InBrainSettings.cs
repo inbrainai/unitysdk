@@ -14,15 +14,11 @@ namespace InBrain
 		const string SettingsAssetPath = "Resources/";
 		const string SettingsAssetExtension = ".asset";
 
-		const string DemoClientId = "9c367c28-c8a4-498d-bf22-1f3682fc73aa";
-		const string DemoClientSecretKey = "90MB8WyMZyYykgs0TaR21SqCcCZz3YTTXio9FoN5o5NJ6+svp3Q2tO8pvM9CjbskCaLAog0msmVTcIigKPQw4A==";
-		const bool DemoIsS2S = false;
-
 		static InBrainSettings _instance;
 
-		[SerializeField] string clientId = DemoClientId;
-		[SerializeField] string clientSecretKey = DemoClientSecretKey;
-		[SerializeField] bool isS2S = DemoIsS2S;
+		[SerializeField] string clientId;
+		[SerializeField] string clientSecretKey;
+		[SerializeField] bool isS2S = false;
 
 		/// <summary>
 		/// Client identifier
