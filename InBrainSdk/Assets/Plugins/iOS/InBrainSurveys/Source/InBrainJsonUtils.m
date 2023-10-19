@@ -56,6 +56,7 @@
         survey[@"multiplier"] = @(surveys[i].multiplier);
         survey[@"categories"] = surveys[i].categoryIds;
         survey[@"conversionLevel"] = @(surveys[i].conversionLevel);
+        survey[@"isProfilerSurvey"] = @(surveys[i].isProfilerSurvey);
         [surveysArray addObject:survey];
     }
     
