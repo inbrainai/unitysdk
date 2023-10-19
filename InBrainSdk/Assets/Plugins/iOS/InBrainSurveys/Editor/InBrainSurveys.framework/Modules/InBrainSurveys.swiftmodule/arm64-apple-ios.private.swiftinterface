@@ -1,18 +1,21 @@
 // swift-interface-format-version: 1.0
-// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-compiler-version: Apple Swift version 5.9 (swiftlang-5.9.0.128.108 clang-1500.0.40.1)
 // swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name InBrainSurveys
 // swift-module-flags-ignorable: -enable-bare-slash-regex
+import DeveloperToolsSupport
 import Foundation
 @_exported import InBrainSurveys
 import Swift
+import SwiftUI
 import SystemConfiguration
 import UIKit
 import WebKit
 import _Concurrency
 import _StringProcessing
+import _SwiftConcurrencyShims
 @objc public protocol InBrainDelegate {
   @objc optional func didReceiveInBrainRewards(rewardsArray: [InBrainSurveys.InBrainReward])
-  @objc optional func didFailToReceiveRewards(error: Swift.Error)
+  @objc optional func didFailToReceiveRewards(error: any Swift.Error)
   @objc optional func surveysClosed(byWebView: Swift.Bool, completedSurvey: Swift.Bool, rewards: [InBrainSurveys.InBrainSurveyReward]?)
   @available(*, deprecated, renamed: "surveysClosed(byWebView:completedSurvey:rewards:)")
   @objc optional func surveysClosed(byWebView: Swift.Bool, completedSurvey: Swift.Bool)
@@ -24,7 +27,7 @@ import _StringProcessing
 @objc public protocol NativeSurveyDelegate {
   @objc func nativeSurveysLoadingStarted(filter: InBrainSurveys.InBrainSurveyFilter?)
   @objc func nativeSurveysReceived(_ surveys: [InBrainSurveys.InBrainNativeSurvey], filter: InBrainSurveys.InBrainSurveyFilter?)
-  @objc func failedToReceiveNativeSurveys(error: Swift.Error, filter: InBrainSurveys.InBrainSurveyFilter?)
+  @objc func failedToReceiveNativeSurveys(error: any Swift.Error, filter: InBrainSurveys.InBrainSurveyFilter?)
   @objc @available(*, unavailable, renamed: "nativeSurveysLoadingStarted(filter:)")
   func nativeSurveysLoadingStarted()
   @objc @available(*, unavailable, renamed: "nativeSurveysLoadingStarted(filter:)")
@@ -34,14 +37,14 @@ import _StringProcessing
   @objc @available(*, unavailable, renamed: "nativeSurveysReceived(surveys:filter:)")
   func nativeSurveysReceived(_ surveys: [InBrainSurveys.InBrainNativeSurvey], placementId: Swift.String?)
   @objc @available(*, unavailable, renamed: "failedToReceiveNativeSurveys(error:filter:)")
-  func failedToReceiveNativeSurveys(error: Swift.Error)
+  func failedToReceiveNativeSurveys(error: any Swift.Error)
   @objc @available(*, unavailable, renamed: "failedToReceiveNativeSurveys(error:filter:)")
-  func failedToReceiveNativeSurveys(error: Swift.Error, placementId: Swift.String?)
+  func failedToReceiveNativeSurveys(error: any Swift.Error, placementId: Swift.String?)
 }
 @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc final public class InBrain : ObjectiveC.NSObject {
   @objc public static let shared: InBrainSurveys.InBrain
-  @objc weak final public var inBrainDelegate: InBrainSurveys.InBrainDelegate?
-  @objc weak final public var nativeSurveysDelegate: InBrainSurveys.NativeSurveyDelegate?
+  @objc weak final public var inBrainDelegate: (any InBrainSurveys.InBrainDelegate)?
+  @objc weak final public var nativeSurveysDelegate: (any InBrainSurveys.NativeSurveyDelegate)?
   @objc final public var isOnScreen: Swift.Bool {
     @objc get
   }
@@ -55,7 +58,7 @@ import _StringProcessing
   @objc final public func setStatusBarConfig(_ config: InBrainSurveys.InBrainStatusBarConfig)
   @objc final public func setSessionID(_ sessionID: Swift.String?)
   @objc final public func setDataOptions(_ dataOptions: [[Swift.String : Any]]?)
-  @objc final public func checkForAvailableSurveys(completion: @escaping ((_ hasSurveys: Swift.Bool, _ error: Swift.Error?) -> (Swift.Void)))
+  @objc final public func checkForAvailableSurveys(completion: @escaping ((_ hasSurveys: Swift.Bool, _ error: (any Swift.Error)?) -> (Swift.Void)))
   @objc final public func showSurveys(from viewController: UIKit.UIViewController? = nil)
   @objc final public func getRewards(success: @escaping ([InBrainSurveys.InBrainReward]) -> (), failed: @escaping InBrainSurveys.ErrorCallback)
   @objc final public func getRewards()
@@ -156,6 +159,7 @@ extension InBrainSurveys.InBrainSurveyCategory : Swift.CustomStringConvertible {
   @objc final public let conversionLevel: InBrainSurveys.SurveyConversionLevel
   @objc final public let currencySale: Swift.Bool
   @objc final public let multiplier: Swift.Double
+  @objc final public let isProfilerSurvey: Swift.Bool
   @available(*, deprecated, message: "Parameter is deprecated and will be removed soon!.")
   @objc public var profileMatch: InBrainSurveys.SurveyProfileMatch {
     @objc get
@@ -163,7 +167,7 @@ extension InBrainSurveys.InBrainSurveyCategory : Swift.CustomStringConvertible {
   @objc override dynamic public var description: Swift.String {
     @objc get
   }
-  required public init(from decoder: Swift.Decoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
   @objc deinit
 }
 @objc final public class InBrainSurveyFilter : ObjectiveC.NSObject {
@@ -186,22 +190,60 @@ extension InBrainSurveys.InBrainSurveyCategory : Swift.CustomStringConvertible {
   public init?(placementId: Swift.String?, categories: [InBrainSurveys.InBrainSurveyCategory]?, excludedCategories: [InBrainSurveys.InBrainSurveyCategory]?)
   @objc deinit
 }
+public enum InBrainError : Swift.Error, Foundation.LocalizedError, Foundation.CustomNSError {
+  case noDataReceived
+  case noCredentials
+  case noUserOrUUID
+  case invalidLink
+  case invalidLanguage
+  case invalidClient
+  case invalidIssuer(desription: Swift.String)
+  case invalidPlacement
+  case unauthorized
+  case expiredToken
+  case userBanned
+  case geoBlockedIP
+  case accessLimited(reason: Swift.String)
+  case serializationError(error: any Swift.Error)
+  case serverError(description: Swift.String, code: Swift.Int, url: Swift.String)
+  case noRequiredDataReceived
+  case categoryIntersection
+  case notFound
+  case unknownError(description: Swift.String, code: Swift.Int, url: Swift.String)
+  public static var errorDomain: Swift.String {
+    get
+  }
+  public var errorCode: Swift.Int {
+    get
+  }
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
 @objc final public class InBrainCurrencySale : ObjectiveC.NSObject, Swift.Decodable {
   @objc final public let title: Swift.String
   @objc final public let multiplier: Swift.Double
-  @objc final public let start: Foundation.Date
-  @objc final public let end: Foundation.Date
+  @objc final public let startOn: Foundation.Date
+  @objc final public let endOn: Foundation.Date
+  @available(*, deprecated, renamed: "startOn")
+  @objc final public var start: Foundation.Date {
+    @objc get
+  }
+  @available(*, deprecated, renamed: "endOn")
+  @objc final public var end: Foundation.Date {
+    @objc get
+  }
   @objc override final public var description: Swift.String {
     @objc get
   }
-  public init(from decoder: Swift.Decoder) throws
+  public init(from decoder: any Swift.Decoder) throws
   @objc deinit
 }
 @objc public class InBrainStatusBarConfig : ObjectiveC.NSObject {
   @objc public init(statusBarStyle: UIKit.UIStatusBarStyle, hideStatusBar: Swift.Bool)
   @objc deinit
 }
-public typealias ErrorCallback = (Swift.Error) -> ()
+public typealias ErrorCallback = (any Swift.Error) -> ()
 @objc public enum SurveyConversionLevel : Swift.Int, Swift.Decodable {
   case newSurvey = 0
   case veryPoorConversion
@@ -248,7 +290,7 @@ extension InBrainSurveys.SurveyOutcomeType : Swift.CustomStringConvertible {
   @objc override final public var description: Swift.String {
     @objc get
   }
-  public init(from decoder: Swift.Decoder) throws
+  public init(from decoder: any Swift.Decoder) throws
   @objc deinit
 }
 @available(*, deprecated, message: "Deprecated and will be removed soon!.")
@@ -273,7 +315,7 @@ extension InBrainSurveys.SurveyOutcomeType : Swift.CustomStringConvertible {
   @objc override final public var description: Swift.String {
     @objc get
   }
-  public init(from decoder: Swift.Decoder) throws
+  public init(from decoder: any Swift.Decoder) throws
   @objc deinit
 }
 extension InBrainSurveys.InBrainSurveyCategory : Swift.Equatable {}
