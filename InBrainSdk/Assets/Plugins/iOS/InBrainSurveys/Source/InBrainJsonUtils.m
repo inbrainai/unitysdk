@@ -74,8 +74,8 @@
     dictionary[@"title"] = currencySale.title;
     dictionary[@"multiplier"] = @(currencySale.multiplier);
     dictionary[@"description"] = currencySale.description;
-    dictionary[@"start"] = [dateFormatter stringFromDate:currencySale.start];
-    dictionary[@"end"] = [dateFormatter stringFromDate:currencySale.end];
+    dictionary[@"startOn"] = [dateFormatter stringFromDate:currencySale.start];
+    dictionary[@"endOn"] = [dateFormatter stringFromDate:currencySale.end];
 
     return [self serializeDictionary:dictionary];
 }
