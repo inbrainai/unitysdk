@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and `InBrainSurveys` adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0](https://github.com/inbrainai/unitysdk/releases/tag/v.2.1.0) - 2023-10-20
+
+### Added
+- New `isProfilerSurvey` property for `InBrainSurvey` entity.
+
+### Changed
+- Android and iOS libraries updated in order to improve plugin stability and performance on both platforms.
+- Existing `start` and `end` properties of `InBrainCurrencySale` entity have been deprecated.
+
 ## [2.0.1](https://github.com/inbrainai/unitysdk/releases/tag/v.2.0.1) - 2023-04-04
 
 ### Removed

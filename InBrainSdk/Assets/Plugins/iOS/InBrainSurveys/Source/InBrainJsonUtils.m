@@ -56,6 +56,7 @@
         survey[@"multiplier"] = @(surveys[i].multiplier);
         survey[@"categories"] = surveys[i].categoryIds;
         survey[@"conversionLevel"] = @(surveys[i].conversionLevel);
+        survey[@"isProfilerSurvey"] = @(surveys[i].isProfilerSurvey);
         [surveysArray addObject:survey];
     }
     
@@ -74,8 +75,8 @@
     dictionary[@"title"] = currencySale.title;
     dictionary[@"multiplier"] = @(currencySale.multiplier);
     dictionary[@"description"] = currencySale.description;
-    dictionary[@"start"] = [dateFormatter stringFromDate:currencySale.start];
-    dictionary[@"end"] = [dateFormatter stringFromDate:currencySale.end];
+    dictionary[@"startOn"] = [dateFormatter stringFromDate:currencySale.startOn];
+    dictionary[@"endOn"] = [dateFormatter stringFromDate:currencySale.startOn];
 
     return [self serializeDictionary:dictionary];
 }

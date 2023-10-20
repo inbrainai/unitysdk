@@ -10,19 +10,24 @@ namespace InBrain
 		[SerializeField] public string title;
 		[SerializeField] public float multiplier;
 		[SerializeField] public string description;
+		[SerializeField] public string startOn;
+		[SerializeField] public string endOn;
+
+		[Obsolete("This property is deprecated. Use `startOn` instead")]
 		[SerializeField] public string start;
+		[Obsolete("This property is deprecated. Use `endOn` instead")]
 		[SerializeField] public string end;
 
-		public DateTime StartDate => DateTime.ParseExact(start, "o", CultureInfo.InvariantCulture, DateTimeStyles.None);
-		public DateTime EndDate => DateTime.ParseExact(end, "o", CultureInfo.InvariantCulture, DateTimeStyles.None);
+		public DateTime StartDate => DateTime.ParseExact(startOn, "o", CultureInfo.InvariantCulture, DateTimeStyles.None);
+		public DateTime EndDate => DateTime.ParseExact(endOn, "o", CultureInfo.InvariantCulture, DateTimeStyles.None);
 
 		public InBrainCurrencySale(string title, float multiplier, string description, string start, string end)
 		{
 			this.title = title;
 			this.multiplier = multiplier;
 			this.description = description;
-			this.start = start;
-			this.end = end;
+			this.startOn = start;
+			this.endOn = end;
 		}
 
 		public static InBrainCurrencySale FromAJO(AndroidJavaObject ajo)
@@ -30,20 +35,20 @@ namespace InBrain
 			return new InBrainCurrencySale(ajo.Get<string>("description"),
 				ajo.Get<float>("multiplier"),
 				ajo.Get<string>("description"),
-				ajo.Get<string>("start"),
-				ajo.Get<string>("end"));
+				ajo.Get<string>("startOn"),
+				ajo.Get<string>("endOn"));
 		}
 
 		public AndroidJavaObject ToAJO()
 		{
 			return Application.platform == RuntimePlatform.Android
-				? new AndroidJavaObject("com.inbrain.sdk.model.CurrencySale", start, end, description, multiplier)
+				? new AndroidJavaObject("com.inbrain.sdk.model.CurrencySale", startOn, endOn, description, multiplier)
 				: null;
 		}
 
 		public override string ToString()
 		{
-			return string.Format("title: {0}, multiplier: {1}, description: {2}, start: {3}, end: {4}", title, multiplier, description, start, end);
+			return string.Format("title: {0}, multiplier: {1}, description: {2}, start: {3}, end: {4}", title, multiplier, description, startOn, endOn);
 		}
 	}
 }
